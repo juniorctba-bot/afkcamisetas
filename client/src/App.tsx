@@ -7,15 +7,19 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Produtos from "./pages/Produtos";
 import Orcamento from "./pages/Orcamento";
-
+import AdminLogin from "./pages/AdminLogin";
+import GeradorOrcamentos from "./pages/GeradorOrcamentos";
 
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/volta-as-aulas"} component={Home} />
       <Route path={"/produtos"} component={Produtos} />
       <Route path={"/orcamento"} component={Orcamento} />
+      <Route path={"/admin"} component={AdminLogin} />
+      <Route path={"/gerador-orcamentos"} component={GeradorOrcamentos} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

@@ -1,25 +1,30 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
-
 /**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
+ * Home Page - AFK Volta às Aulas
+ * Design: Gradiente Tropical
+ * Landing page promocional para etiquetas personalizadas
  */
-export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
+import BenefitsSection from "@/components/BenefitsSection";
+import ThemesSection from "@/components/ThemesSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import ContactFormSection from "@/components/ContactFormSection";
+import CTASection from "@/components/CTASection";
+import Footer from "@/components/Footer";
 
+export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
+      <Header />
       <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
+        <HeroSection />
+        <BenefitsSection />
+        <ThemesSection />
+        <TestimonialsSection />
+        <ContactFormSection />
+        <CTASection />
       </main>
+      <Footer />
     </div>
   );
 }

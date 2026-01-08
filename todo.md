@@ -51,3 +51,4 @@
 - [x] Remover link do gerador de orçamentos do menu público (acesso apenas por /admin)
 - [x] Recriar site completo da AFK Camisetas (www.afkcamisetas.com.br)
 - [x] Adicionar galeria de imagens reais dos produtos AFK na página de Produtos
+- [x] Adicionar campo de sinal de 30% no resumo do gerador de orçamentos

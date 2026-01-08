@@ -433,8 +433,13 @@ export default function GeradorOrcamentos() {
           <td colspan="5" class="text-right">TOTAL</td>
           <td class="text-right total-value">R$ ${total.toFixed(2).replace('.', ',')}</td>
         </tr>
+        <tr style="background-color: #FFF3E0;">
+          <td colspan="5" class="text-right" style="color: #E65100; font-weight: bold;">SINAL PARA INÍCIO DA PRODUÇÃO (30%)*</td>
+          <td class="text-right" style="color: #E65100; font-weight: bold;">R$ ${(total * 0.3).toFixed(2).replace('.', ',')}</td>
+        </tr>
       </tbody>
     </table>
+    <p style="font-size: 11px; color: #666; margin-top: 5px;">* A produção só será iniciada após o pagamento do sinal de 30% do valor total.</p>
   </div>
 
   <div class="condicoes">
@@ -450,7 +455,7 @@ export default function GeradorOrcamentos() {
     </ul>
     <p style="margin-top: 10px;"><strong>Sinal/Entrada:</strong></p>
     <ul>
-      <li>✓ <strong>50% no fechamento do pedido + 50% na entrega/retirada</strong></li>
+      <li>✓ <strong>30% no fechamento do pedido (R$ ${(total * 0.3).toFixed(2).replace('.', ',')}) + 70% na entrega/retirada (R$ ${(total * 0.7).toFixed(2).replace('.', ',')})</strong></li>
     </ul>
     <p style="margin-top: 10px;"><strong>Entrega:</strong></p>
     <ul>
@@ -1001,6 +1006,17 @@ export default function GeradorOrcamentos() {
                   <span>Total</span>
                   <span className="text-blue-600">R$ {total.toFixed(2).replace(".", ",")}</span>
                 </div>
+
+                <Separator />
+
+                <div className="flex justify-between text-lg font-semibold text-orange-600">
+                  <span>Sinal (30%)*</span>
+                  <span>R$ {(total * 0.3).toFixed(2).replace(".", ",")}</span>
+                </div>
+
+                <p className="text-xs text-gray-500 mt-2">
+                  * A produção só será iniciada após o pagamento do sinal de 30% do valor total.
+                </p>
               </div>
 
               <Button

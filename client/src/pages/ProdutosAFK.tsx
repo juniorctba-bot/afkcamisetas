@@ -101,6 +101,54 @@ const produtosGaleria = [
     imagem: "/images/produtos/bloco-viagem.jpeg",
     descricao: "Bloco de notas personalizado com foto para planejamento",
   },
+  {
+    id: 16,
+    nome: "Kit Camisetas Natal da Família",
+    imagem: "/images/produtos/kit-natal-familia.jpeg",
+    descricao: "Kit de camisetas personalizadas para toda a família com tema natalino",
+  },
+  {
+    id: 17,
+    nome: "Copo Stanley Filhinhos da Mamãe",
+    imagem: "/images/produtos/copo-stanley-filhos.jpeg",
+    descricao: "Copo térmico estilo Stanley com ilustração personalizada",
+  },
+  {
+    id: 18,
+    nome: "Meias com Rosto Personalizado",
+    imagem: "/images/produtos/meias-rosto-personalizado.jpeg",
+    descricao: "Meias pretas com estampa do rosto personalizado",
+  },
+  {
+    id: 19,
+    nome: "Quebra-Cabeça Marcas Famosas",
+    imagem: "/images/produtos/quebra-cabeca-marcas.jpeg",
+    descricao: "Quebra-cabeça personalizado com logos de marcas famosas",
+  },
+  {
+    id: 20,
+    nome: "Kit Produtos Variados AFK",
+    imagem: "/images/produtos/kit-produtos-variados.jpeg",
+    descricao: "Kit com chinelos, boné, caneca, agenda, meias e muito mais",
+  },
+  {
+    id: 21,
+    nome: "Chinelo Ana Elisabeth Personalizado",
+    imagem: "/images/produtos/chinelo-ana-elisabeth.png",
+    descricao: "Chinelo branco com ilustração estilo anime personalizada",
+  },
+  {
+    id: 22,
+    nome: "Camiseta Paulo Baier - Geometria",
+    imagem: "/images/produtos/camiseta-paulo-baier.png",
+    descricao: "Camiseta vermelha comemorativa do ídolo Paulo Baier",
+  },
+  {
+    id: 23,
+    nome: "Chinelo Rosiane Personalizado",
+    imagem: "/images/produtos/chinelo-rosiane.png",
+    descricao: "Chinelo branco com ilustração personalizada e nome",
+  },
 ];
 
 export default function ProdutosAFK() {

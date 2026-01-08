@@ -319,10 +319,11 @@ export default function GeradorOrcamentos() {
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Arial, sans-serif; font-size: 12px; color: #333; padding: 20px; }
-    .header { display: flex; justify-content: space-between; margin-bottom: 30px; }
-    .logo { font-size: 28px; font-weight: bold; }
-    .logo span:first-child { color: #0066FF; }
-    .logo .orcamento { background: linear-gradient(90deg, #FF6B00, #FFB800); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-left: 10px; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #eee; }
+    .logo-container { display: flex; align-items: center; gap: 15px; }
+    .logo-img { height: 60px; width: auto; }
+    .logo-text { font-size: 24px; font-weight: bold; }
+    .logo-text .orcamento { background: linear-gradient(90deg, #FF6B00, #FFB800); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .contato { text-align: right; font-size: 11px; color: #666; }
     .contato p { margin: 3px 0; }
     .section { margin-bottom: 20px; }
@@ -361,9 +362,11 @@ export default function GeradorOrcamentos() {
 </head>
 <body>
   <div class="header">
-    <div class="logo">
-      <span>AFK</span>
-      <span class="orcamento">ORÇAMENTO</span>
+    <div class="logo-container">
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663029753860/stDkTTPqcknnbUkH.png" alt="AFK Camisetas" class="logo-img" />
+      <div class="logo-text">
+        <span class="orcamento">ORÇAMENTO</span>
+      </div>
     </div>
     <div class="contato">
       <p>📞 +55 41 98738-6527</p>

@@ -43,3 +43,6 @@
 - [x] Tabela de rascunhos
 - [x] Tabela de contadores sequenciais
 - [x] Tabela de frete por região
+
+## Melhorias Solicitadas
+- [x] Adicionar logo AFK Camisetas no cabeçalho do PDF

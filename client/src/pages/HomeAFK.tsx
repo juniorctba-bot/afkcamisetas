@@ -59,7 +59,7 @@ export default function HomeAFK() {
               </div>
               <div>
                 <p className="font-bold text-white">Volta às Aulas 2026</p>
-                <p className="text-white/80 text-sm">Etiquetas personalizadas a partir de R$ 9,99</p>
+                <p className="text-white/80 text-sm">Etiquetas personalizadas a partir de R$ 8,50</p>
               </div>
             </div>
             <ArrowRight className="w-5 h-5 text-white" />

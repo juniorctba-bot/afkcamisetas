@@ -1,7 +1,7 @@
 /**
  * Hero Section - AFK Volta às Aulas
  * Design: Gradiente Tropical - Hero com gradiente vibrante e CTA destacado
- * Atualizado com novo texto e preço R$6,50
+ * Atualizado com novo texto e preço R$8,50
  */
 import { Clock, MessageCircle, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,65 +18,88 @@ export default function HeroSection() {
     <section 
       className="relative min-h-screen flex items-center pt-16 overflow-hidden"
       style={{
-        backgroundImage: "url('/images/hero-bg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        background: "linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #1a365d 100%)",
       }}
     >
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0066FF]/30 to-transparent" />
-
       <div className="container relative z-10">
-        <div className="max-w-4xl mx-auto text-center py-12 md:py-20">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/90 text-yellow-900 font-semibold text-sm mb-6 animate-float">
-            <span className="text-lg">✨</span>
-            PROMOÇÃO VOLTA ÀS AULAS 2026
-            <span className="text-lg">✨</span>
-          </div>
+        <div className="grid lg:grid-cols-2 gap-8 items-center py-12 md:py-20">
+          {/* Left Column - Text Content */}
+          <div className="text-center lg:text-left">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/90 text-yellow-900 font-semibold text-sm mb-6 animate-float">
+              <span className="text-lg">✨</span>
+              PROMOÇÃO VOLTA ÀS AULAS 2026
+              <span className="text-lg">✨</span>
+            </div>
 
-          {/* Main Heading */}
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
-            CHEGOU A HORA DE PERSONALIZAR OS MATERIAIS ESCOLARES E IDENTIFICAR COM{" "}
-            <span className="text-yellow-300">ETIQUETAS PARA TODAS APLICAÇÕES</span>
-          </h1>
+            {/* Main Heading */}
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
+              <span className="text-yellow-300">AFK</span> ETIQUETAS ESCOLARES{" "}
+              <span className="text-orange-400">PERSONALIZADAS</span>
+            </h1>
 
-          {/* Price Card */}
-          <div className="glass rounded-2xl p-6 md:p-8 max-w-lg mx-auto mb-8 shadow-xl">
-            <div className="text-center">
-              <p className="text-lg md:text-xl text-foreground mb-2">Etiquetas a partir de</p>
-              <p className="text-5xl md:text-6xl font-extrabold text-[#0066FF] mb-2">R$ 6,50*</p>
-              <div className="flex items-center justify-center gap-2 text-sm text-[#0066FF] font-medium mb-4">
-                <Clock className="w-4 h-4" />
-                Oferta válida até 30/01/2026
+            {/* Subtitle */}
+            <p className="text-lg md:text-xl text-white/90 mb-8">
+              Material: Vinil Adesivo à Prova d'Água. Identifique todos os materiais escolares do seu filho!
+            </p>
+
+            {/* Price Cards */}
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="bg-orange-500 rounded-xl p-4 text-center shadow-lg">
+                <p className="text-white/90 text-sm mb-1">Combo 3 Folhas</p>
+                <p className="text-3xl md:text-4xl font-extrabold text-white">R$ 22,50</p>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                *Valor de 1 página A4 com etiquetas de vinil para itens como lápis, cadernos
+              <div className="bg-red-500 rounded-xl p-4 text-center shadow-lg">
+                <p className="text-white/90 text-sm mb-1">Folha Avulsa</p>
+                <p className="text-3xl md:text-4xl font-extrabold text-white">R$ 8,50</p>
+              </div>
+            </div>
+
+            {/* Info */}
+            <div className="bg-green-500 rounded-xl p-3 mb-6 text-center">
+              <p className="text-white font-semibold text-sm md:text-base">
+                Etiquetas de Algodão Termocolantes para uniformes disponíveis!
               </p>
+            </div>
+
+            {/* Validity */}
+            <div className="flex items-center justify-center lg:justify-start gap-2 text-yellow-300 font-medium mb-6">
+              <Clock className="w-5 h-5" />
+              Oferta válida até 30/01/2026
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <Button
+                size="lg"
+                className="btn-whatsapp px-8 py-6 text-lg rounded-xl animate-pulse-glow"
+                onClick={handleWhatsAppClick}
+              >
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Solicitar Orçamento
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="px-8 py-6 text-lg rounded-xl bg-white/90 hover:bg-white border-2 border-[#0066FF] text-[#0066FF] hover:text-[#0066FF]"
+                asChild
+              >
+                <a href={CATALOG_URL} target="_blank" rel="noopener noreferrer">
+                  <FileText className="w-5 h-5 mr-2" />
+                  Ver Catálogo Completo
+                </a>
+              </Button>
             </div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              size="lg"
-              className="btn-whatsapp px-8 py-6 text-lg rounded-xl animate-pulse-glow"
-              onClick={handleWhatsAppClick}
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Solicitar Orçamento
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="px-8 py-6 text-lg rounded-xl bg-white/90 hover:bg-white border-2 border-[#0066FF] text-[#0066FF] hover:text-[#0066FF]"
-              asChild
-            >
-              <a href={CATALOG_URL} target="_blank" rel="noopener noreferrer">
-                <FileText className="w-5 h-5 mr-2" />
-                Ver Catálogo Completo
-              </a>
-            </Button>
+          {/* Right Column - Card Image */}
+          <div className="flex justify-center lg:justify-end">
+            <img 
+              src="/images/card_etiquetas_afk_final.png" 
+              alt="AFK Etiquetas Escolares Personalizadas" 
+              className="max-w-full h-auto rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300"
+              style={{ maxHeight: "600px" }}
+            />
           </div>
         </div>
       </div>

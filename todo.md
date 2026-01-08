@@ -53,3 +53,6 @@
 - [x] Adicionar galeria de imagens reais dos produtos AFK na página de Produtos
 - [x] Adicionar campo de sinal de 30% no resumo do gerador de orçamentos
 - [x] Criar sistema de aprovação de orçamentos pelo cliente via link público
+- [x] Adicionar imagem do card de etiquetas na página Volta às Aulas
+- [x] Atualizar valor mínimo de etiqueta para R$ 8,50
+- [ ] Configurar Google Analytics (aguardando ID do usuário)

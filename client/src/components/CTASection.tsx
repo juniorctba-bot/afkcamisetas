@@ -1,11 +1,12 @@
 /**
  * CTA Section - AFK Volta às Aulas
  * Design: Gradiente Tropical - Seção de urgência com gradiente
+ * Atualizado com data 30/01/2026 e links para catálogo
  */
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CATALOG_URL, WHATSAPP_NUMBER } from "@/lib/constants";
 
-const WHATSAPP_NUMBER = "5541987386527";
 const WHATSAPP_MESSAGE = encodeURIComponent("Olá! Quero garantir minha promoção de etiquetas para volta às aulas!");
 
 export default function CTASection() {
@@ -29,17 +30,30 @@ export default function CTASection() {
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Garanta as etiquetas personalizadas para a volta às aulas 2026.
             <br />
-            Promoção válida até <span className="font-bold text-yellow-300">15 de Janeiro</span>!
+            Promoção válida até <span className="font-bold text-yellow-300">30/01/2026</span>!
           </p>
 
-          <Button
-            size="lg"
-            className="btn-whatsapp px-10 py-7 text-xl rounded-xl animate-pulse-glow"
-            onClick={handleWhatsAppClick}
-          >
-            <MessageCircle className="w-6 h-6 mr-2" />
-            Pedir Agora pelo WhatsApp
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button
+              size="lg"
+              className="btn-whatsapp px-10 py-7 text-xl rounded-xl animate-pulse-glow"
+              onClick={handleWhatsAppClick}
+            >
+              <MessageCircle className="w-6 h-6 mr-2" />
+              Solicitar Orçamento
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="px-8 py-7 text-lg rounded-xl bg-white/90 hover:bg-white border-0 text-[#0066FF] hover:text-[#0066FF]"
+              asChild
+            >
+              <a href={CATALOG_URL} target="_blank" rel="noopener noreferrer">
+                <FileText className="w-5 h-5 mr-2" />
+                Ver Catálogo Completo
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>

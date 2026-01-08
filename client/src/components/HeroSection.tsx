@@ -1,12 +1,13 @@
 /**
  * Hero Section - AFK Volta às Aulas
  * Design: Gradiente Tropical - Hero com gradiente vibrante e CTA destacado
+ * Atualizado com novo texto e preço R$6,50
  */
-import { Clock, MessageCircle, ChevronRight } from "lucide-react";
+import { Clock, MessageCircle, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CATALOG_URL, WHATSAPP_NUMBER } from "@/lib/constants";
 
-const WHATSAPP_NUMBER = "5541987386527";
-const WHATSAPP_MESSAGE = encodeURIComponent("Olá! Gostaria de fazer um pedido de etiquetas personalizadas para volta às aulas.");
+const WHATSAPP_MESSAGE = encodeURIComponent("Olá! Gostaria de fazer um orçamento de etiquetas personalizadas para volta às aulas.");
 
 export default function HeroSection() {
   const handleWhatsAppClick = () => {
@@ -23,10 +24,10 @@ export default function HeroSection() {
       }}
     >
       {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0066FF]/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0066FF]/30 to-transparent" />
 
       <div className="container relative z-10">
-        <div className="max-w-3xl mx-auto text-center py-12 md:py-20">
+        <div className="max-w-4xl mx-auto text-center py-12 md:py-20">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/90 text-yellow-900 font-semibold text-sm mb-6 animate-float">
             <span className="text-lg">✨</span>
@@ -35,33 +36,23 @@ export default function HeroSection() {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg">
-            Nunca Mais Perca os{" "}
-            <span className="text-yellow-300">Materiais do Seu Filho!</span>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
+            CHEGOU A HORA DE PERSONALIZAR OS MATERIAIS ESCOLARES E IDENTIFICAR COM{" "}
+            <span className="text-yellow-300">ETIQUETAS PARA TODAS APLICAÇÕES</span>
           </h1>
 
-          {/* Subheading */}
-          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto drop-shadow">
-            Etiquetas de pano personalizadas que resistem a lavagens.
-            <br />
-            A partir de 3 unidades com <span className="font-bold text-yellow-300">desconto especial</span>!
-          </p>
-
           {/* Price Card */}
-          <div className="glass rounded-2xl p-6 md:p-8 max-w-md mx-auto mb-8 shadow-xl">
-            <div className="flex items-center justify-center gap-6">
-              <div className="text-left">
-                <p className="text-sm text-muted-foreground line-through">De R$ 15,00</p>
-                <p className="text-4xl md:text-5xl font-extrabold text-[#0066FF]">R$ 9,99</p>
+          <div className="glass rounded-2xl p-6 md:p-8 max-w-lg mx-auto mb-8 shadow-xl">
+            <div className="text-center">
+              <p className="text-lg md:text-xl text-foreground mb-2">Etiquetas a partir de</p>
+              <p className="text-5xl md:text-6xl font-extrabold text-[#0066FF] mb-2">R$ 6,50*</p>
+              <div className="flex items-center justify-center gap-2 text-sm text-[#0066FF] font-medium mb-4">
+                <Clock className="w-4 h-4" />
+                Oferta válida até 30/01/2026
               </div>
-              <div className="text-left border-l-2 border-[#00D4FF] pl-6">
-                <p className="text-2xl font-bold text-foreground">3 Etiquetas</p>
-                <p className="text-muted-foreground">Personalizadas</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-center gap-2 mt-4 text-sm text-[#0066FF] font-medium">
-              <Clock className="w-4 h-4" />
-              Oferta válida até 15 de Janeiro!
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                *Valor de 1 página A4 com etiquetas de vinil para itens como lápis, cadernos
+              </p>
             </div>
           </div>
 
@@ -73,16 +64,18 @@ export default function HeroSection() {
               onClick={handleWhatsAppClick}
             >
               <MessageCircle className="w-5 h-5 mr-2" />
-              Pedir Agora pelo WhatsApp
+              Solicitar Orçamento
             </Button>
             <Button
               variant="outline"
               size="lg"
               className="px-8 py-6 text-lg rounded-xl bg-white/90 hover:bg-white border-2 border-[#0066FF] text-[#0066FF] hover:text-[#0066FF]"
-              onClick={() => document.getElementById("temas")?.scrollIntoView({ behavior: "smooth" })}
+              asChild
             >
-              Ver Mais Detalhes
-              <ChevronRight className="w-5 h-5 ml-2" />
+              <a href={CATALOG_URL} target="_blank" rel="noopener noreferrer">
+                <FileText className="w-5 h-5 mr-2" />
+                Ver Catálogo Completo
+              </a>
             </Button>
           </div>
         </div>

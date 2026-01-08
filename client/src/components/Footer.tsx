@@ -1,39 +1,42 @@
 /**
  * Footer Component - AFK Volta às Aulas
  * Design: Gradiente Tropical - Footer com gradiente escuro
+ * Atualizado com links para catálogo e site
  */
-import { Phone, Mail, MapPin, Instagram } from "lucide-react";
+import { Phone, Mail, MapPin, Instagram, FileText, ExternalLink } from "lucide-react";
+import { CATALOG_URL, WHATSAPP_NUMBER, AFK_WEBSITE } from "@/lib/constants";
 
 const quickLinks = [
-  { label: "Sobre Nós", href: "#sobre" },
-  { label: "Produtos", href: "#produtos" },
-  { label: "Kits", href: "#kits" },
-  { label: "Coleções Próprias", href: "#colecoes" },
-  { label: "Portfólio", href: "#portfolio" },
-];
-
-const promos = [
-  { label: "Natal 2025", href: "#" },
-  { label: "Carnaval 2026", href: "#" },
-  { label: "Volta às Aulas", href: "#" },
+  { label: "Etiquetas", href: "#temas" },
+  { label: "Orçamento", href: "#orcamento" },
+  { label: "Catálogo PDF", href: CATALOG_URL, external: true },
+  { label: "Site AFK", href: AFK_WEBSITE, external: true },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-[#0A1628] to-[#0F172A] text-white">
+    <footer className="bg-gradient-to-b from-[#0A1628] to-[#0F172A] text-white" id="contato">
       <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
-              <span className="font-bold text-xl">AFK</span>
-            </div>
-            <p className="text-white/70 text-sm leading-relaxed">
-              Produtos personalizados para eventos, empresas e pessoas físicas. A partir de 3 unidades.
+            <img 
+              src="/images/logo_afk_final.png" 
+              alt="AFK Camisetas" 
+              className="h-16 w-auto mb-4 brightness-0 invert"
+            />
+            <p className="text-white/70 text-sm leading-relaxed mb-4">
+              Produtos personalizados para eventos, empresas e pessoas físicas. Etiquetas para materiais escolares a partir de R$ 6,50.
             </p>
+            <a
+              href={AFK_WEBSITE}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-[#00D4FF] hover:text-[#00F5D4] transition-colors text-sm font-medium"
+            >
+              Visite nosso site completo
+              <ExternalLink className="w-4 h-4" />
+            </a>
           </div>
 
           {/* Quick Links */}
@@ -44,30 +47,27 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white/70 hover:text-white transition-colors text-sm"
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm"
                   >
+                    {link.external && <ExternalLink className="w-3 h-3" />}
                     {link.label}
                   </a>
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Promos */}
-          <div>
-            <h4 className="font-bold text-lg mb-4">Promoções</h4>
-            <ul className="space-y-2">
-              {promos.map((promo) => (
-                <li key={promo.label}>
-                  <a
-                    href={promo.href}
-                    className="text-white/70 hover:text-white transition-colors text-sm"
-                  >
-                    {promo.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            
+            {/* Catalog CTA */}
+            <a
+              href={CATALOG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-[#0066FF] hover:bg-[#0066FF]/80 rounded-lg transition-colors text-sm font-medium"
+            >
+              <FileText className="w-4 h-4" />
+              Ver Catálogo Completo
+            </a>
           </div>
 
           {/* Contact */}
@@ -76,7 +76,9 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="tel:+5541987386527"
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm"
                 >
                   <Phone className="w-4 h-4" />
@@ -112,8 +114,15 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Promo Banner */}
+        <div className="mt-10 p-4 rounded-xl bg-gradient-cta/20 border border-[#00D4FF]/30 text-center">
+          <p className="text-white/90 text-sm">
+            <span className="font-bold text-[#00D4FF]">Promoção Volta às Aulas!</span> Etiquetas a partir de R$ 6,50 - Válido até 30/01/2026
+          </p>
+        </div>
+
         {/* Copyright */}
-        <div className="border-t border-white/10 mt-10 pt-8 text-center">
+        <div className="border-t border-white/10 mt-8 pt-8 text-center">
           <p className="text-white/50 text-sm">
             © 2026 AFK Camisetas e Muito +. Todos os direitos reservados.
           </p>

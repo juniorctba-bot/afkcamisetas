@@ -1,18 +1,16 @@
 /**
  * Header Component - AFK Volta às Aulas
  * Design: Gradiente Tropical - Header fixo com glassmorphism
+ * Atualizado com logo oficial e link para site AFK
  */
 import { useState } from "react";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, ExternalLink, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CATALOG_URL, AFK_WEBSITE } from "@/lib/constants";
 
 const navItems = [
   { label: "Home", href: "#" },
-  { label: "Sobre Nós", href: "#sobre" },
-  { label: "Produtos", href: "#produtos" },
-  { label: "Portfólio", href: "#portfolio" },
-  { label: "Kits", href: "#kits" },
-  { label: "Promoções", href: "#promocoes" },
+  { label: "Etiquetas", href: "#temas" },
   { label: "Orçamento", href: "#orcamento" },
   { label: "Contato", href: "#contato" },
 ];
@@ -23,30 +21,19 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="container">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center">
-              <span className="text-white font-bold text-lg">A</span>
-            </div>
-            <span className="font-bold text-xl text-[#0066FF] hidden sm:block">AFK</span>
+          <a href="#" className="flex items-center">
+            <img 
+              src="/images/logo_afk_final.png" 
+              alt="AFK Camisetas" 
+              className="h-12 md:h-14 w-auto"
+            />
           </a>
 
-          {/* Search Bar - Desktop */}
-          <div className="hidden md:flex items-center flex-1 max-w-xs mx-4">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Buscar produtos... (Ctrl+K)"
-                className="w-full pl-10 pr-4 py-2 text-sm rounded-full border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-            </div>
-          </div>
-
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {navItems.slice(0, 6).map((item) => (
+          <nav className="hidden md:flex items-center gap-2">
+            {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
@@ -55,13 +42,35 @@ export default function Header() {
                 {item.label}
               </a>
             ))}
+            
+            {/* Catálogo PDF */}
+            <a
+              href={CATALOG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#0066FF] hover:text-[#0066FF]/80 transition-colors rounded-lg hover:bg-primary/5"
+            >
+              <FileText className="w-4 h-4" />
+              Catálogo
+            </a>
+
+            {/* Link para site AFK */}
+            <a
+              href={AFK_WEBSITE}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-white bg-gradient-cta rounded-full hover:opacity-90 transition-opacity"
+            >
+              Visite Nosso Site
+              <ExternalLink className="w-4 h-4" />
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -71,17 +80,8 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden glass border-t border-border">
+        <div className="md:hidden glass border-t border-border">
           <div className="container py-4">
-            {/* Mobile Search */}
-            <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Buscar produtos..."
-                className="w-full pl-10 pr-4 py-2 text-sm rounded-full border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-            </div>
             <nav className="flex flex-col gap-1">
               {navItems.map((item) => (
                 <a
@@ -93,6 +93,30 @@ export default function Header() {
                   {item.label}
                 </a>
               ))}
+              
+              {/* Catálogo PDF - Mobile */}
+              <a
+                href={CATALOG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-[#0066FF] hover:bg-primary/5 rounded-lg transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <FileText className="w-4 h-4" />
+                Ver Catálogo Completo
+              </a>
+
+              {/* Link para site AFK - Mobile */}
+              <a
+                href={AFK_WEBSITE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 mx-4 mt-2 px-4 py-3 text-sm font-semibold text-white bg-gradient-cta rounded-full"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Visite Nosso Site
+                <ExternalLink className="w-4 h-4" />
+              </a>
             </nav>
           </div>
         </div>

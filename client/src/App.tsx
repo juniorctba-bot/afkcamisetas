@@ -20,6 +20,7 @@ import VoltaAsAulas from "./pages/VoltaAsAulas";
 // Área Restrita
 import AdminLogin from "./pages/AdminLogin";
 import GeradorOrcamentos from "./pages/GeradorOrcamentos";
+import AprovarOrcamento from "./pages/AprovarOrcamento";
 
 function Router() {
   return (
@@ -39,6 +40,9 @@ function Router() {
       {/* Área Restrita */}
       <Route path="/admin" component={AdminLogin} />
       <Route path="/gerador-orcamentos" component={GeradorOrcamentos} />
+      
+      {/* Aprovação de Orçamento (Público) */}
+      <Route path="/aprovar/:token" component={AprovarOrcamento} />
       
       {/* Fallback */}
       <Route path="/404" component={NotFound} />

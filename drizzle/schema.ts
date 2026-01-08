@@ -80,6 +80,14 @@ export const orcamentos = mysqlTable("orcamentos", {
   // Status
   status: mysqlEnum("status", ["rascunho", "emitido", "aprovado", "cancelado"]).notNull().default("rascunho"),
   
+  // Token para aprovação pública (link único)
+  tokenAprovacao: varchar("tokenAprovacao", { length: 64 }).unique(),
+  
+  // Dados da aprovação
+  aprovadoEm: timestamp("aprovadoEm"),
+  aprovadoPor: varchar("aprovadoPor", { length: 255 }), // Nome de quem aprovou
+  aprovadoIP: varchar("aprovadoIP", { length: 45 }), // IP de quem aprovou
+  
   // Metadados
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),

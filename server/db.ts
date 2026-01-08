@@ -449,3 +449,78 @@ export async function atualizarContador(origem: string, ano: number, ultimoNumer
     });
   }
 }
+
+
+// ==================== APROVAÇÃO DE ORÇAMENTOS ====================
+
+// Buscar orçamento por token de aprovação
+export async function buscarOrcamentoPorToken(token: string): Promise<{ orcamento: Orcamento; itens: OrcamentoItem[] } | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  const [orcamento] = await db
+    .select()
+    .from(orcamentos)
+    .where(eq(orcamentos.tokenAprovacao, token))
+    .limit(1);
+
+  if (!orcamento) return null;
+
+  const itens = await db
+    .select()
+    .from(orcamentoItens)
+    .where(eq(orcamentoItens.orcamentoId, orcamento.id))
+    .orderBy(orcamentoItens.ordem);
+
+  return { orcamento, itens };
+}
+
+// Aprovar orçamento
+export async function aprovarOrcamento(token: string, aprovadoPor: string, aprovadoIP: string): Promise<Orcamento | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  // Buscar orçamento pelo token
+  const [orcamento] = await db
+    .select()
+    .from(orcamentos)
+    .where(eq(orcamentos.tokenAprovacao, token))
+    .limit(1);
+
+  if (!orcamento) return null;
+
+  // Verificar se já foi aprovado
+  if (orcamento.status === 'aprovado') {
+    return orcamento;
+  }
+
+  // Atualizar status para aprovado
+  await db
+    .update(orcamentos)
+    .set({
+      status: 'aprovado',
+      aprovadoEm: new Date(),
+      aprovadoPor,
+      aprovadoIP,
+    })
+    .where(eq(orcamentos.id, orcamento.id));
+
+  // Buscar orçamento atualizado
+  const [orcamentoAtualizado] = await db
+    .select()
+    .from(orcamentos)
+    .where(eq(orcamentos.id, orcamento.id))
+    .limit(1);
+
+  return orcamentoAtualizado;
+}
+
+// Gerar token único para aprovação
+export function gerarTokenAprovacao(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let token = '';
+  for (let i = 0; i < 32; i++) {
+    token += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return token;
+}

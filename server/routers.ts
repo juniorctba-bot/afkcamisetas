@@ -74,8 +74,10 @@ export const appRouter = router({
         if (!numero) {
           numero = await db.gerarNumeroOrcamento(input.orcamento.origem);
         }
+        // Gerar token de aprovação
+        const tokenAprovacao = db.gerarTokenAprovacao();
         const orcamento = await db.criarOrcamento(
-          { ...input.orcamento, numero, createdBy: ctx.user.id },
+          { ...input.orcamento, numero, tokenAprovacao, createdBy: ctx.user.id },
           input.itens
         );
         return orcamento;
@@ -210,6 +212,28 @@ export const appRouter = router({
       .mutation(async ({ input }) => {
         await db.excluirRegiaoFrete(input.id);
         return { success: true };
+      }),
+  }),
+
+  // Rotas públicas de aprovação de orçamentos
+  aprovacao: router({
+    // Buscar orçamento por token (público)
+    buscarPorToken: publicProcedure
+      .input(z.object({ token: z.string() }))
+      .query(async ({ input }) => {
+        return await db.buscarOrcamentoPorToken(input.token);
+      }),
+
+    // Aprovar orçamento (público)
+    aprovar: publicProcedure
+      .input(z.object({
+        token: z.string(),
+        aprovadoPor: z.string().min(1),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        // Pegar IP do cliente
+        const ip = ctx.req.headers['x-forwarded-for'] as string || ctx.req.socket?.remoteAddress || 'unknown';
+        return await db.aprovarOrcamento(input.token, input.aprovadoPor, ip);
       }),
   }),
 

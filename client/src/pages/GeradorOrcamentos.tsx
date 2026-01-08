@@ -285,8 +285,8 @@ export default function GeradorOrcamentos() {
         })),
       });
 
-      // Gerar PDF
-      await gerarPDF(numero);
+      // Gerar PDF com link de aprovação
+      await gerarPDF(numero, orcamentoSalvo.tokenAprovacao || '');
       
       refetchHistorico();
       toast.success(`Orçamento ${numero} gerado com sucesso!`);
@@ -305,7 +305,9 @@ export default function GeradorOrcamentos() {
     }
   };
 
-  const gerarPDF = async (numero: string) => {
+  const gerarPDF = async (numero: string, tokenAprovacao: string = '') => {
+    // Gerar link de aprovação
+    const linkAprovacao = tokenAprovacao ? `${window.location.origin}/aprovar/${tokenAprovacao}` : '';
     // Criar conteúdo do PDF usando uma nova janela
     const dataEmissao = new Date().toLocaleDateString("pt-BR");
     const dataValidade = new Date(Date.now() + orcamento.validade * 24 * 60 * 60 * 1000).toLocaleDateString("pt-BR");
@@ -482,8 +484,20 @@ export default function GeradorOrcamentos() {
     </ol>
   </div>
 
+  ${linkAprovacao ? `
+  <div class="aprovacao-online" style="background: linear-gradient(135deg, #FF6B00 0%, #FFB800 100%); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+    <h3 style="margin-bottom: 10px; font-size: 18px;">📱 APROVAÇÃO ONLINE</h3>
+    <p style="margin-bottom: 15px;">Aprove este orçamento diretamente pelo link abaixo:</p>
+    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+      <a href="${linkAprovacao}" style="color: #FF6B00; font-weight: bold; word-break: break-all; font-size: 14px;">${linkAprovacao}</a>
+    </div>
+    <p style="font-size: 12px; opacity: 0.9;">Ou escaneie o QR Code ao lado para aprovar pelo celular</p>
+  </div>
+  ` : ''}
+
   <div class="aprovacao">
-    <h3>✅ APROVAÇÃO</h3>
+    <h3>✅ APROVAÇÃO MANUAL</h3>
+    <p style="font-size: 11px; color: #666; margin-bottom: 10px;">Caso prefira aprovar manualmente, preencha os campos abaixo:</p>
     <div class="assinatura-row">
       <div class="assinatura-field">
         <label>NOME:</label>

@@ -15,6 +15,13 @@
       "when": 1767907117032,
       "tag": "0001_fair_betty_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1767915907701,
+      "tag": "0002_silly_loa",
+      "breakpoints": true
     }
   ]
 }

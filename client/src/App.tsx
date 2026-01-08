@@ -4,41 +4,53 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
-import Produtos from "./pages/Produtos";
-import Orcamento from "./pages/Orcamento";
+
+// Páginas do site AFK Camisetas
+import HomeAFK from "./pages/HomeAFK";
+import Sobre from "./pages/Sobre";
+import ProdutosAFK from "./pages/ProdutosAFK";
+import Portfolio from "./pages/Portfolio";
+import Kits from "./pages/Kits";
+import Promocoes from "./pages/Promocoes";
+import Colecao from "./pages/Colecao";
+import OrcamentoPublico from "./pages/OrcamentoPublico";
+import Contato from "./pages/Contato";
+import VoltaAsAulas from "./pages/VoltaAsAulas";
+
+// Área Restrita
 import AdminLogin from "./pages/AdminLogin";
 import GeradorOrcamentos from "./pages/GeradorOrcamentos";
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/volta-as-aulas"} component={Home} />
-      <Route path={"/produtos"} component={Produtos} />
-      <Route path={"/orcamento"} component={Orcamento} />
-      <Route path={"/admin"} component={AdminLogin} />
-      <Route path={"/gerador-orcamentos"} component={GeradorOrcamentos} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
+      {/* Páginas Públicas */}
+      <Route path="/" component={HomeAFK} />
+      <Route path="/sobre" component={Sobre} />
+      <Route path="/produtos" component={ProdutosAFK} />
+      <Route path="/portfolio" component={Portfolio} />
+      <Route path="/kits" component={Kits} />
+      <Route path="/promocoes" component={Promocoes} />
+      <Route path="/colecoes/:slug" component={Colecao} />
+      <Route path="/orcamento" component={OrcamentoPublico} />
+      <Route path="/contato" component={Contato} />
+      <Route path="/volta-as-aulas" component={VoltaAsAulas} />
+      
+      {/* Área Restrita */}
+      <Route path="/admin" component={AdminLogin} />
+      <Route path="/gerador-orcamentos" component={GeradorOrcamentos} />
+      
+      {/* Fallback */}
+      <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
+      <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
           <Router />

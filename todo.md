@@ -46,3 +46,7 @@
 
 ## Melhorias Solicitadas
 - [x] Adicionar logo AFK Camisetas no cabeçalho do PDF
+
+## Novas Solicitações
+- [x] Remover link do gerador de orçamentos do menu público (acesso apenas por /admin)
+- [x] Recriar site completo da AFK Camisetas (www.afkcamisetas.com.br)

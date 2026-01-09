@@ -68,3 +68,4 @@
 - [x] Implementar fluxo de acompanhamento: Em Aprovação → Aprovado → Definição de Insumos → Aguardando Insumos → Produção → Entrega → Recebimento
 - [x] Permitir anexar comprovante na etapa de Recebimento
 - [x] Integrar gerador de orçamentos com criação automática de pedido
+- [x] Adicionar recurso de exportação de relatórios de pedidos em formato CSV

@@ -46,6 +46,7 @@ import {
   Upload,
   History,
   Eye,
+  Download,
 } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
@@ -208,6 +209,77 @@ export default function AdminDashboard() {
     }).format(parseFloat(valor));
   };
 
+  // Função para exportar pedidos em CSV
+  const exportarCSV = () => {
+    if (!pedidos || pedidos.length === 0) {
+      toast.error("Não há pedidos para exportar");
+      return;
+    }
+
+    // Filtrar pedidos conforme filtros ativos
+    let pedidosParaExportar = pedidos;
+    if (filtroStatus !== "todos") {
+      pedidosParaExportar = pedidos.filter(p => p.status === filtroStatus);
+    }
+    if (busca) {
+      pedidosParaExportar = pedidosParaExportar.filter(p => 
+        p.numeroOrcamento?.toLowerCase().includes(busca.toLowerCase()) ||
+        p.clienteNome?.toLowerCase().includes(busca.toLowerCase())
+      );
+    }
+
+    if (pedidosParaExportar.length === 0) {
+      toast.error("Nenhum pedido encontrado com os filtros atuais");
+      return;
+    }
+
+    // Cabeçalhos do CSV
+    const headers = [
+      "Número do Orçamento",
+      "Cliente",
+      "Telefone",
+      "Status",
+      "Valor Total",
+      "Data de Criação",
+      "Última Atualização",
+      "Insumos",
+      "Observações"
+    ];
+
+    // Dados do CSV
+    const rows = pedidosParaExportar.map(pedido => [
+      pedido.numeroOrcamento || "-",
+      pedido.clienteNome || "-",
+      pedido.clienteTelefone || "-",
+      statusConfig[pedido.status]?.label || pedido.status,
+      pedido.valorTotal ? formatarValor(pedido.valorTotal) : "-",
+      formatarData(pedido.createdAt),
+      formatarData(pedido.updatedAt),
+      pedido.insumos || "-",
+      pedido.observacoes || "-"
+    ]);
+
+    // Montar CSV com BOM para Excel reconhecer UTF-8
+    const BOM = "\uFEFF";
+    const csvContent = BOM + [
+      headers.join(";"),
+      ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(";"))
+    ].join("\n");
+
+    // Criar blob e fazer download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `relatorio_pedidos_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    toast.success(`${pedidosParaExportar.length} pedidos exportados com sucesso!`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -223,6 +295,15 @@ export default function AdminDashboard() {
               </Badge>
             </div>
             <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={exportarCSV}
+                className="bg-green-50 hover:bg-green-100 text-green-700 border-green-200"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Exportar CSV
+              </Button>
               <Button
                 variant="outline"
                 size="sm"

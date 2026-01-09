@@ -60,3 +60,4 @@
 - [x] Atualizar seção de produtos em destaque com imagens reais dos produtos
 - [x] Alterar cor do banner Carnaval 2026 no topo da Home para maior destaque
 - [x] Criar página Carnaval 2026 - Unidos da AFK com produtos (sem preço) e identidade AFK
+- [x] Corrigir SEO da página inicial - adicionar palavras-chave e meta tags

@@ -73,3 +73,4 @@
 - [x] Permitir cancelamento de pedido a qualquer momento com motivo obrigatório
 - [x] Criar tela inicial da área restrita com menu de acesso rápido (Calculadora, Orçamentos, Workflow)
 - [x] Criar área de Controle de Pedidos editável similar à planilha Excel (18 campos)
+- [x] Adicionar linha de resumo com totais na tabela de Controle de Pedidos

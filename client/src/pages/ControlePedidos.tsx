@@ -12,6 +12,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  TableFooter,
 } from "@/components/ui/table";
 import {
   Dialog,
@@ -264,6 +265,43 @@ export default function ControlePedidos() {
     }).format(num);
   };
 
+  // Calcular totais
+  const calcularTotais = () => {
+    if (!pedidos || pedidos.length === 0) {
+      return { totalNegociado: 0, totalSinal: 0, totalFinal: 0, totalPendente: 0, qtdPedidos: 0 };
+    }
+    
+    // Filtrar apenas pedidos não cancelados para os totais
+    const pedidosAtivos = pedidos.filter(p => p.status !== 'cancelado');
+    
+    const totalNegociado = pedidosAtivos.reduce((acc, p) => {
+      const valor = parseFloat(p.valorNegociado || '0');
+      return acc + (isNaN(valor) ? 0 : valor);
+    }, 0);
+    
+    const totalSinal = pedidosAtivos.reduce((acc, p) => {
+      const valor = parseFloat(p.sinal || '0');
+      return acc + (isNaN(valor) ? 0 : valor);
+    }, 0);
+    
+    const totalFinal = pedidosAtivos.reduce((acc, p) => {
+      const valor = parseFloat(p.valorFinal || '0');
+      return acc + (isNaN(valor) ? 0 : valor);
+    }, 0);
+    
+    const totalPendente = totalNegociado - totalSinal;
+    
+    return { 
+      totalNegociado, 
+      totalSinal, 
+      totalFinal, 
+      totalPendente,
+      qtdPedidos: pedidosAtivos.length 
+    };
+  };
+
+  const totais = calcularTotais();
+
   const exportarCSV = () => {
     if (!pedidos || pedidos.length === 0) {
       toast.error("Não há dados para exportar");
@@ -492,6 +530,45 @@ export default function ControlePedidos() {
                     ))
                   )}
                 </TableBody>
+                {/* Linha de Resumo com Totais */}
+                {pedidos && pedidos.length > 0 && (
+                  <TableFooter>
+                    <TableRow className="bg-gradient-to-r from-green-50 to-emerald-50 border-t-2 border-green-200">
+                      <TableCell colSpan={3} className="font-bold text-green-800">
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">TOTAIS</span>
+                          <span className="text-sm font-normal text-gray-600">({totais.qtdPedidos} pedidos ativos)</span>
+                        </div>
+                      </TableCell>
+                      <TableCell colSpan={3}></TableCell>
+                      <TableCell className="text-right">
+                        <div className="space-y-1">
+                          <div className="text-xs text-gray-500">Negociado</div>
+                          <div className="font-bold text-green-700">
+                            {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(totais.totalNegociado)}
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          <div className="text-xs text-gray-500">Sinal Recebido</div>
+                          <div className="font-bold text-blue-700">
+                            {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(totais.totalSinal)}
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          <div className="text-xs text-gray-500">Pendente</div>
+                          <div className="font-bold text-orange-600">
+                            {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(totais.totalPendente)}
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                  </TableFooter>
+                )}
               </Table>
             </div>
           </CardContent>

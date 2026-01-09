@@ -2,7 +2,7 @@
  * Home Page - AFK Camisetas
  * Página principal com banners, hero, produtos em destaque e benefícios
  */
-import { ArrowRight, Users, Zap, Heart, Package } from "lucide-react";
+import { ArrowRight, Users, Zap, Heart } from "lucide-react";
 import { Link } from "wouter";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,17 +10,42 @@ import Footer from "@/components/Footer";
 const WHATSAPP_NUMBER = "5541987386527";
 
 const produtosDestaque = [
-  { id: 1, nome: "Chinelo Personalizado", categoria: "Calçados" },
-  { id: 2, nome: "Camiseta Infantil Personalizada", categoria: "Vestuário Infantil" },
-  { id: 3, nome: "Camiseta Colorida Adulto", categoria: "Vestuário Adulto" },
-  { id: 4, nome: "Camiseta Branca Adulto", categoria: "Vestuário Adulto" },
-];
-
-const categorias = [
-  { nome: "Camisetas Personalizadas", href: "/produtos?categoria=adulto" },
-  { nome: "Bonés Personalizados", href: "/produtos?categoria=acessorios" },
-  { nome: "Mochilas Personalizadas", href: "/produtos?categoria=acessorios" },
-  { nome: "Aventais Personalizados", href: "/produtos?categoria=casa" },
+  { 
+    id: 1, 
+    nome: "Canecas Personalizadas", 
+    categoria: "Canecas",
+    imagem: "/images/canecas_personalizadas.png"
+  },
+  { 
+    id: 2, 
+    nome: "Chinelos Personalizados", 
+    categoria: "Calçados",
+    imagem: "/images/chinelos_personalizados.png"
+  },
+  { 
+    id: 3, 
+    nome: "Camisetas e Moletons", 
+    categoria: "Vestuário",
+    imagem: "/images/camisetas_personalizadas.png"
+  },
+  { 
+    id: 4, 
+    nome: "Mochilas e Necessaires", 
+    categoria: "Bolsas",
+    imagem: "/images/mochilas_necessaires.png"
+  },
+  { 
+    id: 5, 
+    nome: "Acessórios Personalizados", 
+    categoria: "Acessórios",
+    imagem: "/images/acessorios_personalizados.png"
+  },
+  { 
+    id: 6, 
+    nome: "E Muito Mais!", 
+    categoria: "Diversos",
+    imagem: "/images/muito_mais.png"
+  },
 ];
 
 const beneficios = [
@@ -55,7 +80,7 @@ export default function HomeAFK() {
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <Package className="w-5 h-5 text-white" />
+                <span className="text-xl">📚</span>
               </div>
               <div>
                 <p className="font-bold text-white">Volta às Aulas 2026</p>
@@ -136,20 +161,24 @@ export default function HomeAFK() {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {produtosDestaque.map((produto) => (
                 <div 
                   key={produto.id}
-                  className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+                  className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
                 >
-                  <div className="aspect-square bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center">
-                    <Package className="w-16 h-16 text-gray-300" />
+                  <div className="aspect-square bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center overflow-hidden">
+                    <img 
+                      src={produto.imagem} 
+                      alt={produto.nome}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <div className="p-4">
                     <span className="text-xs font-medium text-pink-600 bg-pink-50 px-2 py-1 rounded-full">
                       {produto.categoria}
                     </span>
-                    <h3 className="font-semibold text-gray-900 mt-2 mb-3">
+                    <h3 className="font-semibold text-gray-900 mt-2 mb-3 text-lg">
                       {produto.nome}
                     </h3>
                     <a
@@ -200,37 +229,6 @@ export default function HomeAFK() {
                     {beneficio.descricao}
                   </p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Nossos Produtos (Categorias) */}
-        <section className="py-16 md:py-24 bg-gradient-to-br from-pink-50 to-purple-50">
-          <div className="container">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
-              Nossos Produtos
-            </h2>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {categorias.map((categoria, index) => (
-                <Link
-                  key={index}
-                  href={categoria.href}
-                  className="group bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden"
-                >
-                  <div className="aspect-video bg-gradient-to-br from-pink-100 to-cyan-100 flex items-center justify-center">
-                    <Package className="w-12 h-12 text-gray-300 group-hover:scale-110 transition-transform" />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
-                      {categoria.nome}
-                    </h3>
-                    <span className="text-pink-600 text-sm flex items-center gap-1 mt-2">
-                      Ver mais <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </div>
-                </Link>
               ))}
             </div>
           </div>

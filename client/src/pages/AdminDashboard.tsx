@@ -451,6 +451,12 @@ export default function AdminDashboard() {
   const handleAtualizarStatus = () => {
     if (!pedidoSelecionado || !novoStatus) return;
 
+    // Validar motivo obrigatório para cancelamento
+    if (novoStatus === "cancelado" && !observacaoStatus.trim()) {
+      toast.error("O motivo do cancelamento é obrigatório!");
+      return;
+    }
+
     atualizarStatusMutation.mutate({
       id: pedidoSelecionado.id,
       novoStatus,
@@ -865,24 +871,56 @@ export default function AdminDashboard() {
                   </div>
                 )}
 
-                <Textarea
-                  value={observacaoStatus}
-                  onChange={(e) => setObservacaoStatus(e.target.value)}
-                  placeholder="Observação sobre a mudança de status (opcional)..."
-                  rows={2}
-                />
+                {/* Campo de Motivo de Cancelamento (obrigatório) */}
+                {novoStatus === "cancelado" && (
+                  <div className="bg-red-50 p-4 rounded-lg border border-red-200">
+                    <label className="text-sm font-medium mb-1 block text-red-700">
+                      Motivo do Cancelamento *
+                    </label>
+                    <Textarea
+                      value={observacaoStatus}
+                      onChange={(e) => setObservacaoStatus(e.target.value)}
+                      placeholder="Informe o motivo do cancelamento (obrigatório)..."
+                      rows={3}
+                      className="border-red-200 focus:border-red-400"
+                      required
+                    />
+                    <p className="text-xs text-red-500 mt-1">
+                      O motivo do cancelamento é obrigatório e será registrado no histórico
+                    </p>
+                  </div>
+                )}
+
+                {novoStatus !== "cancelado" && (
+                  <Textarea
+                    value={observacaoStatus}
+                    onChange={(e) => setObservacaoStatus(e.target.value)}
+                    placeholder="Observação sobre a mudança de status (opcional)..."
+                    rows={2}
+                  />
+                )}
 
                 <div className="flex justify-end gap-2">
                   <Button variant="outline" onClick={() => setShowDetalhes(false)}>
-                    Cancelar
+                    Fechar
                   </Button>
-                  <Button
-                    onClick={handleAtualizarStatus}
-                    disabled={atualizarStatusMutation.isPending || novoStatus === pedidoSelecionado.status}
-                    className="bg-gradient-to-r from-pink-500 to-purple-500"
-                  >
-                    {atualizarStatusMutation.isPending ? "Salvando..." : "Salvar Alterações"}
-                  </Button>
+                  {novoStatus === "cancelado" ? (
+                    <Button
+                      onClick={handleAtualizarStatus}
+                      disabled={atualizarStatusMutation.isPending || !observacaoStatus.trim()}
+                      className="bg-red-600 hover:bg-red-700 text-white"
+                    >
+                      {atualizarStatusMutation.isPending ? "Cancelando..." : "Confirmar Cancelamento"}
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleAtualizarStatus}
+                      disabled={atualizarStatusMutation.isPending || novoStatus === pedidoSelecionado.status}
+                      className="bg-gradient-to-r from-pink-500 to-purple-500"
+                    >
+                      {atualizarStatusMutation.isPending ? "Salvando..." : "Salvar Alterações"}
+                    </Button>
+                  )}
                 </div>
               </div>
 

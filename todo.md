@@ -70,3 +70,5 @@
 - [x] Integrar gerador de orçamentos com criação automática de pedido
 - [x] Adicionar recurso de exportação de relatórios de pedidos em formato CSV
 - [x] Criar dashboard com gráficos de métricas (pedidos por mês, faturamento, distribuição por status)
+- [x] Permitir cancelamento de pedido a qualquer momento com motivo obrigatório
+- [x] Criar tela inicial da área restrita com menu de acesso rápido (Calculadora, Orçamentos, Workflow)

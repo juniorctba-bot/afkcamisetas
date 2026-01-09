@@ -20,7 +20,9 @@ import Carnaval2026 from "./pages/Carnaval2026";
 
 // Área Restrita
 import AdminLogin from "./pages/AdminLogin";
+import AdminHome from "./pages/AdminHome";
 import AdminDashboard from "./pages/AdminDashboard";
+import Calculadora from "./pages/Calculadora";
 import GeradorOrcamentos from "./pages/GeradorOrcamentos";
 import AprovarOrcamento from "./pages/AprovarOrcamento";
 
@@ -43,7 +45,9 @@ function Router() {
       
       {/* Área Restrita */}
       <Route path="/admin" component={AdminLogin} />
+      <Route path="/admin/home" component={AdminHome} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/admin/calculadora" component={Calculadora} />
       <Route path="/gerador-orcamentos" component={GeradorOrcamentos} />
       
       

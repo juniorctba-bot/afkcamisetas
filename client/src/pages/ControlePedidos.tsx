@@ -302,6 +302,30 @@ export default function ControlePedidos() {
 
   const totais = calcularTotais();
 
+  // Verificar se a data de entrega está próxima (até 3 dias) ou vencida
+  const verificarStatusEntrega = (previsaoEntrega: string | Date | null, status: string | null) => {
+    // Não destacar se já foi entregue ou cancelado
+    if (status === 'entregue' || status === 'cancelado' || status === 'finalizado') {
+      return { vencido: false, proximo: false };
+    }
+    
+    if (!previsaoEntrega) return { vencido: false, proximo: false };
+    
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    
+    const dataEntrega = typeof previsaoEntrega === 'string' ? new Date(previsaoEntrega) : previsaoEntrega;
+    dataEntrega.setHours(0, 0, 0, 0);
+    
+    const diffTime = dataEntrega.getTime() - hoje.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    return {
+      vencido: diffDays < 0,
+      proximo: diffDays >= 0 && diffDays <= 3
+    };
+  };
+
   const exportarCSV = () => {
     if (!pedidos || pedidos.length === 0) {
       toast.error("Não há dados para exportar");
@@ -475,8 +499,16 @@ export default function ControlePedidos() {
                       </TableCell>
                     </TableRow>
                   ) : (
-                    pedidos.map((pedido) => (
-                      <TableRow key={pedido.id} className="hover:bg-gray-50">
+                    pedidos.map((pedido) => {
+                      const statusEntrega = verificarStatusEntrega(pedido.previsaoEntrega, pedido.status);
+                      const rowClass = statusEntrega.vencido 
+                        ? "bg-red-50 hover:bg-red-100 border-l-4 border-l-red-500" 
+                        : statusEntrega.proximo 
+                          ? "bg-orange-50 hover:bg-orange-100 border-l-4 border-l-orange-500" 
+                          : "hover:bg-gray-50";
+                      
+                      return (
+                      <TableRow key={pedido.id} className={rowClass}>
                         <TableCell className="font-medium">{formatarData(pedido.data)}</TableCell>
                         <TableCell>
                           <div>
@@ -491,7 +523,19 @@ export default function ControlePedidos() {
                         </TableCell>
                         <TableCell>{pedido.quantidade || "-"}</TableCell>
                         <TableCell>{pedido.tipoImpressao || "-"}</TableCell>
-                        <TableCell>{formatarData(pedido.previsaoEntrega)}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-1">
+                            <span className={statusEntrega.vencido ? "text-red-600 font-bold" : statusEntrega.proximo ? "text-orange-600 font-semibold" : ""}>
+                              {formatarData(pedido.previsaoEntrega)}
+                            </span>
+                            {statusEntrega.vencido && (
+                              <span className="text-xs bg-red-500 text-white px-1.5 py-0.5 rounded-full">VENCIDO</span>
+                            )}
+                            {statusEntrega.proximo && !statusEntrega.vencido && (
+                              <span className="text-xs bg-orange-500 text-white px-1.5 py-0.5 rounded-full">PRÓXIMO</span>
+                            )}
+                          </div>
+                        </TableCell>
                         <TableCell className="text-right font-medium">
                           {formatarMoeda(pedido.valorNegociado)}
                         </TableCell>
@@ -527,7 +571,8 @@ export default function ControlePedidos() {
                           </div>
                         </TableCell>
                       </TableRow>
-                    ))
+                    );
+                    })
                   )}
                 </TableBody>
                 {/* Linha de Resumo com Totais */}

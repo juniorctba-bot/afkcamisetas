@@ -61,3 +61,10 @@
 - [x] Alterar cor do banner Carnaval 2026 no topo da Home para maior destaque
 - [x] Criar página Carnaval 2026 - Unidos da AFK com produtos (sem preço) e identidade AFK
 - [x] Corrigir SEO da página inicial - adicionar palavras-chave e meta tags
+- [x] Remover link da calculadora de amostra para visitantes
+- [x] Mover gerador de orçamentos e calculadora para área restrita
+- [x] Criar sistema de autenticação com senha para colaboradores
+- [x] Criar tabela de pedidos no banco de dados
+- [x] Implementar fluxo de acompanhamento: Em Aprovação → Aprovado → Definição de Insumos → Aguardando Insumos → Produção → Entrega → Recebimento
+- [x] Permitir anexar comprovante na etapa de Recebimento
+- [x] Integrar gerador de orçamentos com criação automática de pedido

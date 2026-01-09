@@ -156,3 +156,104 @@ export const orcamentoRascunhos = mysqlTable("orcamento_rascunhos", {
 
 export type OrcamentoRascunho = typeof orcamentoRascunhos.$inferSelect;
 export type InsertOrcamentoRascunho = typeof orcamentoRascunhos.$inferInsert;
+
+
+/**
+ * Status possíveis do pedido no fluxo de acompanhamento
+ */
+export const pedidoStatusEnum = mysqlEnum("pedidoStatus", [
+  "em_aprovacao",
+  "aprovado", 
+  "definicao_insumos",
+  "aguardando_insumos",
+  "producao",
+  "entrega",
+  "recebimento",
+  "concluido",
+  "cancelado"
+]);
+
+/**
+ * Pedidos - Fluxo de acompanhamento após aprovação do orçamento
+ */
+export const pedidos = mysqlTable("pedidos", {
+  id: int("id").autoincrement().primaryKey(),
+  
+  // Referência ao orçamento
+  orcamentoId: int("orcamentoId").notNull(),
+  numeroOrcamento: varchar("numeroOrcamento", { length: 20 }).notNull(),
+  
+  // Status atual do pedido
+  status: pedidoStatusEnum.notNull().default("em_aprovacao"),
+  
+  // Dados do cliente (copiados do orçamento)
+  clienteNome: varchar("clienteNome", { length: 255 }).notNull(),
+  clienteTelefone: varchar("clienteTelefone", { length: 20 }),
+  
+  // Valor total do pedido
+  valorTotal: decimal("valorTotal", { precision: 10, scale: 2 }).notNull(),
+  
+  // Insumos necessários (preenchido na etapa de definição)
+  insumos: text("insumos"),
+  
+  // Observações gerais
+  observacoes: text("observacoes"),
+  
+  // Comprovante de recebimento (URL do arquivo)
+  comprovanteRecebimento: varchar("comprovanteRecebimento", { length: 500 }),
+  
+  // Datas de cada etapa
+  dataAprovacao: timestamp("dataAprovacao"),
+  dataDefinicaoInsumos: timestamp("dataDefinicaoInsumos"),
+  dataAguardandoInsumos: timestamp("dataAguardandoInsumos"),
+  dataProducao: timestamp("dataProducao"),
+  dataEntrega: timestamp("dataEntrega"),
+  dataRecebimento: timestamp("dataRecebimento"),
+  dataConclusao: timestamp("dataConclusao"),
+  
+  // Metadados
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Pedido = typeof pedidos.$inferSelect;
+export type InsertPedido = typeof pedidos.$inferInsert;
+
+/**
+ * Histórico de mudanças de status do pedido
+ */
+export const pedidoHistorico = mysqlTable("pedido_historico", {
+  id: int("id").autoincrement().primaryKey(),
+  pedidoId: int("pedidoId").notNull(),
+  
+  // Status anterior e novo
+  statusAnterior: varchar("statusAnterior", { length: 50 }),
+  statusNovo: varchar("statusNovo", { length: 50 }).notNull(),
+  
+  // Quem fez a alteração
+  alteradoPor: varchar("alteradoPor", { length: 255 }),
+  
+  // Observação da alteração
+  observacao: text("observacao"),
+  
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PedidoHistorico = typeof pedidoHistorico.$inferSelect;
+export type InsertPedidoHistorico = typeof pedidoHistorico.$inferInsert;
+
+/**
+ * Colaboradores - Usuários com acesso à área restrita
+ */
+export const colaboradores = mysqlTable("colaboradores", {
+  id: int("id").autoincrement().primaryKey(),
+  nome: varchar("nome", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }),
+  senha: varchar("senha", { length: 255 }).notNull(), // Hash da senha
+  ativo: boolean("ativo").notNull().default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Colaborador = typeof colaboradores.$inferSelect;
+export type InsertColaborador = typeof colaboradores.$inferInsert;

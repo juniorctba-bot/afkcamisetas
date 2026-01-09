@@ -31,7 +31,7 @@ export default function AdminLogin() {
       localStorage.setItem("afk_admin_auth", "true");
       localStorage.setItem("afk_admin_auth_time", Date.now().toString());
       toast.success("Acesso autorizado!");
-      setLocation("/gerador-orcamentos");
+      setLocation("/admin/dashboard");
     } else {
       toast.error("Senha incorreta!");
     }

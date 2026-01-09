@@ -256,6 +256,98 @@ export const appRouter = router({
         return { success: true };
       }),
   }),
+
+  // Rotas de pedidos (fluxo de acompanhamento)
+  pedido: router({
+    // Criar pedido a partir de orçamento
+    criar: protectedProcedure
+      .input(z.object({ orcamentoId: z.number() }))
+      .mutation(async ({ input }) => {
+        return await db.criarPedido(input.orcamentoId);
+      }),
+
+    // Listar pedidos
+    listar: protectedProcedure
+      .input(z.object({
+        status: z.string().optional(),
+        busca: z.string().optional(),
+        limite: z.number().optional(),
+        offset: z.number().optional(),
+      }).optional())
+      .query(async ({ input }) => {
+        return await db.listarPedidos(input);
+      }),
+
+    // Buscar por ID
+    buscarPorId: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input }) => {
+        return await db.buscarPedidoPorId(input.id);
+      }),
+
+    // Buscar por número de orçamento
+    buscarPorOrcamento: protectedProcedure
+      .input(z.object({ numeroOrcamento: z.string() }))
+      .query(async ({ input }) => {
+        return await db.buscarPedidoPorOrcamento(input.numeroOrcamento);
+      }),
+
+    // Atualizar status
+    atualizarStatus: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        novoStatus: z.string(),
+        observacao: z.string().optional(),
+        insumos: z.string().optional(),
+        comprovanteUrl: z.string().optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const dadosExtras: any = {};
+        if (input.insumos) dadosExtras.insumos = input.insumos;
+        if (input.comprovanteUrl) dadosExtras.comprovanteRecebimento = input.comprovanteUrl;
+        
+        return await db.atualizarStatusPedido(
+          input.id,
+          input.novoStatus,
+          ctx.user?.name || "Sistema",
+          input.observacao,
+          dadosExtras
+        );
+      }),
+
+    // Buscar histórico
+    historico: protectedProcedure
+      .input(z.object({ pedidoId: z.number() }))
+      .query(async ({ input }) => {
+        return await db.buscarHistoricoPedido(input.pedidoId);
+      }),
+
+    // Contar por status
+    contarPorStatus: protectedProcedure.query(async () => {
+      return await db.contarPedidosPorStatus();
+    }),
+
+    // Labels de status
+    statusLabels: publicProcedure.query(() => {
+      return db.statusPedidoLabels;
+    }),
+
+    // Ordem dos status
+    statusOrdem: publicProcedure.query(() => {
+      return db.statusPedidoOrdem;
+    }),
+  }),
+
+  // Autenticação de colaboradores (área restrita)
+  colaborador: router({
+    // Verificar senha
+    verificarSenha: publicProcedure
+      .input(z.object({ senha: z.string() }))
+      .mutation(async ({ input }) => {
+        const valido = await db.verificarSenhaColaborador(input.senha);
+        return { valido };
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

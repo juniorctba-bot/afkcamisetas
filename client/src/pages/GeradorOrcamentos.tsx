@@ -122,6 +122,7 @@ export default function GeradorOrcamentos() {
   // Mutations
   const gerarNumeroMutation = trpc.orcamento.gerarNumero.useMutation();
   const criarOrcamentoMutation = trpc.orcamento.criar.useMutation();
+  const criarPedidoMutation = trpc.pedido.criar.useMutation();
   const salvarRascunhoMutation = trpc.rascunho.salvar.useMutation();
   const atualizarRascunhoMutation = trpc.rascunho.atualizar.useMutation();
   const excluirRascunhoMutation = trpc.rascunho.excluir.useMutation();
@@ -284,6 +285,13 @@ export default function GeradorOrcamentos() {
           subtotal: item.subtotal.toString(),
         })),
       });
+
+      // Criar pedido no fluxo de acompanhamento
+      try {
+        await criarPedidoMutation.mutateAsync({ orcamentoId: orcamentoSalvo.id });
+      } catch (e) {
+        console.log("Pedido já existe ou erro ao criar:", e);
+      }
 
       // Gerar PDF com link de aprovação
       await gerarPDF(numero, orcamentoSalvo.tokenAprovacao || '');

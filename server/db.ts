@@ -8,14 +8,23 @@ import {
   orcamentoContadores,
   orcamentoRascunhos,
   tabelaFrete,
+  pedidos,
+  pedidoHistorico,
+  colaboradores,
   InsertOrcamento,
   InsertOrcamentoItem,
   InsertOrcamentoRascunho,
   InsertTabelaFrete,
+  InsertPedido,
+  InsertPedidoHistorico,
+  InsertColaborador,
   Orcamento,
   OrcamentoItem,
   OrcamentoRascunho,
-  TabelaFrete
+  TabelaFrete,
+  Pedido,
+  PedidoHistorico,
+  Colaborador
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -523,4 +532,319 @@ export function gerarTokenAprovacao(): string {
     token += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return token;
+}
+
+
+// ==================== PEDIDOS ====================
+
+// Status do pedido em ordem
+export const statusPedidoOrdem = [
+  "em_aprovacao",
+  "aprovado",
+  "definicao_insumos",
+  "aguardando_insumos",
+  "producao",
+  "entrega",
+  "recebimento",
+  "concluido",
+] as const;
+
+export const statusPedidoLabels: Record<string, string> = {
+  em_aprovacao: "Em Aprovação",
+  aprovado: "Aprovado",
+  definicao_insumos: "Definição de Insumos",
+  aguardando_insumos: "Aguardando Insumos",
+  producao: "Em Produção",
+  entrega: "Em Entrega",
+  recebimento: "Aguardando Recebimento",
+  concluido: "Concluído",
+  cancelado: "Cancelado",
+};
+
+// Criar pedido a partir de orçamento
+export async function criarPedido(orcamentoId: number): Promise<Pedido | null> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Buscar orçamento
+  const [orcamento] = await db
+    .select()
+    .from(orcamentos)
+    .where(eq(orcamentos.id, orcamentoId))
+    .limit(1);
+
+  if (!orcamento) return null;
+
+  // Verificar se já existe pedido para este orçamento
+  const [pedidoExistente] = await db
+    .select()
+    .from(pedidos)
+    .where(eq(pedidos.orcamentoId, orcamentoId))
+    .limit(1);
+
+  if (pedidoExistente) return pedidoExistente;
+
+  // Criar pedido
+  const [result] = await db.insert(pedidos).values({
+    orcamentoId,
+    numeroOrcamento: orcamento.numero,
+    status: "em_aprovacao",
+    clienteNome: orcamento.clienteNome,
+    clienteTelefone: orcamento.clienteTelefone,
+    valorTotal: orcamento.total,
+  });
+
+  // Registrar no histórico
+  await db.insert(pedidoHistorico).values({
+    pedidoId: result.insertId,
+    statusNovo: "em_aprovacao",
+    observacao: "Pedido criado a partir do orçamento " + orcamento.numero,
+  });
+
+  // Buscar pedido criado
+  const [pedido] = await db
+    .select()
+    .from(pedidos)
+    .where(eq(pedidos.id, result.insertId))
+    .limit(1);
+
+  return pedido;
+}
+
+// Listar pedidos
+export async function listarPedidos(filtros?: {
+  status?: string;
+  busca?: string;
+  limite?: number;
+  offset?: number;
+}): Promise<Pedido[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  let query = db.select().from(pedidos);
+
+  const conditions = [];
+  if (filtros?.status && filtros.status !== "todos") {
+    conditions.push(eq(pedidos.status, filtros.status as any));
+  }
+  if (filtros?.busca) {
+    conditions.push(
+      sql`(${pedidos.numeroOrcamento} LIKE ${`%${filtros.busca}%`} OR ${pedidos.clienteNome} LIKE ${`%${filtros.busca}%`})`
+    );
+  }
+
+  if (conditions.length > 0) {
+    query = query.where(and(...conditions)) as any;
+  }
+
+  return await query
+    .orderBy(desc(pedidos.updatedAt))
+    .limit(filtros?.limite || 50)
+    .offset(filtros?.offset || 0);
+}
+
+// Buscar pedido por ID
+export async function buscarPedidoPorId(id: number): Promise<Pedido | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  const [pedido] = await db
+    .select()
+    .from(pedidos)
+    .where(eq(pedidos.id, id))
+    .limit(1);
+
+  return pedido || null;
+}
+
+// Buscar pedido por número de orçamento
+export async function buscarPedidoPorOrcamento(numeroOrcamento: string): Promise<Pedido | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  const [pedido] = await db
+    .select()
+    .from(pedidos)
+    .where(eq(pedidos.numeroOrcamento, numeroOrcamento))
+    .limit(1);
+
+  return pedido || null;
+}
+
+// Atualizar status do pedido
+export async function atualizarStatusPedido(
+  id: number, 
+  novoStatus: string, 
+  alteradoPor?: string,
+  observacao?: string,
+  dadosExtras?: Partial<InsertPedido>
+): Promise<Pedido | null> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Buscar pedido atual
+  const [pedidoAtual] = await db
+    .select()
+    .from(pedidos)
+    .where(eq(pedidos.id, id))
+    .limit(1);
+
+  if (!pedidoAtual) return null;
+
+  // Preparar dados de atualização
+  const updateData: any = {
+    status: novoStatus,
+    ...dadosExtras,
+  };
+
+  // Atualizar data da etapa correspondente
+  const dataFields: Record<string, string> = {
+    aprovado: "dataAprovacao",
+    definicao_insumos: "dataDefinicaoInsumos",
+    aguardando_insumos: "dataAguardandoInsumos",
+    producao: "dataProducao",
+    entrega: "dataEntrega",
+    recebimento: "dataRecebimento",
+    concluido: "dataConclusao",
+  };
+
+  if (dataFields[novoStatus]) {
+    updateData[dataFields[novoStatus]] = new Date();
+  }
+
+  // Atualizar pedido
+  await db.update(pedidos).set(updateData).where(eq(pedidos.id, id));
+
+  // Registrar no histórico
+  await db.insert(pedidoHistorico).values({
+    pedidoId: id,
+    statusAnterior: pedidoAtual.status,
+    statusNovo: novoStatus,
+    alteradoPor,
+    observacao,
+  });
+
+  // Buscar pedido atualizado
+  const [pedidoAtualizado] = await db
+    .select()
+    .from(pedidos)
+    .where(eq(pedidos.id, id))
+    .limit(1);
+
+  return pedidoAtualizado;
+}
+
+// Buscar histórico do pedido
+export async function buscarHistoricoPedido(pedidoId: number): Promise<PedidoHistorico[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db
+    .select()
+    .from(pedidoHistorico)
+    .where(eq(pedidoHistorico.pedidoId, pedidoId))
+    .orderBy(desc(pedidoHistorico.createdAt));
+}
+
+// Atualizar insumos do pedido
+export async function atualizarInsumosPedido(id: number, insumos: string): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(pedidos).set({ insumos }).where(eq(pedidos.id, id));
+}
+
+// Atualizar comprovante de recebimento
+export async function atualizarComprovantePedido(id: number, comprovanteUrl: string): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(pedidos).set({ comprovanteRecebimento: comprovanteUrl }).where(eq(pedidos.id, id));
+}
+
+// Contar pedidos por status
+export async function contarPedidosPorStatus(): Promise<Record<string, number>> {
+  const db = await getDb();
+  if (!db) return {};
+
+  const result = await db
+    .select({
+      status: pedidos.status,
+      count: sql<number>`COUNT(*)`,
+    })
+    .from(pedidos)
+    .groupBy(pedidos.status);
+
+  const counts: Record<string, number> = {};
+  for (const row of result) {
+    counts[row.status] = row.count;
+  }
+  return counts;
+}
+
+// ==================== COLABORADORES ====================
+
+// Criar colaborador
+export async function criarColaborador(data: InsertColaborador): Promise<Colaborador> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const [result] = await db.insert(colaboradores).values(data);
+
+  const [colaborador] = await db
+    .select()
+    .from(colaboradores)
+    .where(eq(colaboradores.id, result.insertId))
+    .limit(1);
+
+  return colaborador;
+}
+
+// Buscar colaborador por email
+export async function buscarColaboradorPorEmail(email: string): Promise<Colaborador | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  const [colaborador] = await db
+    .select()
+    .from(colaboradores)
+    .where(eq(colaboradores.email, email))
+    .limit(1);
+
+  return colaborador || null;
+}
+
+// Listar colaboradores
+export async function listarColaboradores(): Promise<Colaborador[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db
+    .select()
+    .from(colaboradores)
+    .where(eq(colaboradores.ativo, true))
+    .orderBy(colaboradores.nome);
+}
+
+// Verificar senha do colaborador (simples, sem hash por enquanto)
+export async function verificarSenhaColaborador(senha: string): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+
+  // Senha padrão para acesso
+  const SENHA_PADRAO = "afk2025";
+  
+  if (senha === SENHA_PADRAO) return true;
+
+  // Verificar se existe algum colaborador com essa senha
+  const [colaborador] = await db
+    .select()
+    .from(colaboradores)
+    .where(and(
+      eq(colaboradores.senha, senha),
+      eq(colaboradores.ativo, true)
+    ))
+    .limit(1);
+
+  return !!colaborador;
 }

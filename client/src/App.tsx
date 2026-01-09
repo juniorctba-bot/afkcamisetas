@@ -20,8 +20,10 @@ import Carnaval2026 from "./pages/Carnaval2026";
 
 // Área Restrita
 import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 import GeradorOrcamentos from "./pages/GeradorOrcamentos";
 import AprovarOrcamento from "./pages/AprovarOrcamento";
+
 
 function Router() {
   return (
@@ -41,7 +43,9 @@ function Router() {
       
       {/* Área Restrita */}
       <Route path="/admin" component={AdminLogin} />
+      <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route path="/gerador-orcamentos" component={GeradorOrcamentos} />
+      
       
       {/* Aprovação de Orçamento (Público) */}
       <Route path="/aprovar/:token" component={AprovarOrcamento} />

@@ -75,3 +75,5 @@
 - [x] Criar área de Controle de Pedidos editável similar à planilha Excel (18 campos)
 - [x] Adicionar linha de resumo com totais na tabela de Controle de Pedidos
 - [x] Destacar em vermelho pedidos com data de entrega próxima ou vencida
+- [x] Atualizar página Volta às Aulas com produtos do catálogo PDF
+- [x] Criar seção/página de Etiquetas com opções do catálogo

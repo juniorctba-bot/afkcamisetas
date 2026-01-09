@@ -16,6 +16,7 @@ import Colecao from "./pages/Colecao";
 import OrcamentoPublico from "./pages/OrcamentoPublico";
 import Contato from "./pages/Contato";
 import VoltaAsAulas from "./pages/VoltaAsAulas";
+import Etiquetas from "./pages/Etiquetas";
 import Carnaval2026 from "./pages/Carnaval2026";
 
 // Área Restrita
@@ -43,6 +44,7 @@ function Router() {
       <Route path="/orcamento" component={OrcamentoPublico} />
       <Route path="/contato" component={Contato} />
       <Route path="/volta-as-aulas" component={VoltaAsAulas} />
+      <Route path="/etiquetas" component={Etiquetas} />
       
       {/* Área Restrita */}
       <Route path="/admin" component={AdminLogin} />

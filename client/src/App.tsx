@@ -47,8 +47,8 @@ function Router() {
       <Route path="/etiquetas" component={Etiquetas} />
       
       {/* Área Restrita */}
-      <Route path="/admin" component={AdminLogin} />
-      <Route path="/admin/home" component={AdminHome} />
+      <Route path="/admin" component={AdminHome} />
+      <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route path="/admin/calculadora" component={Calculadora} />
       <Route path="/admin/controle-pedidos" component={ControlePedidos} />

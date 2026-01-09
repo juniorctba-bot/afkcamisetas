@@ -1,0 +1,186 @@
+{
+  "query": "DESCRIBE controle_pedidos;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user JmMmfJyACb82Q1K.8a8ac259e28e --database UqHkwV2ZWWfwjvcLuCVVZz --execute DESCRIBE controle_pedidos;",
+  "rows": [
+    {
+      "Field": "id",
+      "Type": "int(11)",
+      "Null": "NO",
+      "Key": "PRI",
+      "Default": "NULL",
+      "Extra": "auto_increment"
+    },
+    {
+      "Field": "data",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "cliente",
+      "Type": "varchar(255)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "telefone",
+      "Type": "varchar(50)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "item",
+      "Type": "varchar(500)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "quantidade",
+      "Type": "varchar(255)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "tipoImpressao",
+      "Type": "varchar(100)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "propriaTerceirizada",
+      "Type": "enum('Própria','Terceirizada')",
+      "Null": "YES",
+      "Key": "",
+      "Default": "Própria",
+      "Extra": ""
+    },
+    {
+      "Field": "insumo1",
+      "Type": "varchar(255)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "insumo2",
+      "Type": "varchar(255)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "insumo3",
+      "Type": "varchar(255)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "materialTeste",
+      "Type": "varchar(255)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "previsaoEntrega",
+      "Type": "timestamp",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "valorNegociado",
+      "Type": "decimal(10,2)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "formaPagamento",
+      "Type": "varchar(100)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "sinal",
+      "Type": "decimal(10,2)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "0.00",
+      "Extra": ""
+    },
+    {
+      "Field": "valorFinal",
+      "Type": "decimal(10,2)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "dataPagamento",
+      "Type": "timestamp",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "observacoesFinais",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "statusControle",
+      "Type": "enum('pendente','em_producao','finalizado','entregue','cancelado')",
+      "Null": "YES",
+      "Key": "",
+      "Default": "pendente",
+      "Extra": ""
+    },
+    {
+      "Field": "createdAt",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "CURRENT_TIMESTAMP",
+      "Extra": ""
+    },
+    {
+      "Field": "updatedAt",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "CURRENT_TIMESTAMP",
+      "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nid\tint(11)\tNO\tPRI\tNULL\tauto_increment\ndata\ttimestamp\tNO\t\tNULL\t\ncliente\tvarchar(255)\tNO\t\tNULL\t\ntelefone\tvarchar(50)\tYES\t\tNULL\t\nitem\tvarchar(500)\tNO\t\tNULL\t\nquantidade\tvarchar(255)\tYES\t\tNULL\t\ntipoImpressao\tvarchar(100)\tYES\t\tNULL\t\npropriaTerceirizada\tenum('Própria','Terceirizada')\tYES\t\tPrópria\t\ninsumo1\tvarchar(255)\tYES\t\tNULL\t\ninsumo2\tvarchar(255)\tYES\t\tNULL\t\ninsumo3\tvarchar(255)\tYES\t\tNULL\t\nmaterialTeste\tvarchar(255)\tYES\t\tNULL\t\nprevisaoEntrega\ttimestamp\tYES\t\tNULL\t\nvalorNegociado\tdecimal(10,2)\tYES\t\tNULL\t\nformaPagamento\tvarchar(100)\tYES\t\tNULL\t\nsinal\tdecimal(10,2)\tYES\t\t0.00\t\nvalorFinal\tdecimal(10,2)\tYES\t\tNULL\t\ndataPagamento\ttimestamp\tYES\t\tNULL\t\nobservacoesFinais\ttext\tYES\t\tNULL\t\nstatusControle\tenum('pendente','em_producao','finalizado','entregue','cancelado')\tYES\t\tpendente\t\ncreatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t\nupdatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\tDEFAULT_GENERATED on update CURRENT_TIMESTAMP\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}

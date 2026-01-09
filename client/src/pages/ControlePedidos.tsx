@@ -571,7 +571,7 @@ export default function ControlePedidos() {
                           </div>
                         </TableCell>
                       </TableRow>
-                    );
+                      );
                     })
                   )}
                 </TableBody>

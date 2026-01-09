@@ -77,3 +77,5 @@
 - [x] Destacar em vermelho pedidos com data de entrega próxima ou vencida
 - [x] Atualizar página Volta às Aulas com produtos do catálogo PDF
 - [x] Criar seção/página de Etiquetas com opções do catálogo
+- [x] Importar pedidos da planilha Excel para o sistema de Controle de Pedidos
+- [x] Ajustar acesso à área restrita - tela inicial pública, senha apenas para funcionalidades internas

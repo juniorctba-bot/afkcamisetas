@@ -1,0 +1,76 @@
+{
+  "query": "SELECT column_name FROM information_schema.columns WHERE table_name = 'controle_pedidos';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user JmMmfJyACb82Q1K.8a8ac259e28e --database UqHkwV2ZWWfwjvcLuCVVZz --execute SELECT column_name FROM information_schema.columns WHERE table_name = 'controle_pedidos';",
+  "rows": [
+    {
+      "column_name": "id"
+    },
+    {
+      "column_name": "data"
+    },
+    {
+      "column_name": "cliente"
+    },
+    {
+      "column_name": "telefone"
+    },
+    {
+      "column_name": "item"
+    },
+    {
+      "column_name": "quantidade"
+    },
+    {
+      "column_name": "tipoImpressao"
+    },
+    {
+      "column_name": "propriaTerceirizada"
+    },
+    {
+      "column_name": "insumo1"
+    },
+    {
+      "column_name": "insumo2"
+    },
+    {
+      "column_name": "insumo3"
+    },
+    {
+      "column_name": "materialTeste"
+    },
+    {
+      "column_name": "previsaoEntrega"
+    },
+    {
+      "column_name": "valorNegociado"
+    },
+    {
+      "column_name": "formaPagamento"
+    },
+    {
+      "column_name": "sinal"
+    },
+    {
+      "column_name": "valorFinal"
+    },
+    {
+      "column_name": "dataPagamento"
+    },
+    {
+      "column_name": "observacoesFinais"
+    },
+    {
+      "column_name": "statusControle"
+    },
+    {
+      "column_name": "createdAt"
+    },
+    {
+      "column_name": "updatedAt"
+    }
+  ],
+  "messages": [],
+  "stdout": "column_name\nid\ndata\ncliente\ntelefone\nitem\nquantidade\ntipoImpressao\npropriaTerceirizada\ninsumo1\ninsumo2\ninsumo3\nmaterialTeste\nprevisaoEntrega\nvalorNegociado\nformaPagamento\nsinal\nvalorFinal\ndataPagamento\nobservacoesFinais\nstatusControle\ncreatedAt\nupdatedAt\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

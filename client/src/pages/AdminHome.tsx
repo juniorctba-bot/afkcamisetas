@@ -1,7 +1,17 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Calculator,
   FileText,
@@ -13,25 +23,54 @@ import {
   ClipboardList,
   Workflow,
   FileSpreadsheet,
+  Lock,
+  Unlock,
 } from "lucide-react";
 import { toast } from "sonner";
 
+const SENHA_CORRETA = "afk2025";
+
 export default function AdminHome() {
   const [, setLocation] = useLocation();
-
-  // Verificar autenticação
-  useEffect(() => {
-    const isAuth = localStorage.getItem("afk_admin_auth");
-    if (!isAuth) {
-      setLocation("/admin");
-    }
-  }, [setLocation]);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem("afk_admin_auth") === "true";
+  });
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [senha, setSenha] = useState("");
+  const [pendingHref, setPendingHref] = useState<string | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem("afk_admin_auth");
     localStorage.removeItem("afk_admin_auth_time");
+    setIsAuthenticated(false);
     toast.success("Logout realizado!");
-    setLocation("/admin");
+  };
+
+  const handleMenuClick = (href: string) => {
+    if (isAuthenticated) {
+      setLocation(href);
+    } else {
+      setPendingHref(href);
+      setShowPasswordDialog(true);
+    }
+  };
+
+  const handlePasswordSubmit = () => {
+    if (senha === SENHA_CORRETA) {
+      localStorage.setItem("afk_admin_auth", "true");
+      localStorage.setItem("afk_admin_auth_time", Date.now().toString());
+      setIsAuthenticated(true);
+      setShowPasswordDialog(false);
+      setSenha("");
+      toast.success("Acesso liberado!");
+      if (pendingHref) {
+        setLocation(pendingHref);
+        setPendingHref(null);
+      }
+    } else {
+      toast.error("Senha incorreta!");
+      setSenha("");
+    }
   };
 
   const menuItems = [
@@ -99,15 +138,30 @@ export default function AdminHome() {
                 <p className="text-xs text-gray-500">Painel de Controle</p>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleLogout}
-              className="text-gray-600 hover:text-red-600"
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Sair
-            </Button>
+            <div className="flex items-center gap-2">
+              {isAuthenticated ? (
+                <>
+                  <span className="text-xs text-green-600 flex items-center gap-1">
+                    <Unlock className="w-3 h-3" />
+                    Acesso Liberado
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleLogout}
+                    className="text-gray-600 hover:text-red-600"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sair
+                  </Button>
+                </>
+              ) : (
+                <span className="text-xs text-gray-500 flex items-center gap-1">
+                  <Lock className="w-3 h-3" />
+                  Clique em uma opção para desbloquear
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -117,10 +171,12 @@ export default function AdminHome() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            Bem-vindo à Área Restrita
+            Área Administrativa AFK
           </h2>
           <p className="text-gray-600">
-            Selecione uma das opções abaixo para começar
+            {isAuthenticated 
+              ? "Selecione uma das opções abaixo para começar"
+              : "Digite a senha ao clicar em uma opção para acessar as funcionalidades"}
           </p>
         </div>
 
@@ -130,7 +186,7 @@ export default function AdminHome() {
             <Card
               key={item.title}
               className="group cursor-pointer hover:shadow-lg transition-all duration-300 border-0 overflow-hidden"
-              onClick={() => setLocation(item.href)}
+              onClick={() => handleMenuClick(item.href)}
             >
               <div className={`h-2 bg-gradient-to-r ${item.color}`} />
               <CardHeader className="pb-2">
@@ -138,7 +194,12 @@ export default function AdminHome() {
                   <div className={`p-3 rounded-lg ${item.bgColor}`}>
                     <item.icon className={`w-6 h-6 ${item.iconColor}`} />
                   </div>
-                  <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-gray-500 group-hover:translate-x-1 transition-all" />
+                  <div className="flex items-center gap-2">
+                    {!isAuthenticated && (
+                      <Lock className="w-4 h-4 text-gray-400" />
+                    )}
+                    <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-gray-500 group-hover:translate-x-1 transition-all" />
+                  </div>
                 </div>
                 <CardTitle className="text-lg mt-3">{item.title}</CardTitle>
                 <CardDescription className="text-sm">
@@ -150,7 +211,7 @@ export default function AdminHome() {
                   variant="ghost"
                   className={`w-full justify-center bg-gradient-to-r ${item.color} text-white hover:opacity-90`}
                 >
-                  Acessar
+                  {isAuthenticated ? "Acessar" : "Desbloquear e Acessar"}
                 </Button>
               </CardContent>
             </Card>
@@ -202,6 +263,51 @@ export default function AdminHome() {
       <footer className="mt-auto py-4 text-center text-sm text-gray-400">
         AFK Camisetas e Muito Mais © {new Date().getFullYear()}
       </footer>
+
+      {/* Password Dialog */}
+      <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Lock className="w-5 h-5 text-pink-500" />
+              Acesso Restrito
+            </DialogTitle>
+            <DialogDescription>
+              Digite a senha para acessar as funcionalidades administrativas
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="senha">Senha</Label>
+              <Input
+                id="senha"
+                type="password"
+                placeholder="Digite a senha..."
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handlePasswordSubmit();
+                  }
+                }}
+                autoFocus
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowPasswordDialog(false)}>
+              Cancelar
+            </Button>
+            <Button 
+              onClick={handlePasswordSubmit}
+              className="bg-gradient-to-r from-pink-500 to-purple-500 text-white"
+            >
+              <Unlock className="w-4 h-4 mr-2" />
+              Desbloquear
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

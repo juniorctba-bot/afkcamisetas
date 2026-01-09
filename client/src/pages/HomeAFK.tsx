@@ -83,29 +83,42 @@ export default function HomeAFK() {
         </div>
 
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-400 py-20 md:py-32">
+        <section className="relative bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-400 py-16 md:py-24">
           <div className="container">
-            <div className="max-w-2xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Personalize Seus Produtos com a AFK
-              </h1>
-              <p className="text-xl text-white/90 mb-8">
-                Camisetas, bonés, canecas e muito mais. A partir de 3 unidades. Atendemos eventos, empresas e pessoas físicas.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link 
-                  href="/orcamento"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-pink-600 font-semibold rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  Faça seu Orçamento
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-                <Link 
-                  href="/produtos"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors backdrop-blur-sm"
-                >
-                  Ver Produtos
-                </Link>
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              {/* Left - Image */}
+              <div className="order-2 lg:order-1 flex justify-center">
+                <img 
+                  src="/images/afk_eventos.png" 
+                  alt="AFK Camisetas - Eventos Especiais - Personalize cada momento" 
+                  className="max-w-full h-auto rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                  style={{ maxHeight: "500px" }}
+                />
+              </div>
+              
+              {/* Right - Text Content */}
+              <div className="order-1 lg:order-2">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                  Personalize Seus Produtos com a AFK
+                </h1>
+                <p className="text-xl text-white/90 mb-8">
+                  Camisetas, bonés, canecas e muito mais. A partir de 3 unidades. Atendemos eventos, empresas e pessoas físicas.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Link 
+                    href="/orcamento"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-pink-600 font-semibold rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    Faça seu Orçamento
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                  <Link 
+                    href="/produtos"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors backdrop-blur-sm"
+                  >
+                    Ver Produtos
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

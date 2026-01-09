@@ -56,3 +56,4 @@
 - [x] Adicionar imagem do card de etiquetas na página Volta às Aulas
 - [x] Atualizar valor mínimo de etiqueta para R$ 8,50
 - [ ] Configurar Google Analytics (aguardando ID do usuário)
+- [x] Adicionar imagem de eventos especiais ao lado esquerdo do Hero na página inicial

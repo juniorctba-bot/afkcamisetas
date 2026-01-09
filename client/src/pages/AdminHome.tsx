@@ -12,6 +12,7 @@ import {
   DollarSign,
   ClipboardList,
   Workflow,
+  FileSpreadsheet,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -69,6 +70,15 @@ export default function AdminHome() {
       color: "from-orange-500 to-amber-500",
       bgColor: "bg-orange-50",
       iconColor: "text-orange-600",
+    },
+    {
+      title: "Controle de Pedidos",
+      description: "Planilha editável para controle completo de pedidos, insumos e pagamentos",
+      icon: FileSpreadsheet,
+      href: "/admin/controle-pedidos",
+      color: "from-teal-500 to-green-500",
+      bgColor: "bg-teal-50",
+      iconColor: "text-teal-600",
     },
   ];
 

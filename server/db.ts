@@ -11,6 +11,7 @@ import {
   pedidos,
   pedidoHistorico,
   colaboradores,
+  controlePedidos,
   InsertOrcamento,
   InsertOrcamentoItem,
   InsertOrcamentoRascunho,
@@ -18,13 +19,15 @@ import {
   InsertPedido,
   InsertPedidoHistorico,
   InsertColaborador,
+  InsertControlePedido,
   Orcamento,
   OrcamentoItem,
   OrcamentoRascunho,
   TabelaFrete,
   Pedido,
   PedidoHistorico,
-  Colaborador
+  Colaborador,
+  ControlePedido
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -847,4 +850,70 @@ export async function verificarSenhaColaborador(senha: string): Promise<boolean>
     .limit(1);
 
   return !!colaborador;
+}
+
+
+// ==================== CONTROLE DE PEDIDOS (PLANILHA) ====================
+
+export async function listarControlePedidos(filtros?: { 
+  status?: string; 
+  busca?: string;
+  dataInicio?: Date;
+  dataFim?: Date;
+}): Promise<ControlePedido[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const conditions = [];
+  
+  if (filtros?.status && filtros.status !== "todos") {
+    conditions.push(eq(controlePedidos.status, filtros.status as any));
+  }
+  
+  if (filtros?.busca) {
+    conditions.push(like(controlePedidos.cliente, `%${filtros.busca}%`));
+  }
+  
+  if (conditions.length > 0) {
+    return db.select().from(controlePedidos).where(and(...conditions)).orderBy(desc(controlePedidos.data));
+  }
+  
+  return db.select().from(controlePedidos).orderBy(desc(controlePedidos.data));
+}
+
+export async function criarControlePedido(dados: InsertControlePedido): Promise<ControlePedido> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(controlePedidos).values(dados);
+  const insertId = result[0].insertId;
+  
+  const [novoPedido] = await db.select().from(controlePedidos).where(eq(controlePedidos.id, insertId));
+  return novoPedido;
+}
+
+export async function atualizarControlePedido(id: number, dados: Partial<InsertControlePedido>): Promise<ControlePedido | null> {
+  const db = await getDb();
+  if (!db) return null;
+  
+  await db.update(controlePedidos).set(dados).where(eq(controlePedidos.id, id));
+  
+  const [pedidoAtualizado] = await db.select().from(controlePedidos).where(eq(controlePedidos.id, id));
+  return pedidoAtualizado || null;
+}
+
+export async function excluirControlePedido(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  
+  await db.delete(controlePedidos).where(eq(controlePedidos.id, id));
+  return true;
+}
+
+export async function buscarControlePedidoPorId(id: number): Promise<ControlePedido | null> {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const [pedido] = await db.select().from(controlePedidos).where(eq(controlePedidos.id, id));
+  return pedido || null;
 }

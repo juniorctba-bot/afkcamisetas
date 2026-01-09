@@ -257,3 +257,58 @@ export const colaboradores = mysqlTable("colaboradores", {
 
 export type Colaborador = typeof colaboradores.$inferSelect;
 export type InsertColaborador = typeof colaboradores.$inferInsert;
+
+
+/**
+ * Controle de Pedidos - Planilha editável similar ao Excel
+ * Campos baseados na planilha ControledePedidos.xlsx
+ */
+export const controlePedidos = mysqlTable("controle_pedidos", {
+  id: int("id").autoincrement().primaryKey(),
+  
+  // Data do pedido
+  data: timestamp("data").notNull(),
+  
+  // Dados do cliente
+  cliente: varchar("cliente", { length: 255 }).notNull(),
+  telefone: varchar("telefone", { length: 50 }),
+  
+  // Dados do item
+  item: varchar("item", { length: 500 }).notNull(),
+  quantidade: varchar("quantidade", { length: 255 }), // Texto livre para permitir detalhes como "60 (10 P- 24 M - 20 G)"
+  
+  // Tipo de impressão
+  tipoImpressao: varchar("tipoImpressao", { length: 100 }),
+  propriaTerceirizada: mysqlEnum("propriaTerceirizada", ["Própria", "Terceirizada"]).default("Própria"),
+  
+  // Insumos
+  insumo1: varchar("insumo1", { length: 255 }),
+  insumo2: varchar("insumo2", { length: 255 }),
+  insumo3: varchar("insumo3", { length: 255 }),
+  
+  // Material para teste
+  materialTeste: varchar("materialTeste", { length: 255 }),
+  
+  // Previsão de entrega
+  previsaoEntrega: timestamp("previsaoEntrega"),
+  
+  // Valores
+  valorNegociado: decimal("valorNegociado", { precision: 10, scale: 2 }),
+  formaPagamento: varchar("formaPagamento", { length: 100 }),
+  sinal: decimal("sinal", { precision: 10, scale: 2 }).default("0.00"),
+  valorFinal: decimal("valorFinal", { precision: 10, scale: 2 }),
+  dataPagamento: timestamp("dataPagamento"),
+  
+  // Observações
+  observacoesFinais: text("observacoesFinais"),
+  
+  // Status do pedido (para controle interno)
+  status: mysqlEnum("statusControle", ["pendente", "em_producao", "finalizado", "entregue", "cancelado"]).default("pendente"),
+  
+  // Metadados
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ControlePedido = typeof controlePedidos.$inferSelect;
+export type InsertControlePedido = typeof controlePedidos.$inferInsert;

@@ -348,6 +348,99 @@ export const appRouter = router({
         return { valido };
       }),
   }),
+
+  // Controle de Pedidos (Planilha editável)
+  controlePedidos: router({
+    // Listar todos os pedidos
+    listar: protectedProcedure
+      .input(z.object({
+        status: z.string().optional(),
+        busca: z.string().optional(),
+      }).optional())
+      .query(async ({ input }) => {
+        return await db.listarControlePedidos(input);
+      }),
+
+    // Criar novo pedido
+    criar: protectedProcedure
+      .input(z.object({
+        data: z.string(),
+        cliente: z.string().min(1),
+        telefone: z.string().optional(),
+        item: z.string().min(1),
+        quantidade: z.string().optional(),
+        tipoImpressao: z.string().optional(),
+        propriaTerceirizada: z.enum(["Própria", "Terceirizada"]).optional(),
+        insumo1: z.string().optional(),
+        insumo2: z.string().optional(),
+        insumo3: z.string().optional(),
+        materialTeste: z.string().optional(),
+        previsaoEntrega: z.string().optional(),
+        valorNegociado: z.string().optional(),
+        formaPagamento: z.string().optional(),
+        sinal: z.string().optional(),
+        valorFinal: z.string().optional(),
+        dataPagamento: z.string().optional(),
+        observacoesFinais: z.string().optional(),
+        status: z.enum(["pendente", "em_producao", "finalizado", "entregue", "cancelado"]).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const dados = {
+          ...input,
+          data: new Date(input.data),
+          previsaoEntrega: input.previsaoEntrega ? new Date(input.previsaoEntrega) : undefined,
+          dataPagamento: input.dataPagamento ? new Date(input.dataPagamento) : undefined,
+        };
+        return await db.criarControlePedido(dados as any);
+      }),
+
+    // Atualizar pedido
+    atualizar: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        data: z.string().optional(),
+        cliente: z.string().optional(),
+        telefone: z.string().optional(),
+        item: z.string().optional(),
+        quantidade: z.string().optional(),
+        tipoImpressao: z.string().optional(),
+        propriaTerceirizada: z.enum(["Própria", "Terceirizada"]).optional(),
+        insumo1: z.string().optional(),
+        insumo2: z.string().optional(),
+        insumo3: z.string().optional(),
+        materialTeste: z.string().optional(),
+        previsaoEntrega: z.string().optional(),
+        valorNegociado: z.string().optional(),
+        formaPagamento: z.string().optional(),
+        sinal: z.string().optional(),
+        valorFinal: z.string().optional(),
+        dataPagamento: z.string().optional(),
+        observacoesFinais: z.string().optional(),
+        status: z.enum(["pendente", "em_producao", "finalizado", "entregue", "cancelado"]).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const { id, ...dados } = input;
+        const dadosProcessados: any = { ...dados };
+        if (dados.data) dadosProcessados.data = new Date(dados.data);
+        if (dados.previsaoEntrega) dadosProcessados.previsaoEntrega = new Date(dados.previsaoEntrega);
+        if (dados.dataPagamento) dadosProcessados.dataPagamento = new Date(dados.dataPagamento);
+        return await db.atualizarControlePedido(id, dadosProcessados);
+      }),
+
+    // Excluir pedido
+    excluir: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        return await db.excluirControlePedido(input.id);
+      }),
+
+    // Buscar por ID
+    buscarPorId: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input }) => {
+        return await db.buscarControlePedidoPorId(input.id);
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

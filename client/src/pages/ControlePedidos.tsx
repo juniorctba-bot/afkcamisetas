@@ -473,28 +473,38 @@ export default function ControlePedidos() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-gray-50">
-                    <TableHead className="w-[100px]">Data</TableHead>
+                    <TableHead className="w-[90px]">Data</TableHead>
                     <TableHead>Cliente</TableHead>
+                    <TableHead>Telefone</TableHead>
                     <TableHead>Item</TableHead>
                     <TableHead>Qtd</TableHead>
                     <TableHead>Tipo</TableHead>
+                    <TableHead>Próp/Terc</TableHead>
+                    <TableHead>Insumo 1</TableHead>
+                    <TableHead>Insumo 2</TableHead>
+                    <TableHead>Insumo 3</TableHead>
+                    <TableHead>Mat. Teste</TableHead>
                     <TableHead>Previsão</TableHead>
-                    <TableHead className="text-right">Valor</TableHead>
+                    <TableHead className="text-right">Valor Neg.</TableHead>
                     <TableHead>Pagamento</TableHead>
+                    <TableHead className="text-right">Sinal</TableHead>
+                    <TableHead className="text-right">Valor Final</TableHead>
+                    <TableHead>Data Pgto</TableHead>
+                    <TableHead>Observações</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead className="w-[100px]">Ações</TableHead>
+                    <TableHead className="w-[80px]">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
-                      <TableCell colSpan={10} className="text-center py-8">
+                      <TableCell colSpan={20} className="text-center py-8">
                         Carregando...
                       </TableCell>
                     </TableRow>
                   ) : !pedidos || pedidos.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={10} className="text-center py-8 text-gray-500">
+                      <TableCell colSpan={20} className="text-center py-8 text-gray-500">
                         Nenhum pedido encontrado
                       </TableCell>
                     </TableRow>
@@ -509,20 +519,19 @@ export default function ControlePedidos() {
                       
                       return (
                       <TableRow key={pedido.id} className={rowClass}>
-                        <TableCell className="font-medium">{formatarData(pedido.data)}</TableCell>
-                        <TableCell>
-                          <div>
-                            <div className="font-medium">{pedido.cliente}</div>
-                            {pedido.telefone && (
-                              <div className="text-xs text-gray-500">{pedido.telefone}</div>
-                            )}
-                          </div>
-                        </TableCell>
-                        <TableCell className="max-w-[200px] truncate" title={pedido.item}>
+                        <TableCell className="font-medium whitespace-nowrap">{formatarData(pedido.data)}</TableCell>
+                        <TableCell className="font-medium">{pedido.cliente}</TableCell>
+                        <TableCell className="text-sm text-gray-600">{pedido.telefone || "-"}</TableCell>
+                        <TableCell className="max-w-[150px] truncate" title={pedido.item}>
                           {pedido.item}
                         </TableCell>
-                        <TableCell>{pedido.quantidade || "-"}</TableCell>
-                        <TableCell>{pedido.tipoImpressao || "-"}</TableCell>
+                        <TableCell className="text-sm">{pedido.quantidade || "-"}</TableCell>
+                        <TableCell className="text-sm">{pedido.tipoImpressao || "-"}</TableCell>
+                        <TableCell className="text-sm">{pedido.propriaTerceirizada || "-"}</TableCell>
+                        <TableCell className="text-sm">{pedido.insumo1 || "-"}</TableCell>
+                        <TableCell className="text-sm">{pedido.insumo2 || "-"}</TableCell>
+                        <TableCell className="text-sm">{pedido.insumo3 || "-"}</TableCell>
+                        <TableCell className="text-sm">{pedido.materialTeste || "-"}</TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1">
                             <span className={statusEntrega.vencido ? "text-red-600 font-bold" : statusEntrega.proximo ? "text-orange-600 font-semibold" : ""}>
@@ -539,11 +548,21 @@ export default function ControlePedidos() {
                         <TableCell className="text-right font-medium">
                           {formatarMoeda(pedido.valorNegociado)}
                         </TableCell>
-                        <TableCell>{pedido.formaPagamento || "-"}</TableCell>
+                        <TableCell className="text-sm">{pedido.formaPagamento || "-"}</TableCell>
+                        <TableCell className="text-right text-sm">
+                          {formatarMoeda(pedido.sinal)}
+                        </TableCell>
+                        <TableCell className="text-right font-medium">
+                          {formatarMoeda(pedido.valorFinal)}
+                        </TableCell>
+                        <TableCell className="text-sm whitespace-nowrap">{formatarData(pedido.dataPagamento)}</TableCell>
+                        <TableCell className="max-w-[120px] truncate text-sm" title={pedido.observacoesFinais || ""}>
+                          {pedido.observacoesFinais || "-"}
+                        </TableCell>
                         <TableCell>
                           {pedido.status && (
                             <span
-                              className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
                                 statusConfig[pedido.status]?.color || "bg-gray-100"
                               }`}
                             >
@@ -556,6 +575,7 @@ export default function ControlePedidos() {
                             <Button
                               variant="ghost"
                               size="icon"
+                              className="h-8 w-8"
                               onClick={() => handleEditar(pedido)}
                             >
                               <Pencil className="w-4 h-4" />
@@ -563,7 +583,7 @@ export default function ControlePedidos() {
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="text-red-500 hover:text-red-700"
+                              className="h-8 w-8 text-red-500 hover:text-red-700"
                               onClick={() => handleExcluir(pedido.id)}
                             >
                               <Trash2 className="w-4 h-4" />
@@ -579,13 +599,13 @@ export default function ControlePedidos() {
                 {pedidos && pedidos.length > 0 && (
                   <TableFooter>
                     <TableRow className="bg-gradient-to-r from-green-50 to-emerald-50 border-t-2 border-green-200">
-                      <TableCell colSpan={3} className="font-bold text-green-800">
+                      <TableCell colSpan={4} className="font-bold text-green-800">
                         <div className="flex items-center gap-2">
                           <span className="text-lg">TOTAIS</span>
                           <span className="text-sm font-normal text-gray-600">({totais.qtdPedidos} pedidos ativos)</span>
                         </div>
                       </TableCell>
-                      <TableCell colSpan={3}></TableCell>
+                      <TableCell colSpan={8}></TableCell>
                       <TableCell className="text-right">
                         <div className="space-y-1">
                           <div className="text-xs text-gray-500">Negociado</div>
@@ -594,7 +614,8 @@ export default function ControlePedidos() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell></TableCell>
+                      <TableCell className="text-right">
                         <div className="space-y-1">
                           <div className="text-xs text-gray-500">Sinal Recebido</div>
                           <div className="font-bold text-blue-700">
@@ -602,6 +623,15 @@ export default function ControlePedidos() {
                           </div>
                         </div>
                       </TableCell>
+                      <TableCell className="text-right">
+                        <div className="space-y-1">
+                          <div className="text-xs text-gray-500">Valor Final</div>
+                          <div className="font-bold text-purple-700">
+                            {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(totais.totalNegociado)}
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell colSpan={2}></TableCell>
                       <TableCell>
                         <div className="space-y-1">
                           <div className="text-xs text-gray-500">Pendente</div>

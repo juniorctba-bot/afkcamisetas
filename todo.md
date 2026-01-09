@@ -79,3 +79,4 @@
 - [x] Criar seção/página de Etiquetas com opções do catálogo
 - [x] Importar pedidos da planilha Excel para o sistema de Controle de Pedidos
 - [x] Ajustar acesso à área restrita - tela inicial pública, senha apenas para funcionalidades internas
+- [x] Exibir todos os 18 campos de cada pedido na tabela de Controle de Pedidos

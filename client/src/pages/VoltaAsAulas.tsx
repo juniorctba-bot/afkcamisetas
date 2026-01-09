@@ -19,49 +19,49 @@ const WHATSAPP_NUMBER = "5541987386527";
 const produtos = [
   {
     nome: "Mochilas Personalizadas",
-    preco: "A partir de R$ 89,00",
+    preco: "A partir de R$ 16,90",
     icon: Backpack,
     descricao: "Mochilas resistentes com estampa personalizada",
     cor: "from-purple-500 to-purple-600"
   },
   {
     nome: "Lancheiras Personalizadas",
-    preco: "A partir de R$ 59,00",
+    preco: "A partir de R$ 5,90",
     icon: UtensilsCrossed,
     descricao: "Lancheiras térmicas com o tema favorito",
     cor: "from-pink-500 to-pink-600"
   },
   {
     nome: "Garrafas/Squeezes",
-    preco: "A partir de R$ 35,00",
+    preco: "A partir de R$ 7,90",
     icon: Droplets,
     descricao: "Garrafas personalizadas para hidratação",
     cor: "from-cyan-500 to-cyan-600"
   },
   {
     nome: "Estojos Personalizados",
-    preco: "A partir de R$ 29,00",
+    preco: "A partir de R$ 9,90",
     icon: PenTool,
     descricao: "Estojos com design exclusivo",
     cor: "from-orange-500 to-orange-600"
   },
   {
     nome: "Cadernos Personalizados",
-    preco: "A partir de R$ 45,00",
+    preco: "A partir de R$ 15,90",
     icon: BookOpen,
     descricao: "Cadernos com capa personalizada",
     cor: "from-green-500 to-green-600"
   },
   {
     nome: "Toalhas Personalizadas",
-    preco: "A partir de R$ 39,00",
+    preco: "A partir de R$ 7,90",
     icon: Bath,
     descricao: "Toalhas macias com nome bordado",
     cor: "from-blue-500 to-blue-600"
   },
   {
     nome: "Aventais Personalizados",
-    preco: "A partir de R$ 35,00",
+    preco: "A partir de R$ 15,00",
     icon: ChefHat,
     descricao: "Aventais para aulas de culinária e arte",
     cor: "from-red-500 to-red-600"

@@ -92,15 +92,15 @@ export default function HomeAFK() {
           
           <Link 
             href="/colecoes/carnaval-2026"
-            className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 p-4 flex items-center justify-between hover:opacity-90 transition-opacity"
+            className="flex-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 p-4 flex items-center justify-between hover:opacity-90 transition-opacity"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-xl">🎭</span>
+              <div className="w-10 h-10 bg-white/30 rounded-full flex items-center justify-center">
+                <span className="text-xl">🎉</span>
               </div>
               <div>
-                <p className="font-bold text-white">Carnaval 2026</p>
-                <p className="text-white/80 text-sm">Camisetas para blocos, escolas e grupos</p>
+                <p className="font-bold text-white drop-shadow-md">Unidos da AFK - Carnaval 2026</p>
+                <p className="text-white/90 text-sm drop-shadow">Abadás, acessórios e muito mais para sua folia!</p>
               </div>
             </div>
             <ArrowRight className="w-5 h-5 text-white" />

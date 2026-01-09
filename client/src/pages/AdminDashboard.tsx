@@ -47,9 +47,28 @@ import {
   History,
   Eye,
   Download,
+  BarChart3,
+  TrendingUp,
+  DollarSign,
+  Calendar,
 } from "lucide-react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+} from "recharts";
 
 // Status labels e cores
 const statusConfig: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
@@ -106,6 +125,257 @@ interface HistoricoItem {
   alteradoPor: string | null;
   observacao: string | null;
   createdAt: string | Date;
+}
+
+// Cores para gráficos
+const COLORS = ['#ec4899', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#6366f1', '#14b8a6'];
+
+// Componente de Métricas
+function MetricasDashboard({ pedidos }: { pedidos: Pedido[] }) {
+  // Calcular métricas
+  const calcularMetricas = () => {
+    const agora = new Date();
+    const mesAtual = agora.getMonth();
+    const anoAtual = agora.getFullYear();
+
+    // Pedidos por mês (6 últimos meses)
+    const pedidosPorMes: { mes: string; pedidos: number; faturamento: number }[] = [];
+    for (let i = 5; i >= 0; i--) {
+      const data = new Date(anoAtual, mesAtual - i, 1);
+      const mesNome = data.toLocaleString('pt-BR', { month: 'short' }).replace('.', '');
+      const ano = data.getFullYear();
+      const mesNum = data.getMonth();
+      
+      const pedidosDoMes = pedidos.filter(p => {
+        const dataPedido = new Date(p.createdAt);
+        return dataPedido.getMonth() === mesNum && dataPedido.getFullYear() === ano;
+      });
+      
+      const faturamento = pedidosDoMes
+        .filter(p => p.status === 'concluido')
+        .reduce((acc, p) => acc + parseFloat(p.valorTotal || '0'), 0);
+      
+      pedidosPorMes.push({
+        mes: `${mesNome}/${ano.toString().slice(2)}`,
+        pedidos: pedidosDoMes.length,
+        faturamento
+      });
+    }
+
+    // Distribuição por status
+    const distribuicaoStatus = Object.entries(statusConfig).map(([status, config]) => ({
+      name: config.label,
+      value: pedidos.filter(p => p.status === status).length,
+      status
+    })).filter(item => item.value > 0);
+
+    // Métricas gerais
+    const totalPedidos = pedidos.length;
+    const pedidosConcluidos = pedidos.filter(p => p.status === 'concluido').length;
+    const pedidosEmAndamento = pedidos.filter(p => !['concluido', 'cancelado'].includes(p.status)).length;
+    const pedidosCancelados = pedidos.filter(p => p.status === 'cancelado').length;
+    
+    const faturamentoTotal = pedidos
+      .filter(p => p.status === 'concluido')
+      .reduce((acc, p) => acc + parseFloat(p.valorTotal || '0'), 0);
+    
+    const ticketMedio = pedidosConcluidos > 0 ? faturamentoTotal / pedidosConcluidos : 0;
+
+    // Pedidos do mês atual
+    const pedidosMesAtual = pedidos.filter(p => {
+      const dataPedido = new Date(p.createdAt);
+      return dataPedido.getMonth() === mesAtual && dataPedido.getFullYear() === anoAtual;
+    }).length;
+
+    const faturamentoMesAtual = pedidos
+      .filter(p => {
+        const dataPedido = new Date(p.createdAt);
+        return dataPedido.getMonth() === mesAtual && 
+               dataPedido.getFullYear() === anoAtual && 
+               p.status === 'concluido';
+      })
+      .reduce((acc, p) => acc + parseFloat(p.valorTotal || '0'), 0);
+
+    return {
+      pedidosPorMes,
+      distribuicaoStatus,
+      totalPedidos,
+      pedidosConcluidos,
+      pedidosEmAndamento,
+      pedidosCancelados,
+      faturamentoTotal,
+      ticketMedio,
+      pedidosMesAtual,
+      faturamentoMesAtual
+    };
+  };
+
+  const metricas = calcularMetricas();
+
+  const formatarMoeda = (valor: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(valor);
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Cards de Resumo */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <div className="flex items-center gap-2 text-gray-500 mb-1">
+            <Package className="w-4 h-4" />
+            <span className="text-sm">Total de Pedidos</span>
+          </div>
+          <p className="text-2xl font-bold text-gray-900">{metricas.totalPedidos}</p>
+          <p className="text-xs text-gray-400">{metricas.pedidosMesAtual} este mês</p>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <div className="flex items-center gap-2 text-gray-500 mb-1">
+            <DollarSign className="w-4 h-4" />
+            <span className="text-sm">Faturamento Total</span>
+          </div>
+          <p className="text-2xl font-bold text-green-600">{formatarMoeda(metricas.faturamentoTotal)}</p>
+          <p className="text-xs text-gray-400">{formatarMoeda(metricas.faturamentoMesAtual)} este mês</p>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <div className="flex items-center gap-2 text-gray-500 mb-1">
+            <TrendingUp className="w-4 h-4" />
+            <span className="text-sm">Ticket Médio</span>
+          </div>
+          <p className="text-2xl font-bold text-purple-600">{formatarMoeda(metricas.ticketMedio)}</p>
+          <p className="text-xs text-gray-400">por pedido concluído</p>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <div className="flex items-center gap-2 text-gray-500 mb-1">
+            <CheckCircle2 className="w-4 h-4" />
+            <span className="text-sm">Taxa de Conclusão</span>
+          </div>
+          <p className="text-2xl font-bold text-cyan-600">
+            {metricas.totalPedidos > 0 
+              ? Math.round((metricas.pedidosConcluidos / metricas.totalPedidos) * 100) 
+              : 0}%
+          </p>
+          <p className="text-xs text-gray-400">{metricas.pedidosConcluidos} concluídos</p>
+        </div>
+      </div>
+
+      {/* Gráficos */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Gráfico de Pedidos por Mês */}
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <h3 className="font-semibold mb-4 flex items-center gap-2">
+            <Calendar className="w-4 h-4" />
+            Pedidos por Mês
+          </h3>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={metricas.pedidosPorMes}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="mes" fontSize={12} />
+                <YAxis fontSize={12} />
+                <Tooltip />
+                <Bar dataKey="pedidos" fill="#ec4899" radius={[4, 4, 0, 0]} name="Pedidos" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Gráfico de Faturamento por Mês */}
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <h3 className="font-semibold mb-4 flex items-center gap-2">
+            <DollarSign className="w-4 h-4" />
+            Faturamento por Mês
+          </h3>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={metricas.pedidosPorMes}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="mes" fontSize={12} />
+                <YAxis fontSize={12} tickFormatter={(value) => `R$${value}`} />
+                <Tooltip formatter={(value: number) => formatarMoeda(value)} />
+                <Line 
+                  type="monotone" 
+                  dataKey="faturamento" 
+                  stroke="#10b981" 
+                  strokeWidth={2}
+                  dot={{ fill: '#10b981' }}
+                  name="Faturamento"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Distribuição por Status */}
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <h3 className="font-semibold mb-4 flex items-center gap-2">
+            <BarChart3 className="w-4 h-4" />
+            Distribuição por Status
+          </h3>
+          <div className="h-64">
+            {metricas.distribuicaoStatus.length > 0 ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={metricas.distribuicaoStatus}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={40}
+                    outerRadius={80}
+                    paddingAngle={2}
+                    dataKey="value"
+                    label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                    labelLine={false}
+                  >
+                    {metricas.distribuicaoStatus.map((_, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-400">
+                Nenhum pedido para exibir
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Resumo de Status */}
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <h3 className="font-semibold mb-4 flex items-center gap-2">
+            <Package className="w-4 h-4" />
+            Resumo de Status
+          </h3>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center p-2 bg-green-50 rounded">
+              <span className="text-green-700">Concluídos</span>
+              <span className="font-bold text-green-700">{metricas.pedidosConcluidos}</span>
+            </div>
+            <div className="flex justify-between items-center p-2 bg-blue-50 rounded">
+              <span className="text-blue-700">Em Andamento</span>
+              <span className="font-bold text-blue-700">{metricas.pedidosEmAndamento}</span>
+            </div>
+            <div className="flex justify-between items-center p-2 bg-red-50 rounded">
+              <span className="text-red-700">Cancelados</span>
+              <span className="font-bold text-red-700">{metricas.pedidosCancelados}</span>
+            </div>
+            <Separator />
+            <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+              <span className="text-gray-700 font-medium">Total</span>
+              <span className="font-bold text-gray-900">{metricas.totalPedidos}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function AdminDashboard() {
@@ -337,7 +607,10 @@ export default function AdminDashboard() {
               <FileText className="w-4 h-4" />
               Orçamentos
             </TabsTrigger>
-            
+            <TabsTrigger value="metricas" className="flex items-center gap-2">
+              <BarChart3 className="w-4 h-4" />
+              Métricas
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="pedidos">
@@ -476,6 +749,11 @@ export default function AdminDashboard() {
                 </div>
               )}
             </div>
+          </TabsContent>
+
+          {/* Aba de Métricas */}
+          <TabsContent value="metricas">
+            <MetricasDashboard pedidos={pedidos || []} />
           </TabsContent>
         </Tabs>
       </main>

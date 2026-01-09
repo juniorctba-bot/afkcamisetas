@@ -69,3 +69,4 @@
 - [x] Permitir anexar comprovante na etapa de Recebimento
 - [x] Integrar gerador de orçamentos com criação automática de pedido
 - [x] Adicionar recurso de exportação de relatórios de pedidos em formato CSV
+- [x] Criar dashboard com gráficos de métricas (pedidos por mês, faturamento, distribuição por status)

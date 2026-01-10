@@ -83,3 +83,4 @@
 - [x] Atualizar preços dos produtos na página Volta às Aulas conforme catálogo
 - [x] Adicionar link Mercado Pago e dados PIX no PDF do orçamento
 - [x] Criar card para WhatsApp com identidade visual AFK
+- [x] Adicionar QR Code do PIX no PDF do orçamento

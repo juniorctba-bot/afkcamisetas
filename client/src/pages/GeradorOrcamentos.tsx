@@ -503,6 +503,28 @@ export default function GeradorOrcamentos() {
   </div>
   ` : ''}
 
+  <div class="pagamento" style="background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+    <h3 style="margin-bottom: 15px; font-size: 18px; text-align: center;">💳 FORMAS DE PAGAMENTO</h3>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 200px; background: white; color: #333; padding: 15px; border-radius: 8px;">
+        <h4 style="color: #32BCAD; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">⭐</span> PIX (Desconto à Vista)
+        </h4>
+        <p style="font-size: 12px; margin-bottom: 8px;"><strong>Chave PIX (CNPJ):</strong></p>
+        <p style="font-size: 16px; font-weight: bold; color: #00B894; letter-spacing: 1px;">50006273000111</p>
+        <p style="font-size: 11px; color: #666; margin-top: 5px;">Razão Social: AFK Consultoria Estratégica</p>
+      </div>
+      <div style="flex: 1; min-width: 200px; background: white; color: #333; padding: 15px; border-radius: 8px;">
+        <h4 style="color: #0066FF; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">💳</span> Cartão (Parcelado)
+        </h4>
+        <p style="font-size: 12px; margin-bottom: 8px;">Pague parcelado pelo Mercado Pago:</p>
+        <a href="https://link.mercadopago.com.br/afkcamisetas" style="display: block; background: #0066FF; color: white; padding: 10px; border-radius: 5px; text-align: center; text-decoration: none; font-weight: bold; font-size: 12px;">link.mercadopago.com.br/afkcamisetas</a>
+        <p style="font-size: 11px; color: #666; margin-top: 5px;">Até 3x com juros (consultar taxas)</p>
+      </div>
+    </div>
+  </div>
+
   <div class="aprovacao">
     <h3>✅ APROVAÇÃO MANUAL</h3>
     <p style="font-size: 11px; color: #666; margin-bottom: 10px;">Caso prefira aprovar manualmente, preencha os campos abaixo:</p>

@@ -37,9 +37,9 @@ const produtosGaleria = [
   },
   {
     id: 5,
-    nome: "Camiseta Dificuldades Fortalecem",
+    nome: "Camiseta Sorria Tanto Quanto Respira",
     imagem: "/images/produtos/camiseta-cinza-mente.jpeg",
-    descricao: "Camiseta cinza com estampa motivacional exclusiva",
+    descricao: "Camiseta cinza da Coleção SORRIA com frase inspiradora",
   },
   {
     id: 6,

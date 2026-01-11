@@ -84,3 +84,5 @@
 - [x] Adicionar link Mercado Pago e dados PIX no PDF do orçamento
 - [x] Criar card para WhatsApp com identidade visual AFK
 - [x] Adicionar QR Code do PIX no PDF do orçamento
+- [x] Criar card PIX com número e contato no rodapé
+- [x] Trocar frase da primeira camiseta na página inicial por frase sobre sorriso

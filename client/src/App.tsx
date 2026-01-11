@@ -18,6 +18,9 @@ import Contato from "./pages/Contato";
 import VoltaAsAulas from "./pages/VoltaAsAulas";
 import Etiquetas from "./pages/Etiquetas";
 import Carnaval2026 from "./pages/Carnaval2026";
+import ColecoesProprias from "./pages/ColecoesProprias";
+import ParaSuaEmpresa from "./pages/ParaSuaEmpresa";
+import CatalogosPromocionais from "./pages/CatalogosPromocionais";
 
 // Área Restrita
 import AdminLogin from "./pages/AdminLogin";
@@ -45,6 +48,10 @@ function Router() {
       <Route path="/contato" component={Contato} />
       <Route path="/volta-as-aulas" component={VoltaAsAulas} />
       <Route path="/etiquetas" component={Etiquetas} />
+      <Route path="/colecoes-proprias/:slug" component={ColecoesProprias} />
+      <Route path="/colecoes-proprias" component={ColecoesProprias} />
+      <Route path="/para-sua-empresa" component={ParaSuaEmpresa} />
+      <Route path="/catalogos-promocionais" component={CatalogosPromocionais} />
       
       {/* Área Restrita */}
       <Route path="/admin" component={AdminHome} />

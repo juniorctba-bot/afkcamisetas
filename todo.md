@@ -96,3 +96,11 @@
 - [x] Criar calendário promocional B2B com sugestões de brindes para datas comemorativas
 - [x] Criar artes sóbrias para campanhas de datas comemorativas (Outubro Rosa, Novembro Azul, Dia das Mães, etc.)
 - [x] Desenvolver catálogo digital de brindes corporativos em PDF com imagens e tabela de preços
+- [ ] Revisão final do site - ajustes solicitados pelo usuário
+- [x] Reestruturar menu: Home | Sobre Nós | Produtos ▼ | Kits | Para sua Empresa | Catálogos Promocionais | Coleções Próprias ▼ | Orçamento | Contato
+- [x] Criar página Produtos com filtros (Todos/Para Mim/Para Empresa/Para meu Evento/Veja alguns materiais)
+- [x] Adicionar ícones para cada categoria de produto
+- [x] Diminuir tamanho das imagens dos produtos
+- [x] Criar seção Coleções Próprias SEJA UM (SORRIA, RAIZ RUBRO NEGRA, HEXA VEM, BUSHIDO, FORÇA ESTOICA)
+- [x] Adicionar banner SEJA UM nas coleções próprias
+- [x] Adicionar botões Compre Agora (Mercado Livre) e Compre Direto Conosco (WhatsApp)

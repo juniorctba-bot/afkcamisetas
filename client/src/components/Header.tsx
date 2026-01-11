@@ -1,25 +1,26 @@
 /**
  * Header Component - AFK Camisetas
- * Navegação completa do site com dropdown para Produtos e Coleções
+ * Navegação completa do site com dropdown para Produtos e Coleções Próprias SEJA UM
  */
 import { useState, useRef, useEffect } from "react";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "wouter";
 
-const productCategories = [
-  { label: "Todos os Produtos", href: "/produtos" },
-  { label: "Calçados", href: "/produtos?categoria=calcados" },
-  { label: "Vestuário Infantil", href: "/produtos?categoria=infantil" },
-  { label: "Vestuário Adulto", href: "/produtos?categoria=adulto" },
-  { label: "Casa e Decoração", href: "/produtos?categoria=casa" },
-  { label: "Acessórios", href: "/produtos?categoria=acessorios" },
+const productFilters = [
+  { label: "Todos", href: "/produtos" },
+  { label: "Para Mim", href: "/produtos?filtro=para-mim" },
+  { label: "Para Empresa", href: "/produtos?filtro=para-empresa" },
+  { label: "Para meu Evento", href: "/produtos?filtro=para-evento" },
+  { label: "Veja alguns materiais", href: "/portfolio" },
 ];
 
-const colecoes = [
-  { label: "Natal 2025", href: "/colecoes/natal-2025" },
-  { label: "Carnaval 2026", href: "/colecoes/carnaval-2026" },
-  { label: "Volta às Aulas", href: "/volta-as-aulas" },
+const colecoesProprias = [
+  { label: "SORRIA", href: "/colecoes-proprias/sorria", description: "Delicadeza que Transforma" },
+  { label: "RAIZ RUBRO NEGRA", href: "/colecoes-proprias/furacao", description: "Paixão Athleticana" },
+  { label: "HEXA VEM", href: "/colecoes-proprias/hexa-vem", description: "Seleção Brasileira" },
+  { label: "BUSHIDO", href: "/colecoes-proprias/bushido", description: "Caminho do Guerreiro" },
+  { label: "FORÇA ESTOICA", href: "/colecoes-proprias/forca-estoica", description: "Stoic Power" },
 ];
 
 export default function Header() {
@@ -62,7 +63,7 @@ export default function Header() {
           </Link>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden lg:flex items-center flex-1 max-w-md mx-8">
+          <div className="hidden lg:flex items-center flex-1 max-w-md mx-6">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
@@ -76,10 +77,10 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5">
             <Link
               href="/"
-              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
                 isActive("/") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
               }`}
             >
@@ -88,7 +89,7 @@ export default function Header() {
 
             <Link
               href="/sobre"
-              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
                 isActive("/sobre") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
               }`}
             >
@@ -99,8 +100,8 @@ export default function Header() {
             <div ref={produtosRef} className="relative">
               <button
                 onClick={() => setProdutosOpen(!produtosOpen)}
-                className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
-                  location.startsWith("/produtos") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
+                className={`flex items-center gap-1 px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
+                  location.startsWith("/produtos") || location.startsWith("/portfolio") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
                 }`}
               >
                 Produtos
@@ -108,7 +109,7 @@ export default function Header() {
               </button>
               {produtosOpen && (
                 <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
-                  {productCategories.map((item) => (
+                  {productFilters.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
@@ -123,17 +124,8 @@ export default function Header() {
             </div>
 
             <Link
-              href="/portfolio"
-              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
-                isActive("/portfolio") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
-              }`}
-            >
-              Portfólio
-            </Link>
-
-            <Link
               href="/kits"
-              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
                 isActive("/kits") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
               }`}
             >
@@ -141,33 +133,57 @@ export default function Header() {
             </Link>
 
             <Link
-              href="/promocoes"
-              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
-                isActive("/promocoes") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
+              href="/para-sua-empresa"
+              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
+                isActive("/para-sua-empresa") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
               }`}
             >
-              Promoções
+              Para sua Empresa
             </Link>
 
-            {/* Coleções Dropdown */}
+            <Link
+              href="/catalogos-promocionais"
+              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg whitespace-nowrap ${
+                isActive("/catalogos-promocionais") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
+              }`}
+            >
+              Catálogos
+            </Link>
+
+            {/* Coleções Próprias Dropdown */}
             <div ref={colecoesRef} className="relative">
               <button
                 onClick={() => setColecoesOpen(!colecoesOpen)}
-                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-pink-600 transition-colors rounded-lg"
+                className={`flex items-center gap-1 px-2.5 py-2 text-sm font-medium transition-colors rounded-lg whitespace-nowrap ${
+                  location.startsWith("/colecoes-proprias") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
+                }`}
               >
-                Coleções
+                Coleções Próprias
                 <ChevronDown className={`w-4 h-4 transition-transform ${colecoesOpen ? "rotate-180" : ""}`} />
               </button>
               {colecoesOpen && (
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
-                  {colecoes.map((item) => (
+                <div className="absolute top-full right-0 mt-1 w-64 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
+                  {/* Banner SEJA UM */}
+                  <div className="px-4 py-3 border-b border-gray-100">
+                    <img 
+                      src="/seja_um_banner.png" 
+                      alt="SEJA UM - Camisetas com design exclusivo" 
+                      className="w-full h-auto rounded"
+                    />
+                  </div>
+                  {colecoesProprias.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600"
+                      className="block px-4 py-2.5 hover:bg-pink-50 group"
                       onClick={() => setColecoesOpen(false)}
                     >
-                      {item.label}
+                      <span className="block text-sm font-semibold text-gray-800 group-hover:text-pink-600">
+                        {item.label}
+                      </span>
+                      <span className="block text-xs text-gray-500">
+                        {item.description}
+                      </span>
                     </Link>
                   ))}
                 </div>
@@ -176,7 +192,7 @@ export default function Header() {
 
             <Link
               href="/orcamento"
-              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
                 isActive("/orcamento") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
               }`}
             >
@@ -185,7 +201,7 @@ export default function Header() {
 
             <Link
               href="/contato"
-              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
                 isActive("/contato") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
               }`}
             >
@@ -231,7 +247,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100">
+        <div className="lg:hidden bg-white border-t border-gray-100 max-h-[80vh] overflow-y-auto">
           <div className="container py-4">
             <nav className="flex flex-col gap-1">
               <Link
@@ -248,40 +264,12 @@ export default function Header() {
               >
                 Sobre Nós
               </Link>
-              <Link
-                href="/produtos"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Produtos
-              </Link>
-              <Link
-                href="/portfolio"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Portfólio
-              </Link>
-              <Link
-                href="/kits"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Kits
-              </Link>
-              <Link
-                href="/promocoes"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Promoções
-              </Link>
               
-              {/* Coleções submenu */}
+              {/* Produtos submenu */}
               <div className="px-4 py-2">
-                <span className="text-xs font-semibold text-gray-400 uppercase">Coleções</span>
+                <span className="text-xs font-semibold text-gray-400 uppercase">Produtos</span>
               </div>
-              {colecoes.map((item) => (
+              {productFilters.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -291,10 +279,57 @@ export default function Header() {
                   {item.label}
                 </Link>
               ))}
+
+              <Link
+                href="/kits"
+                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Kits
+              </Link>
+
+              <Link
+                href="/para-sua-empresa"
+                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Para sua Empresa
+              </Link>
+
+              <Link
+                href="/catalogos-promocionais"
+                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Catálogos Promocionais
+              </Link>
+              
+              {/* Coleções Próprias submenu */}
+              <div className="px-4 py-2 mt-2">
+                <span className="text-xs font-semibold text-gray-400 uppercase">Coleções Próprias - SEJA UM</span>
+              </div>
+              <div className="px-4 py-2">
+                <img 
+                  src="/seja_um_banner.png" 
+                  alt="SEJA UM" 
+                  className="w-full max-w-[200px] h-auto rounded"
+                />
+              </div>
+              {colecoesProprias.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="px-6 py-2 text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span className="block">{item.label}</span>
+                  <span className="block text-xs text-gray-400">{item.description}</span>
+                </Link>
+              ))}
               
               <Link
                 href="/orcamento"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
+                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg mt-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Orçamento

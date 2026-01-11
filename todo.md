@@ -92,3 +92,4 @@
 - [ ] Desenvolver textos e estratégias para Google Ads
 - [x] Criar artes visuais para as campanhas
 - [x] Ajustar materiais de marketing para destacar SUBLIMAÇÃO ao invés de bordado
+- [x] Criar artes visuais sóbrias e corporativas para B2B (cores neutras, design clean, uniformes com logo)

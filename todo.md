@@ -86,3 +86,8 @@
 - [x] Adicionar QR Code do PIX no PDF do orçamento
 - [x] Criar card PIX com número e contato no rodapé
 - [x] Trocar frase da primeira camiseta na página inicial por frase sobre sorriso
+- [ ] Criar campanha de comunicação B2B para AFK Camisetas
+- [ ] Definir públicos-alvo para Instagram, Facebook e Google Ads
+- [ ] Criar calendário editorial para redes sociais
+- [ ] Desenvolver textos e estratégias para Google Ads
+- [ ] Criar artes visuais para as campanhas

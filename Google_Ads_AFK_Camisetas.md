@@ -74,7 +74,7 @@ Títulos (máx. 30 caracteres cada):
 
 Descrições (máx. 90 caracteres cada):
 1. Camisetas, polos e aventais personalizados para sua empresa. Orçamento grátis!
-2. Uniformize sua equipe com qualidade AFK. Sublimação, serigrafia e bordado.
+2. Uniformize sua equipe com qualidade AFK. Sublimação total - cores vibrantes!
 3. +10 anos vestindo empresas de Curitiba. Peça seu orçamento sem compromisso.
 4. Pedido mínimo de apenas 3 unidades. Atendemos empresas de todos os portes.
 
@@ -108,7 +108,7 @@ Descrições:
 **Palavras-chave:**
 ```
 "camisetas polo personalizadas"
-"polo bordada empresa"
+"polo sublimada empresa"
 "camiseta polo com logo"
 "polo corporativa Curitiba"
 "uniforme polo empresarial"
@@ -118,14 +118,14 @@ Descrições:
 
 Títulos:
 1. Polos Personalizadas Curitiba
-2. Camisetas Polo Bordadas
+2. Camisetas Polo Sublimadas
 3. Logo da Sua Empresa
 4. Qualidade Premium
 5. Orçamento Grátis
 6. Entrega Rápida
 
 Descrições:
-1. Camisetas polo com bordado ou sublimação. Sua marca com elegância e qualidade.
+1. Camisetas polo com sublimação total. Sua marca com elegância e cores vibrantes.
 2. Polos corporativas para equipes exigentes. Solicite orçamento sem compromisso.
 
 ---

@@ -239,6 +239,8 @@ Este documento apresenta o planejamento completo de comunicação digital para a
 
 | Arquivo | Descrição |
 |---------|-----------|
+| `post_uniformes_sublimacao.png` | **NOVO** - Uniformes sublimados com cores vibrantes |
+| `post_sublimacao_vantagens.png` | **NOVO** - 5 Vantagens da Sublimação |
 | `post_uniformes_b2b.png` | Uniformes corporativos - polos profissionais |
 | `post_brindes_corporativos.png` | Brindes empresariais - kit completo |
 | `post_carnaval_2026.png` | Coleção Unidos da AFK - Carnaval |
@@ -248,6 +250,7 @@ Este documento apresenta o planejamento completo de comunicação digital para a
 
 | Arquivo | Descrição |
 |---------|-----------|
+| `story_sublimacao.png` | **NOVO** - Story Sublimação Total |
 | `story_uniformes.png` | Story uniformes corporativos |
 | `story_brindes.png` | Story brindes que encantam |
 
@@ -262,6 +265,7 @@ Este documento apresenta o planejamento completo de comunicação digital para a
 
 | Arquivo | Descrição |
 |---------|-----------|
+| `banner_sublimacao_google.png` | **NOVO** - Banner Uniformes Sublimados Curitiba |
 | `banner_google_ads.png` | Banner display para Google Ads |
 
 ---

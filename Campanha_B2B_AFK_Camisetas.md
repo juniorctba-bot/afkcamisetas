@@ -234,7 +234,7 @@ Orçamento grátis em 24h. Entrega rápida. Atendemos Curitiba e região.
 **Anúncio 2:**
 ```
 Uniformes Empresariais | AFK Camisetas Curitiba
-Vista sua equipe com qualidade. Sublimação, serigrafia e bordado.
+Vista sua equipe com qualidade. Sublimação total - cores vibrantes!
 +10 anos de experiência. Empresas confiam na AFK. Peça seu orçamento!
 [Falar com Especialista]
 ```

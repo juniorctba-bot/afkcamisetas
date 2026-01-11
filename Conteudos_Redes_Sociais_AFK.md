@@ -53,7 +53,7 @@ Empresas que investem em uniformes personalizados relatam:
 Na AFK Camisetas, criamos uniformes que traduzem a essência da sua marca.
 
 ✅ Camisetas, polos, aventais e muito mais
-✅ Sublimação, serigrafia e bordado
+✅ Sublimação total - cores vibrantes que não desbotam
 ✅ Pedido mínimo de apenas 3 unidades
 ✅ Atendemos Curitiba e região metropolitana
 

@@ -90,4 +90,5 @@
 - [ ] Definir públicos-alvo para Instagram, Facebook e Google Ads
 - [ ] Criar calendário editorial para redes sociais
 - [ ] Desenvolver textos e estratégias para Google Ads
-- [ ] Criar artes visuais para as campanhas
+- [x] Criar artes visuais para as campanhas
+- [x] Ajustar materiais de marketing para destacar SUBLIMAÇÃO ao invés de bordado

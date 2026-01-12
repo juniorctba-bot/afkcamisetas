@@ -23,18 +23,15 @@ const colecoes = {
     cardFrases: "/images/colecoes/sorria/card_frases_numeradas.png",
     cardCores: "/images/colecoes/sorria/card_cores.png",
     estampas: [
-      { id: 1, nome: "A propósito, estou usando o sorriso que você me deu!", imagem: "/images/colecoes/sorria/produto_01_branco.png", preco: "R$ 89,90" },
-      { id: 2, nome: "Sorria tanto quanto você respira", imagem: "/images/colecoes/sorria/produto_02_azul.png", preco: "R$ 89,90" },
-      { id: 3, nome: "Seu sorriso pode ser o começo de uma cura", imagem: "/images/colecoes/sorria/produto_03_verde_agua.png", preco: "R$ 89,90" },
-      { id: 4, nome: "O mundo melhora quando um sorriso nasce", imagem: "/images/colecoes/sorria/produto_04_verde.png", preco: "R$ 89,90" },
-      { id: 5, nome: "Um pequeno sorriso, uma grande mudança", imagem: "/images/colecoes/sorria/produto_05_lilas.png", preco: "R$ 89,90" },
-      { id: 6, nome: "Sorrir é tocar o invisível no outro", imagem: "/images/colecoes/sorria/produto_06_amarelo.png", preco: "R$ 89,90" },
-      { id: 7, nome: "Seu sorriso: o sol inesperado no dia de alguém", imagem: "/images/colecoes/sorria/produto_07_laranja.png", preco: "R$ 89,90" },
-      { id: 8, nome: "Há sorrisos que iluminam até o que não vemos", imagem: "/images/colecoes/sorria/produto_08_preto.png", preco: "R$ 89,90" },
-      { id: 9, nome: "Quando você sorri, alguém respira melhor", imagem: "/images/colecoes/sorria/produto_09_rosa.png", preco: "R$ 89,90" },
-      { id: 10, nome: "Um sorriso simples, um mundo menos pesado", imagem: "/images/colecoes/sorria/produto_10_creme.png", preco: "R$ 89,90" },
+      { id: 1, nome: "Branco", imagem: "/images/colecoes/sorria/produto_01_branco.png", preco: "R$ 89,90", linkML: "https://produto.mercadolivre.com.br/MLB-6161523976-camiseta-feminina-babylook-seja-um-coleco-sorria-_JM?attributes=FABRIC_DESIGN%3ARXN0YW1wYSBsb2NhbGl6YWRh%2CPRINT_DESIGN%3ARXN0YW1wYQ%3D%3D%2CCOLOR_SECONDARY_COLOR%3AQnJhbmNv&quantity=10&picker=true" },
+      { id: 2, nome: "Azul", imagem: "/images/colecoes/sorria/produto_02_azul.png", preco: "R$ 89,90", linkML: "https://produto.mercadolivre.com.br/MLB-6161523976-camiseta-feminina-babylook-seja-um-coleco-sorria-_JM?attributes=FABRIC_DESIGN%3ARXN0YW1wYSBsb2NhbGl6YWRh%2CPRINT_DESIGN%3ARXN0YW1wYQ%3D%3D%2CCOLOR_SECONDARY_COLOR%3AQXp1bCBjZWxlc3Rl&quantity=1&picker=true" },
+      { id: 3, nome: "Verde", imagem: "/images/colecoes/sorria/produto_03_verde_agua.png", preco: "R$ 89,90", linkML: "https://produto.mercadolivre.com.br/MLB-6161523976-camiseta-feminina-babylook-seja-um-coleco-sorria-_JM?attributes=FABRIC_DESIGN%3ARXN0YW1wYSBsb2NhbGl6YWRh%2CPRINT_DESIGN%3ARXN0YW1wYQ%3D%3D%2CCOLOR_SECONDARY_COLOR%3AVmVyZGU%3D&quantity=10&picker=true" },
+      { id: 4, nome: "Amarelo", imagem: "/images/colecoes/sorria/produto_06_amarelo.png", preco: "R$ 89,90", linkML: "https://produto.mercadolivre.com.br/MLB-6161523976-camiseta-feminina-babylook-seja-um-coleco-sorria-_JM?attributes=FABRIC_DESIGN%3ARXN0YW1wYSBsb2NhbGl6YWRh%2CPRINT_DESIGN%3ARXN0YW1wYQ%3D%3D%2CCOLOR_SECONDARY_COLOR%3AQW1hcmVsbw%3D%3D&quantity=1&picker=true" },
+      { id: 5, nome: "Bege", imagem: "/images/colecoes/sorria/produto_10_creme.png", preco: "R$ 89,90", linkML: "https://produto.mercadolivre.com.br/MLB-6161523976-camiseta-feminina-babylook-seja-um-coleco-sorria-_JM?attributes=FABRIC_DESIGN%3ARXN0YW1wYSBsb2NhbGl6YWRh%2CPRINT_DESIGN%3ARXN0YW1wYQ%3D%3D%2CCOLOR_SECONDARY_COLOR%3AQmVnZQ%3D%3D&quantity=1&picker=true" },
+      { id: 6, nome: "Preto", imagem: "/images/colecoes/sorria/produto_08_preto.png", preco: "R$ 89,90", linkML: "https://produto.mercadolivre.com.br/MLB-6161523976-camiseta-feminina-babylook-seja-um-coleco-sorria-_JM?attributes=FABRIC_DESIGN%3ARXN0YW1wYSBsb2NhbGl6YWRh%2CPRINT_DESIGN%3ARXN0YW1wYQ%3D%3D%2CCOLOR_SECONDARY_COLOR%3AUHJldG8%3D&quantity=10&picker=true" },
+      { id: 7, nome: "Rosa", imagem: "/images/colecoes/sorria/produto_09_rosa.png", preco: "R$ 89,90", linkML: "https://produto.mercadolivre.com.br/MLB-6161523976-camiseta-feminina-babylook-seja-um-coleco-sorria-_JM?attributes=FABRIC_DESIGN%3ARXN0YW1wYSBsb2NhbGl6YWRh%2CPRINT_DESIGN%3ARXN0YW1wYQ%3D%3D%2CCOLOR_SECONDARY_COLOR%3AUm9zYQ%3D%3D&quantity=10&picker=true" },
     ],
-    cores: ["Branco", "Azul Claro", "Verde Menta", "Verde", "Lilás", "Amarelo", "Laranja", "Preto", "Rosa", "Creme"],
+    cores: ["Branco", "Azul", "Verde", "Amarelo", "Bege", "Preto", "Rosa"],
   },
   furacao: {
     nome: "RAIZ RUBRO NEGRA",
@@ -304,7 +301,7 @@ export default function ColecoesProprias() {
                       {/* Botões de Compra */}
                       <div className="flex flex-col gap-2">
                         <a
-                          href={MERCADO_LIVRE_BASE}
+                          href={'linkML' in estampa && estampa.linkML ? estampa.linkML : MERCADO_LIVRE_BASE}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center gap-2 px-4 py-2 bg-yellow-400 text-gray-900 font-semibold rounded-lg hover:bg-yellow-500 transition-colors text-sm"

@@ -159,7 +159,7 @@ const categoriasProdutos = [
     icon: Scissors,
     imagem: "/images/produtos/shorts1.png",
     descricao: "Shorts e bermudas esportivas",
-    filtros: ["para-mim", "para-empresa", "para-evento"],
+    filtros: ["para-mim", "para-evento"],
   },
   {
     id: "coletes",
@@ -167,7 +167,7 @@ const categoriasProdutos = [
     icon: Shirt,
     imagem: "/images/produtos/coletes.png",
     descricao: "Coletes para eventos e esportes",
-    filtros: ["para-empresa", "para-evento"],
+    filtros: ["para-evento"],
   },
   {
     id: "mochilas",
@@ -200,6 +200,22 @@ const categoriasProdutos = [
     imagem: "/images/produtos/canecas-copos.png",
     descricao: "Canecas, copos de chopp e térmicos",
     filtros: ["para-mim", "para-empresa", "para-evento"],
+  },
+  {
+    id: "garrafas-squeezes",
+    nome: "Garrafas e Squeezes",
+    icon: Wine,
+    imagem: "/images/produtos/garrafas-squeezes.png",
+    descricao: "Garrafas térmicas e squeezes personalizados",
+    filtros: ["para-mim", "para-empresa"],
+  },
+  {
+    id: "copos-tacas",
+    nome: "Copos e Taças",
+    icon: Wine,
+    imagem: "/images/produtos/copos-tacas.png",
+    descricao: "Taças gin, copos whisky, champagne, vidro e acrílico",
+    filtros: ["para-empresa", "para-evento"],
   },
 ];
 

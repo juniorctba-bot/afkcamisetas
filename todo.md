@@ -106,3 +106,7 @@
 - [x] Adicionar botões Compre Agora (Mercado Livre) e Compre Direto Conosco (WhatsApp)
 - [x] Reorganizar página Produtos com categorias e botões WhatsApp (Solicite modelos / Faça Orçamento)
 - [x] Ajustar Catálogos Promocionais - apenas Carnaval e Volta às Aulas disponíveis, demais (Dia da Mulher em diante) como "Em Breve"
+- [x] Remover da seção Para Empresa: Coletes Esportivos, Shorts e Bermudas
+- [x] Adicionar categoria Garrafas e Squeezes (Para Mim, Para Empresa - exceto Eventos)
+- [x] Adicionar categoria Copos e Taças (Para Empresa, Para Evento)
+- [x] Ajustar coleção SORRIA com estampas e modelos do catálogo oficial

@@ -154,6 +154,80 @@ export default function ColecoesProprias() {
           </div>
         </section>
 
+        {/* Seção Como Funciona - apenas para SORRIA */}
+        {slug === 'sorria' && (
+          <section className="py-12 bg-gradient-to-b from-amber-50 to-white">
+            <div className="container">
+              <h2 className="text-3xl font-bold text-center text-amber-800 mb-8">
+                Como Funciona a Compra
+              </h2>
+              
+              {/* Card Como Funciona - 3 passos */}
+              <div className="max-w-4xl mx-auto mb-12">
+                <img 
+                  src="/colecoes/sorria/como_funciona.png" 
+                  alt="Como funciona: 1. Escolha a cor e tamanho, 2. Após a compra entraremos em contato, 3. Informe a frase e local da aplicação"
+                  className="w-full h-auto rounded-xl shadow-lg"
+                />
+              </div>
+
+              {/* Destaque: Todas as combinações */}
+              <div className="bg-white rounded-2xl shadow-lg p-8 max-w-4xl mx-auto mb-12">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-amber-800 mb-2">
+                    🌻 Todas as Combinações Disponíveis!
+                  </h3>
+                  <p className="text-gray-600">
+                    Você escolhe a combinação perfeita para você ou para presentear
+                  </p>
+                </div>
+                
+                <div className="grid md:grid-cols-3 gap-6 text-center">
+                  <div className="bg-amber-50 rounded-xl p-6">
+                    <div className="text-4xl font-bold text-amber-600 mb-2">10</div>
+                    <div className="text-lg font-semibold text-gray-800">Cores</div>
+                    <div className="text-sm text-gray-500 mt-1">Branco, Azul, Verde, Lilás, Amarelo, Laranja, Preto, Rosa, Creme e mais</div>
+                  </div>
+                  <div className="bg-amber-50 rounded-xl p-6">
+                    <div className="text-4xl font-bold text-amber-600 mb-2">10</div>
+                    <div className="text-lg font-semibold text-gray-800">Frases</div>
+                    <div className="text-sm text-gray-500 mt-1">Mensagens inspiradoras sobre sorrisos e positividade</div>
+                  </div>
+                  <div className="bg-amber-50 rounded-xl p-6">
+                    <div className="text-4xl font-bold text-amber-600 mb-2">3</div>
+                    <div className="text-lg font-semibold text-gray-800">Posições</div>
+                    <div className="text-sm text-gray-500 mt-1">Peito esquerdo, Centro ou Costela lateral</div>
+                  </div>
+                </div>
+                
+                <p className="text-center text-amber-700 font-semibold mt-6">
+                  = 300 combinações possíveis!
+                </p>
+              </div>
+
+              {/* Cards de Frases e Posições */}
+              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div>
+                  <h3 className="text-xl font-bold text-amber-800 mb-4 text-center">Escolha sua Frase</h3>
+                  <img 
+                    src="/colecoes/sorria/card_frases_numeradas.png" 
+                    alt="10 frases disponíveis na coleção SORRIA"
+                    className="w-full h-auto rounded-xl shadow-md"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-amber-800 mb-4 text-center">Escolha o Local</h3>
+                  <img 
+                    src="/colecoes/sorria/card_3_posicoes.png" 
+                    alt="3 posições de aplicação: Peito esquerdo, Centro, Costela lateral"
+                    className="w-full h-auto rounded-xl shadow-md"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Cores Disponíveis */}
         <section className="py-8 bg-white border-b">
           <div className="container">

@@ -110,3 +110,4 @@
 - [x] Adicionar categoria Garrafas e Squeezes (Para Mim, Para Empresa - exceto Eventos)
 - [x] Adicionar categoria Copos e Taças (Para Empresa, Para Evento)
 - [x] Ajustar coleção SORRIA com estampas e modelos do catálogo oficial
+- [x] Adicionar seção "Como Funciona" na coleção SORRIA (3 passos, frases, posições de aplicação)

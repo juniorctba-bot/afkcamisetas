@@ -2,7 +2,7 @@
  * Catálogos Promocionais - AFK Camisetas
  * Página com catálogos para datas comemorativas
  */
-import { Calendar, Download, MessageCircle, Heart, Ribbon, Gift, Sun, Snowflake, GraduationCap, Baby } from "lucide-react";
+import { Calendar, Download, MessageCircle, Heart, Ribbon, Gift, Sun, Snowflake, GraduationCap, Baby, Clock } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -18,6 +18,7 @@ const catalogos = [
     meses: ["Janeiro", "Fevereiro"],
     produtos: ["Etiquetas escolares", "Mochilas", "Estojos", "Canecas infantis", "Camisetas escolares"],
     link: "/volta-as-aulas",
+    disponivel: true,
   },
   {
     id: "carnaval",
@@ -28,6 +29,7 @@ const catalogos = [
     meses: ["Fevereiro", "Março"],
     produtos: ["Abadás personalizados", "Viseiras", "Squeezes", "Pochetes", "Óculos personalizados"],
     link: "/colecoes/carnaval-2026",
+    disponivel: true,
   },
   {
     id: "dia-mulher",
@@ -37,6 +39,7 @@ const catalogos = [
     cor: "from-pink-400 to-rose-500",
     meses: ["Março"],
     produtos: ["Canecas", "Necessaires", "Camisetas", "Ecobags", "Kits de presentes"],
+    disponivel: false,
   },
   {
     id: "pascoa",
@@ -46,6 +49,7 @@ const catalogos = [
     cor: "from-purple-400 to-pink-500",
     meses: ["Abril"],
     produtos: ["Sacolas personalizadas", "Canecas temáticas", "Camisetas", "Embalagens"],
+    disponivel: false,
   },
   {
     id: "dia-maes",
@@ -55,6 +59,7 @@ const catalogos = [
     cor: "from-pink-500 to-red-500",
     meses: ["Maio"],
     produtos: ["Canecas com foto", "Camisetas personalizadas", "Necessaires", "Almofadas", "Porta-retratos"],
+    disponivel: false,
   },
   {
     id: "dia-namorados",
@@ -64,6 +69,7 @@ const catalogos = [
     cor: "from-red-400 to-pink-500",
     meses: ["Junho"],
     produtos: ["Canecas de casal", "Camisetas combinando", "Almofadas", "Porta-retratos"],
+    disponivel: false,
   },
   {
     id: "dia-pais",
@@ -73,6 +79,7 @@ const catalogos = [
     cor: "from-blue-600 to-indigo-600",
     meses: ["Agosto"],
     produtos: ["Canecas", "Camisetas", "Chinelos", "Squeezes", "Porta-copos"],
+    disponivel: false,
   },
   {
     id: "setembro-amarelo",
@@ -82,6 +89,7 @@ const catalogos = [
     cor: "from-yellow-400 to-yellow-600",
     meses: ["Setembro"],
     produtos: ["Camisetas amarelas", "Fitas de conscientização", "Canecas", "Adesivos"],
+    disponivel: false,
   },
   {
     id: "outubro-rosa",
@@ -91,6 +99,7 @@ const catalogos = [
     cor: "from-pink-400 to-pink-600",
     meses: ["Outubro"],
     produtos: ["Camisetas rosa", "Fitas de conscientização", "Canecas", "Ecobags", "Bonés"],
+    disponivel: false,
   },
   {
     id: "novembro-azul",
@@ -100,6 +109,7 @@ const catalogos = [
     cor: "from-blue-400 to-blue-600",
     meses: ["Novembro"],
     produtos: ["Camisetas azuis", "Fitas de conscientização", "Canecas", "Squeezes", "Bonés"],
+    disponivel: false,
   },
   {
     id: "natal",
@@ -109,6 +119,7 @@ const catalogos = [
     cor: "from-red-500 to-green-600",
     meses: ["Dezembro"],
     produtos: ["Camisetas natalinas", "Canecas", "Kits de presentes", "Ecobags", "Calendários"],
+    disponivel: false,
   },
   {
     id: "aniversario",
@@ -118,10 +129,14 @@ const catalogos = [
     cor: "from-purple-500 to-pink-500",
     meses: ["O ano todo"],
     produtos: ["Camisetas temáticas", "Canecas", "Chinelos", "Sacolas", "Lembrancinhas"],
+    disponivel: false,
   },
 ];
 
 export default function CatalogosPromocionais() {
+  const catalogosDisponiveis = catalogos.filter(c => c.disponivel);
+  const catalogosEmBreve = catalogos.filter(c => !c.disponivel);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -141,20 +156,20 @@ export default function CatalogosPromocionais() {
           </div>
         </section>
 
-        {/* Calendário Visual */}
+        {/* Catálogos Disponíveis */}
         <section className="py-12 bg-white">
           <div className="container">
             <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-              Calendário Promocional 2026
+              Catálogos Disponíveis
             </h2>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {catalogos.map((catalogo) => {
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {catalogosDisponiveis.map((catalogo) => {
                 const Icon = catalogo.icon;
                 return (
                   <div 
                     key={catalogo.id}
-                    className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden border border-gray-100"
+                    className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden border-2 border-green-200"
                   >
                     {/* Header colorido */}
                     <div className={`bg-gradient-to-r ${catalogo.cor} p-6`}>
@@ -234,8 +249,90 @@ export default function CatalogosPromocionais() {
           </div>
         </section>
 
-        {/* Dica de Planejamento */}
+        {/* Catálogos Em Breve */}
         <section className="py-12 bg-gray-50">
+          <div className="container">
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <Clock className="w-6 h-6 text-gray-400" />
+              <h2 className="text-2xl font-bold text-gray-900">
+                Em Breve
+              </h2>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {catalogosEmBreve.map((catalogo) => {
+                const Icon = catalogo.icon;
+                return (
+                  <div 
+                    key={catalogo.id}
+                    className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200 opacity-75"
+                  >
+                    {/* Header colorido com overlay */}
+                    <div className={`bg-gradient-to-r ${catalogo.cor} p-6 relative`}>
+                      <div className="absolute inset-0 bg-gray-900/30"></div>
+                      <div className="flex items-center gap-3 relative z-10">
+                        <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                          <Icon className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-white">
+                            {catalogo.nome}
+                          </h3>
+                          <p className="text-white/80 text-sm">
+                            {Array.isArray(catalogo.meses) ? catalogo.meses.join(" - ") : catalogo.meses}
+                          </p>
+                        </div>
+                      </div>
+                      {/* Badge Em Breve */}
+                      <div className="absolute top-4 right-4 bg-white/90 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">
+                        Em Breve
+                      </div>
+                    </div>
+                    
+                    {/* Conteúdo */}
+                    <div className="p-6">
+                      <p className="text-gray-500 mb-4">
+                        {catalogo.descricao}
+                      </p>
+                      
+                      <div className="mb-4">
+                        <p className="text-sm font-medium text-gray-400 mb-2">Produtos sugeridos:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {catalogo.produtos.slice(0, 3).map((produto, index) => (
+                            <span 
+                              key={index}
+                              className="px-2 py-1 bg-gray-100 rounded text-xs text-gray-400"
+                            >
+                              {produto}
+                            </span>
+                          ))}
+                          {catalogo.produtos.length > 3 && (
+                            <span className="px-2 py-1 bg-gray-100 rounded text-xs text-gray-400">
+                              +{catalogo.produtos.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Botão desabilitado */}
+                      <div className="flex gap-2">
+                        <button
+                          disabled
+                          className="flex-1 text-center px-4 py-2 bg-gray-300 text-gray-500 font-medium rounded-lg cursor-not-allowed text-sm"
+                        >
+                          Disponível em breve
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Dica de Planejamento */}
+        <section className="py-12 bg-white">
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
               <Calendar className="w-12 h-12 text-pink-500 mx-auto mb-4" />
@@ -261,7 +358,7 @@ export default function CatalogosPromocionais() {
         </section>
 
         {/* Download Catálogo PDF */}
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-gray-50">
           <div className="container text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               Catálogo Completo de Brindes

@@ -105,3 +105,4 @@
 - [x] Adicionar banner SEJA UM nas coleções próprias
 - [x] Adicionar botões Compre Agora (Mercado Livre) e Compre Direto Conosco (WhatsApp)
 - [x] Reorganizar página Produtos com categorias e botões WhatsApp (Solicite modelos / Faça Orçamento)
+- [x] Ajustar Catálogos Promocionais - apenas Carnaval e Volta às Aulas disponíveis, demais (Dia da Mulher em diante) como "Em Breve"

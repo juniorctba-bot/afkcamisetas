@@ -104,3 +104,4 @@
 - [x] Criar seção Coleções Próprias SEJA UM (SORRIA, RAIZ RUBRO NEGRA, HEXA VEM, BUSHIDO, FORÇA ESTOICA)
 - [x] Adicionar banner SEJA UM nas coleções próprias
 - [x] Adicionar botões Compre Agora (Mercado Livre) e Compre Direto Conosco (WhatsApp)
+- [x] Reorganizar página Produtos com categorias e botões WhatsApp (Solicite modelos / Faça Orçamento)

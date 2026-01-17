@@ -63,12 +63,14 @@ export default function Footer() {
                   <Lock className="w-3 h-3" />
                   Acesso Restrito
                 </span>
-                <Link 
-                  href="/admin" 
-                  className="text-gray-500 hover:text-gray-400 text-sm transition-colors mt-1 block"
-                >
-                  Área Restrita
-                </Link>
+              <a 
+                href="https://afkgestao-9vrvpjwt.manus.space" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-gray-400 text-sm transition-colors mt-1 block"
+              >
+                Sistema de Gestão
+              </a>
               </div>
             </nav>
           </div>

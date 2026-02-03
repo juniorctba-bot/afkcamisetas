@@ -53,6 +53,9 @@ export default function Footer() {
               <Link href="/colecoes/carnaval-2026" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Carnaval 2026
               </Link>
+              <Link href="/dia-da-mulher" className="text-gray-400 hover:text-white text-sm transition-colors">
+                Dia da Mulher
+              </Link>
               <Link href="/volta-as-aulas" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Volta às Aulas
               </Link>

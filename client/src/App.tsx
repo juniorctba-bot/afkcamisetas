@@ -18,6 +18,7 @@ import Contato from "./pages/Contato";
 import VoltaAsAulas from "./pages/VoltaAsAulas";
 import Etiquetas from "./pages/Etiquetas";
 import Carnaval2026 from "./pages/Carnaval2026";
+import DiaDaMulher from "./pages/DiaDaMulher";
 import ColecoesProprias from "./pages/ColecoesProprias";
 import ParaSuaEmpresa from "./pages/ParaSuaEmpresa";
 import CatalogosPromocionais from "./pages/CatalogosPromocionais";
@@ -43,6 +44,7 @@ function Router() {
       <Route path="/kits" component={Kits} />
       <Route path="/promocoes" component={Promocoes} />
       <Route path="/colecoes/carnaval-2026" component={Carnaval2026} />
+      <Route path="/dia-da-mulher" component={DiaDaMulher} />
       <Route path="/colecoes/:slug" component={Colecao} />
       <Route path="/orcamento" component={OrcamentoPublico} />
       <Route path="/contato" component={Contato} />

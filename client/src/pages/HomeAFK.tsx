@@ -99,6 +99,23 @@ export default function HomeAFK() {
         {/* Banners Promocionais */}
         <div className="flex flex-col md:flex-row">
           <Link 
+            href="/dia-da-mulher"
+            className="flex-1 bg-gradient-to-r from-pink-400 via-pink-500 to-purple-500 p-4 flex items-center justify-between hover:opacity-90 transition-opacity"
+            aria-label="Dia da Mulher 2026 - Presentes personalizados"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-xl">💐</span>
+              </div>
+              <div>
+                <p className="font-bold text-white">Dia da Mulher 2026</p>
+                <p className="text-white/90 text-sm">Presentes personalizados - Pare de dar flores!</p>
+              </div>
+            </div>
+            <ArrowRight className="w-5 h-5 text-white" />
+          </Link>
+          
+          <Link 
             href="/volta-as-aulas"
             className="flex-1 bg-gradient-to-r from-cyan-400 to-blue-500 p-4 flex items-center justify-between hover:opacity-90 transition-opacity"
             aria-label="Promoção Volta às Aulas 2026 - Etiquetas personalizadas"

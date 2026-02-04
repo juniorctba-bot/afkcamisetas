@@ -68,7 +68,6 @@ const kits = [
   {
     nome: "Kit Onboarding Conforto",
     cor: "from-yellow-500 to-orange-500",
-    investimento: "R$ 150,00 - R$ 220,00 por kit",
     itens: [
       "Almofada ergonômica personalizada",
       "Manta soft com logo bordado",
@@ -81,7 +80,6 @@ const kits = [
   {
     nome: "Kit Onboarding Ecológico",
     cor: "from-teal-500 to-cyan-500",
-    investimento: "R$ 110,00 - R$ 160,00 por kit",
     itens: [
       "Caneta de bambu personalizada",
       "Ecobag 100% algodão",
@@ -229,12 +227,7 @@ export default function KitsCorporativos() {
                       <p className="text-gray-900">{kit.ideal}</p>
                     </div>
                     
-                    {kit.investimento && (
-                      <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-lg p-4 mb-4">
-                        <p className="text-sm font-semibold text-white mb-1">INVESTIMENTO</p>
-                        <p className="text-xl font-bold text-white">{kit.investimento}</p>
-                      </div>
-                    )}
+
                     
                     {kit.personalizacao && (
                       <div className="bg-gradient-to-r from-teal-500 to-cyan-500 rounded-lg p-4 text-white">

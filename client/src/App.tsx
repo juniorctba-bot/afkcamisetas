@@ -22,6 +22,7 @@ import DiaDaMulher from "./pages/DiaDaMulher";
 import ColecoesProprias from "./pages/ColecoesProprias";
 import ParaSuaEmpresa from "./pages/ParaSuaEmpresa";
 import CatalogosPromocionais from "./pages/CatalogosPromocionais";
+import KitsCorporativos from "./pages/KitsCorporativos";
 
 // Área Restrita
 import AdminLogin from "./pages/AdminLogin";
@@ -54,6 +55,7 @@ function Router() {
       <Route path="/colecoes-proprias" component={ColecoesProprias} />
       <Route path="/para-sua-empresa" component={ParaSuaEmpresa} />
       <Route path="/catalogos-promocionais" component={CatalogosPromocionais} />
+      <Route path="/kits-corporativos" component={KitsCorporativos} />
       
       {/* Área Restrita */}
       <Route path="/admin" component={AdminHome} />

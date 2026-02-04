@@ -2,7 +2,7 @@
  * Para sua Empresa - AFK Camisetas
  * Página B2B para empresas
  */
-import { Building2, Users, Award, Clock, CheckCircle, MessageCircle, Calendar, Gift } from "lucide-react";
+import { Building2, Users, Award, Clock, CheckCircle, MessageCircle, Calendar, Gift, Package } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -18,6 +18,12 @@ const beneficios = [
     icon: Gift,
     titulo: "Brindes Corporativos",
     descricao: "Canecas, squeezes, ecobags, necessaires e muito mais para presentear clientes e colaboradores.",
+  },
+  {
+    icon: Package,
+    titulo: "Kits de Boas-Vindas",
+    descricao: "Kits corporativos personalizados para onboarding de novos colaboradores. Transforme a primeira impressão!",
+    link: "/kits-corporativos",
   },
   {
     icon: Calendar,
@@ -105,8 +111,8 @@ export default function ParaSuaEmpresa() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {beneficios.map((beneficio, index) => {
                 const Icon = beneficio.icon;
-                return (
-                  <div key={index} className="p-6 bg-gray-50 rounded-2xl">
+                const CardContent = (
+                  <>
                     <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
@@ -116,6 +122,21 @@ export default function ParaSuaEmpresa() {
                     <p className="text-gray-600">
                       {beneficio.descricao}
                     </p>
+                  </>
+                );
+                
+                if (beneficio.link) {
+                  return (
+                    <a key={index} href={beneficio.link} className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 rounded-2xl border-2 border-teal-200 hover:border-teal-400 transition-all hover:shadow-lg group">
+                      {CardContent}
+                      <div className="mt-4 text-teal-600 font-semibold group-hover:text-teal-700">Ver Kits →</div>
+                    </a>
+                  );
+                }
+                
+                return (
+                  <div key={index} className="p-6 bg-gray-50 rounded-2xl">
+                    {CardContent}
                   </div>
                 );
               })}

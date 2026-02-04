@@ -62,19 +62,16 @@ const kitsEmpresariais = [
     nome: "Kit Essencial",
     descricao: "Ideal para pequenas equipes",
     itens: ["Caneca personalizada", "Ecobag", "Chaveiro"],
-    valorAproximado: "A partir de R$ 45,00",
   },
   {
     nome: "Kit Premium",
     descricao: "Para presentear com estilo",
     itens: ["Camiseta personalizada", "Caneca", "Necessaire", "Chinelo"],
-    valorAproximado: "A partir de R$ 85,00",
   },
   {
     nome: "Kit Executivo",
     descricao: "Sofisticação e qualidade",
     itens: ["Mochila personalizada", "Copo térmico", "Toalha", "Almofada"],
-    valorAproximado: "A partir de R$ 120,00",
   },
 ];
 
@@ -175,9 +172,6 @@ export default function DiaDaMulher() {
                       ))}
                     </ul>
                   </div>
-                  <p className="text-center font-bold text-pink-600 text-lg mb-4">
-                    {kit.valorAproximado}
-                  </p>
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=Olá! Gostaria de um orçamento para o ${kit.nome} - Dia da Mulher 2026`}
                     target="_blank"

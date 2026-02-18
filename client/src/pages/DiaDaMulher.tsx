@@ -2,7 +2,7 @@
  * Dia da Mulher 2026 - AFK Camisetas
  * Página especial com presentes personalizados para o Dia da Mulher
  */
-import { ArrowRight, Heart, Gift, Users, Sparkles } from "lucide-react";
+import { ArrowRight, Heart, Gift, Users, Sparkles, Download } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -114,15 +114,25 @@ export default function DiaDaMulher() {
                 O brinde/presente ideal para as mulheres da família, setor, empresa ou grupo de amigos.
               </p>
               
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=Olá! Gostaria de um orçamento para presentes do Dia da Mulher 2026`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-pink-600 font-bold text-lg rounded-full hover:bg-gray-100 transition-colors shadow-xl"
-              >
-                Solicitar Orçamento Grátis
-                <ArrowRight className="w-6 h-6" />
-              </a>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=Olá! Gostaria de um orçamento para presentes do Dia da Mulher 2026`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-white text-pink-600 font-bold text-lg rounded-full hover:bg-gray-100 transition-colors shadow-xl"
+                >
+                  Solicitar Orçamento Grátis
+                  <ArrowRight className="w-6 h-6" />
+                </a>
+                <a
+                  href="/catalogo_dia_da_mulher_2026.pdf"
+                  download
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 text-white font-bold text-lg rounded-full hover:bg-purple-700 transition-colors shadow-xl"
+                >
+                  <Download className="w-6 h-6" />
+                  Baixar Catálogo PDF
+                </a>
+              </div>
             </div>
           </div>
         </section>

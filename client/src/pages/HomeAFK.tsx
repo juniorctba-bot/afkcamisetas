@@ -8,6 +8,7 @@ import { Link } from "wouter";
 import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BannerCopa2026 from "@/components/BannerCopa2026";
 
 const WHATSAPP_NUMBER = "5541987386527";
 
@@ -93,9 +94,10 @@ export default function HomeAFK() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <BannerCopa2026 />
       <Header />
       
-      <main className="flex-1 pt-16 md:pt-20">
+      <main className="flex-1" style={{ paddingTop: 'calc(var(--banner-height, 40px) + 64px)' }}>
         {/* Banners Promocionais */}
         <div className="flex flex-col md:flex-row">
           <Link 

@@ -1,393 +1,249 @@
 /**
  * Copa2026 - Página dedicada Copa do Mundo 2026
- * Apresenta produtos em breve e CTA para antecipar orçamento
+ * Produtos personalizados temáticos - AFK Camisetas
  */
 import { Link } from "wouter";
 import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import BannerCopa2026 from "@/components/BannerCopa2026";
-import {
-  Trophy,
-  Clock,
-  MessageCircle,
-  Shirt,
-  Coffee,
-  Package,
-  Star,
-  ArrowRight,
-  Zap,
-  Users,
-} from "lucide-react";
+import { ArrowRight, MessageCircle, Trophy, Zap, Clock } from "lucide-react";
 
 const WHATSAPP_NUMBER = "5541987386527";
 const WHATSAPP_MSG = encodeURIComponent(
   "Olá! Vi a página da Copa do Mundo 2026 no site da AFK Camisetas e gostaria de antecipar meu orçamento para produtos personalizados! 🏆⚽"
 );
 
-const produtosEmBreve = [
+const produtos = [
   {
-    icon: Shirt,
     nome: "Camisetas Temáticas",
-    descricao: "Camisetas personalizadas com estampas exclusivas da Copa do Mundo 2026. Verde, amarelo e muito estilo!",
-    destaque: "Sublimação Full Print",
+    descricao: "Camisetas personalizadas com estampas exclusivas da Copa 2026. Verde, amarelo e muito estilo! Sublimação full print de alta resolução.",
+    icone: "👕",
+    badge: "Mais Pedido",
+    cor: "from-green-500 to-green-700",
   },
   {
-    icon: Coffee,
-    nome: "Canecas & Copos",
-    descricao: "Canecas e copos personalizados para torcer com estilo. Perfeitas para bares, restaurantes e torcedores.",
-    destaque: "Sublimação HD",
-  },
-  {
-    icon: Package,
     nome: "Kits Torcedor",
-    descricao: "Kits completos com camiseta, bandeira, copo e acessórios personalizados para sua torcida.",
-    destaque: "Kit Completo",
+    descricao: "Kits completos com camiseta, bandeira, copo e acessórios personalizados. Ideal para grupos de torcedores e bares temáticos.",
+    icone: "🎁",
+    badge: "Kit Completo",
+    cor: "from-yellow-500 to-yellow-700",
   },
   {
-    icon: Star,
+    nome: "Canecas & Copos",
+    descricao: "Canecas e copos personalizados para torcer com estilo. Perfeitos para bares, restaurantes e fãs de futebol.",
+    icone: "☕",
+    badge: "Sublimação HD",
+    cor: "from-green-600 to-emerald-800",
+  },
+  {
     nome: "Brindes Corporativos",
-    descricao: "Brindes temáticos da Copa para sua empresa: chaveiros, canetas, bolsas e muito mais!",
-    destaque: "Ideal para Empresas",
+    descricao: "Brindes temáticos da Copa para sua empresa: chaveiros, canetas, bolsas e muito mais! Presenteie clientes e colaboradores.",
+    icone: "🏢",
+    badge: "Para Empresas",
+    cor: "from-yellow-600 to-amber-800",
   },
   {
-    icon: Users,
     nome: "Uniformes de Torcida",
-    descricao: "Uniformes personalizados para grupos de torcedores, bares temáticos e eventos corporativos.",
-    destaque: "Pedido Mínimo: 3 un.",
+    descricao: "Uniformes personalizados para grupos de torcedores, bares temáticos e eventos corporativos. Pedido mínimo de apenas 3 unidades.",
+    icone: "⚽",
+    badge: "Min. 3 un.",
+    cor: "from-green-700 to-teal-800",
   },
   {
-    icon: Zap,
-    nome: "Acessórios Copa",
-    descricao: "Bandeiras, bonés, mochilas e acessórios personalizados com a temática da Copa do Mundo 2026.",
-    destaque: "Entrega Rápida",
+    nome: "Acessórios Temáticos",
+    descricao: "Bandanas, bonés, pulseiras e muito mais com estampas exclusivas da Copa do Mundo 2026. Complete o look da torcida!",
+    icone: "🎽",
+    badge: "Em Breve",
+    cor: "from-yellow-700 to-orange-800",
   },
 ];
 
 const vantagens = [
-  {
-    emoji: "⚡",
-    titulo: "Antecipe e Garanta",
-    texto: "Quem antecipa o pedido garante melhor prazo de entrega e pode planejar com calma.",
-  },
-  {
-    emoji: "💰",
-    titulo: "Preço Especial",
-    texto: "Pedidos antecipados podem ter condições especiais. Entre em contato e consulte!",
-  },
-  {
-    emoji: "🎨",
-    titulo: "Arte Exclusiva",
-    texto: "Nossa equipe cria artes exclusivas temáticas da Copa para o seu produto.",
-  },
-  {
-    emoji: "📦",
-    titulo: "Pedido Mínimo: 3 un.",
-    texto: "Não precisa pedir centenas de peças. Atendemos pequenos grupos e grandes empresas.",
-  },
+  { icone: "⚡", titulo: "Antecipe seu Pedido", descricao: "Garanta seu pedido antes da Copa e evite atrasos na produção" },
+  { icone: "🎨", titulo: "Arte Exclusiva", descricao: "Nossa equipe cria artes temáticas exclusivas para o seu pedido" },
+  { icone: "📦", titulo: "Pedido Mínimo: 3 un.", descricao: "Atendemos desde pequenos grupos até grandes empresas" },
+  { icone: "🚀", titulo: "Entrega Rápida", descricao: "Produção ágil em Curitiba com entrega para todo o Brasil" },
 ];
 
 export default function Copa2026() {
   useEffect(() => {
-    document.title = "Copa do Mundo 2026 - Produtos Personalizados | AFK Camisetas";
+    document.title = "Copa do Mundo 2026 - Produtos Personalizados | AFK Camisetas Curitiba";
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
-      <BannerCopa2026 />
+    <div className="min-h-screen flex flex-col">
       <Header />
 
-      {/* Hero Section */}
-      <section
-        className="relative pb-20 overflow-hidden"
-        style={{
-          paddingTop: 'calc(var(--banner-height, 40px) + 80px)',
-          background: "linear-gradient(135deg, #004d1a 0%, #006400 25%, #009c3b 50%, #FFDF00 80%, #f5c800 100%)",
-        }}
-      >
-        {/* Padrão decorativo */}
-        <div
-          className="absolute inset-0 opacity-5 pointer-events-none"
+      <main className="flex-1" style={{ paddingTop: "64px" }}>
+
+        {/* Hero Section */}
+        <section
+          className="relative py-20 md:py-32 overflow-hidden"
           style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, white 1px, transparent 1px),
-              radial-gradient(circle at 80% 20%, white 1px, transparent 1px),
-              radial-gradient(circle at 60% 80%, white 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
+            background: "linear-gradient(135deg, #006400 0%, #008000 30%, #FFD700 70%, #FFA500 100%)",
           }}
-        />
-
-        {/* Bolas decorativas */}
-        <div className="absolute top-10 right-10 text-8xl opacity-10 select-none hidden md:block">⚽</div>
-        <div className="absolute bottom-10 left-10 text-6xl opacity-10 select-none hidden md:block">🏆</div>
-        <div className="absolute top-1/2 left-5 text-4xl opacity-10 select-none hidden lg:block">🇧🇷</div>
-
-        <div className="container relative z-10 text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-yellow-400 text-green-900 text-xs font-black px-4 py-2 rounded-full mb-6 uppercase tracking-wider shadow-lg">
-            <Trophy className="w-4 h-4" />
-            <span>Copa do Mundo 2026 — EUA, Canadá e México</span>
+        >
+          {/* Decorative balls */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white/10 blur-xl" />
+            <div className="absolute bottom-10 right-10 w-48 h-48 rounded-full bg-black/10 blur-2xl" />
+            <div className="absolute top-1/2 left-1/4 w-20 h-20 rounded-full bg-yellow-300/20 blur-lg" />
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-4 leading-tight drop-shadow-lg">
-            🇧🇷 Prepare sua Torcida
-            <br />
-            <span className="text-yellow-300">para o HEXA!</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-green-100 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Em breve teremos uma linha completa de produtos personalizados para a Copa do Mundo 2026.
-            <br />
-            <strong className="text-yellow-300">Mas se você já sabe o que quer, antecipe e entre em contato para orçar!</strong>
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-green-800 font-black px-8 py-4 rounded-full text-lg shadow-xl hover:bg-yellow-50 transition-all hover:scale-105"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Antecipar Meu Orçamento
-            </a>
-            <a
-              href="#produtos"
-              className="inline-flex items-center gap-2 bg-green-900/50 border-2 border-white/50 text-white font-bold px-8 py-4 rounded-full text-lg hover:bg-green-900/70 transition-all"
-            >
-              Ver Produtos em Breve
-              <ArrowRight className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Countdown / Em Breve */}
-      <section className="py-10 bg-green-900 text-white">
-        <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 text-center">
-            <div className="flex items-center gap-3">
-              <Clock className="w-8 h-8 text-yellow-400" />
-              <div>
-                <p className="text-yellow-400 font-black text-xl">Copa do Mundo 2026</p>
-                <p className="text-green-200 text-sm">11 de junho a 19 de julho de 2026</p>
+          <div className="container relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-white font-semibold mb-6 text-sm">
+                <Trophy className="w-4 h-4" />
+                Copa do Mundo 2026 — EUA, México e Canadá
               </div>
-            </div>
-            <div className="hidden md:block w-px h-12 bg-green-700" />
-            <div className="text-center">
-              <p className="text-white font-bold text-lg">🏟️ Sedes: EUA, Canadá e México</p>
-              <p className="text-green-300 text-sm">48 seleções — Maior Copa da história!</p>
-            </div>
-            <div className="hidden md:block w-px h-12 bg-green-700" />
-            <div className="text-center">
-              <p className="text-yellow-400 font-black text-lg">⚽ Brasil na Copa!</p>
-              <p className="text-green-300 text-sm">Vamos juntos torcer pelo HEXA!</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Produtos em Breve */}
-      <section id="produtos" className="py-20 bg-gray-50">
-        <div className="container">
-          <div className="text-center mb-12">
-            <span className="inline-block bg-yellow-100 text-yellow-800 text-xs font-bold px-4 py-2 rounded-full mb-4 uppercase tracking-wider">
-              Em Breve
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-              Produtos que estão por vir 🏆
-            </h2>
-            <p className="text-gray-600 max-w-xl mx-auto text-lg">
-              Estamos preparando uma linha especial para a Copa. Mas se você já sabe o que precisa,{" "}
-              <strong className="text-green-700">entre em contato agora e antecipe seu pedido!</strong>
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {produtosEmBreve.map((produto, idx) => {
-              const Icon = produto.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow group"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 transition-colors">
-                      <Icon className="w-6 h-6 text-green-700" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-bold text-gray-900">{produto.nome}</h3>
-                        <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-medium">
-                          {produto.destaque}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600 leading-relaxed">{produto.descricao}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* CTA central */}
-          <div className="text-center">
-            <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-green-700 hover:bg-green-800 text-white font-black px-10 py-5 rounded-full text-xl shadow-lg hover:shadow-xl transition-all hover:scale-105"
-            >
-              <MessageCircle className="w-6 h-6" />
-              Quero Antecipar Meu Orçamento!
-            </a>
-            <p className="text-gray-500 text-sm mt-3">
-              Resposta rápida pelo WhatsApp · Sem compromisso
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Por que antecipar */}
-      <section className="py-20 bg-white">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-              Por que antecipar seu pedido? 💡
-            </h2>
-            <p className="text-gray-600 max-w-xl mx-auto">
-              Quem planeja com antecedência garante mais tempo, mais qualidade e mais tranquilidade.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {vantagens.map((v, idx) => (
-              <div
-                key={idx}
-                className="text-center p-6 rounded-2xl border border-gray-100 hover:border-green-200 hover:bg-green-50 transition-all"
-              >
-                <div className="text-4xl mb-4">{v.emoji}</div>
-                <h3 className="font-black text-gray-900 mb-2">{v.titulo}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{v.texto}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Imagens de referência */}
-      <section className="py-16 bg-gradient-to-br from-green-900 to-green-700">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-            <div className="md:col-span-2">
-              <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-                🇧🇷 Personalize sua torcida
-                <br />
-                <span className="text-yellow-300">do jeito que você quiser!</span>
-              </h2>
-              <p className="text-green-200 text-lg mb-6 leading-relaxed">
-                Na AFK Camisetas, você personaliza qualquer produto com a sua arte ou a nossa.
-                Camisetas, canecas, brindes, kits completos — tudo com qualidade e entrega rápida em Curitiba e região.
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 drop-shadow-lg">
+                ⚽ Copa do Mundo<br />
+                <span className="text-yellow-300">2026</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-white/90 mb-4 font-medium">
+                Produtos personalizados para você torcer com muito estilo!
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
+                Camisetas, kits torcedor, canecas, brindes corporativos e muito mais. 
+                Antecipe seu pedido e garanta os melhores produtos para a Copa!
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-green-900 font-black px-8 py-4 rounded-full text-lg shadow-lg transition-all hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-green-700 font-bold text-lg rounded-full hover:bg-yellow-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  Solicitar Orçamento Agora
+                  Antecipar Orçamento via WhatsApp
                 </a>
-                <Link
-                  href="/produtos"
-                  className="inline-flex items-center gap-2 border-2 border-white/50 text-white font-bold px-8 py-4 rounded-full text-lg hover:bg-white/10 transition-all"
+                <a
+                  href="#produtos"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-black/20 backdrop-blur-sm text-white font-bold text-lg rounded-full hover:bg-black/30 transition-all border border-white/30"
                 >
-                  Ver Todos os Produtos
+                  Ver Produtos
                   <ArrowRight className="w-5 h-5" />
-                </Link>
+                </a>
               </div>
             </div>
-            <div className="flex flex-col gap-4">
-              <img
-                src="/images/copa_kit_torcida.jpg"
-                alt="Kit torcedor personalizado Copa do Mundo"
-                className="w-full rounded-2xl object-cover shadow-xl"
-                style={{ maxHeight: "200px" }}
-              />
-              <img
-                src="/images/copa_kit_verde.jpg"
-                alt="Camiseta personalizada Copa do Mundo verde"
-                className="w-full rounded-2xl object-cover shadow-xl"
-                style={{ maxHeight: "200px" }}
-              />
+          </div>
+        </section>
+
+        {/* Aviso Em Breve */}
+        <section className="py-8 bg-yellow-400">
+          <div className="container">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-center md:text-left">
+              <div className="flex items-center gap-3">
+                <Clock className="w-8 h-8 text-yellow-900 flex-shrink-0" />
+                <div>
+                  <p className="font-black text-yellow-900 text-lg">🚨 Em Breve: Linha Completa Copa 2026!</p>
+                  <p className="text-yellow-800 text-sm">Já sabe o que quer? Antecipe seu orçamento e garanta prioridade na produção!</p>
+                </div>
+              </div>
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-green-700 text-white font-bold rounded-full hover:bg-green-800 transition-colors shadow-md"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Falar com Especialista
+              </a>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ rápido */}
-      <section className="py-16 bg-gray-50">
-        <div className="container max-w-3xl">
-          <h2 className="text-2xl md:text-3xl font-black text-gray-900 text-center mb-10">
-            Dúvidas frequentes ❓
-          </h2>
-          <div className="space-y-4">
-            {[
-              {
-                q: "Quando os produtos da Copa estarão disponíveis?",
-                a: "Estamos preparando a linha completa. Em breve lançaremos os produtos oficiais. Mas se você já sabe o que precisa, pode entrar em contato agora e já começamos a trabalhar no seu pedido!",
-              },
-              {
-                q: "Qual o pedido mínimo?",
-                a: "Atendemos a partir de 3 unidades! Não precisa pedir centenas de peças para personalizar seus produtos.",
-              },
-              {
-                q: "Vocês criam a arte ou preciso enviar pronta?",
-                a: "Podemos criar a arte para você ou utilizar a arte que você enviar. Nossa equipe de design está pronta para ajudar!",
-              },
-              {
-                q: "Qual o prazo de entrega?",
-                a: "O prazo varia conforme o produto e quantidade. Em geral, trabalhamos com 5 a 10 dias úteis após aprovação da arte. Pedidos antecipados têm mais flexibilidade de prazo.",
-              },
-            ].map((item, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                <h3 className="font-bold text-gray-900 mb-2 flex items-start gap-2">
-                  <span className="text-green-600 mt-0.5">▶</span>
-                  {item.q}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed pl-5">{item.a}</p>
-              </div>
-            ))}
+        {/* Produtos */}
+        <section id="produtos" className="py-16 md:py-24 bg-gray-50">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+                🏆 Produtos Copa do Mundo 2026
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+                Personalize tudo para a maior festa do futebol mundial! 
+                Todos os produtos com arte exclusiva e sublimação de alta qualidade.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {produtos.map((produto, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
+                >
+                  {/* Card Header */}
+                  <div className={`bg-gradient-to-br ${produto.cor} p-8 flex flex-col items-center justify-center`}>
+                    <span className="text-6xl mb-3">{produto.icone}</span>
+                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full">
+                      {produto.badge}
+                    </span>
+                  </div>
+                  {/* Card Body */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{produto.nome}</h3>
+                    <p className="text-gray-600 text-sm mb-5 leading-relaxed">{produto.descricao}</p>
+                    <a
+                      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Olá! Gostaria de um orçamento para ${produto.nome} temáticos da Copa do Mundo 2026! ⚽`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-bold rounded-xl hover:from-green-700 hover:to-green-800 transition-all"
+                    >
+                      Solicitar Orçamento
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Final */}
-      <section
-        className="py-20 text-center"
-        style={{
-          background: "linear-gradient(135deg, #006400 0%, #009c3b 50%, #FFDF00 100%)",
-        }}
-      >
-        <div className="container">
-          <div className="text-6xl mb-6">⚽🏆🇧🇷</div>
-          <h2 className="text-3xl md:text-5xl font-black text-white mb-4 drop-shadow-lg">
-            Vamos juntos torcer pelo HEXA!
-          </h2>
-          <p className="text-green-100 text-xl mb-8 max-w-xl mx-auto">
-            Entre em contato agora e antecipe seus produtos personalizados para a Copa do Mundo 2026.
-          </p>
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-white text-green-800 font-black px-12 py-5 rounded-full text-xl shadow-2xl hover:bg-yellow-50 transition-all hover:scale-105"
-          >
-            <MessageCircle className="w-6 h-6" />
-            Falar no WhatsApp Agora
-          </a>
-        </div>
-      </section>
+        {/* Vantagens */}
+        <section className="py-16 md:py-20" style={{ background: "linear-gradient(135deg, #006400 0%, #008000 100%)" }}>
+          <div className="container">
+            <h2 className="text-3xl md:text-4xl font-black text-white text-center mb-12">
+              Por que escolher a AFK para a Copa?
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {vantagens.map((v, i) => (
+                <div key={i} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20">
+                  <span className="text-4xl mb-4 block">{v.icone}</span>
+                  <h3 className="font-bold text-white text-lg mb-2">{v.titulo}</h3>
+                  <p className="text-white/80 text-sm">{v.descricao}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Final */}
+        <section className="py-16 md:py-20 bg-yellow-400">
+          <div className="container">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-black text-yellow-900 mb-4">
+                🏆 Antecipe seu Pedido Copa 2026!
+              </h2>
+              <p className="text-yellow-800 text-lg mb-8">
+                Não espere a Copa chegar para pedir seus produtos personalizados. 
+                Entre em contato agora e garanta prioridade na produção!
+              </p>
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-green-700 text-white font-black text-xl rounded-full hover:bg-green-800 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+              >
+                <MessageCircle className="w-6 h-6" />
+                Falar no WhatsApp Agora
+              </a>
+              <p className="mt-4 text-yellow-800 text-sm">
+                Atendimento rápido • Curitiba e todo o Brasil
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </main>
 
       <Footer />
     </div>

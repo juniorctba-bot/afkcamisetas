@@ -1,147 +1,144 @@
 /**
  * Contato - AFK Camisetas
- * Página de contato com informações e formulário
  */
-import { Phone, Mail, MapPin, Clock, MessageCircle, Instagram, Facebook } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, ArrowRight, MessageCircle, Instagram } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const WHATSAPP_NUMBER = "5541987386527";
+const WHATSAPP_URL = "https://wa.me/5541987386527?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
 export default function Contato() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen bg-white">
       <Header />
-      
-      <main className="flex-1 pt-16 md:pt-20">
-        {/* Hero */}
-        <section className="bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-400 py-16 md:py-24">
-          <div className="container text-center">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <MessageCircle className="w-10 h-10 text-white" />
-              <h1 className="text-4xl md:text-5xl font-bold text-white">
-                Fale Conosco
-              </h1>
-            </div>
-            <p className="text-xl text-white/90">
-              Estamos prontos para atender você!
-            </p>
-          </div>
-        </section>
 
-        {/* Contato */}
-        <section className="py-16 bg-gray-50">
-          <div className="container">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Informações */}
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                  Informações de Contato
-                </h2>
-                
-                <div className="space-y-6">
-                  <a
-                    href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                  >
-                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6 text-green-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">WhatsApp</h3>
-                      <p className="text-gray-600">(41) 98738-6527</p>
-                      <p className="text-sm text-green-600 mt-1">Clique para conversar</p>
-                    </div>
-                  </a>
+      {/* Hero */}
+      <section className="pt-24 md:pt-28 pb-16 bg-gradient-to-br from-cyan-50 via-white to-orange-50">
+        <div className="container text-center max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Entre em{" "}
+            <span className="bg-gradient-to-r from-cyan-500 to-orange-500 bg-clip-text text-transparent">
+              Contato
+            </span>
+          </h1>
+          <p className="text-lg text-gray-600 leading-relaxed">
+            Estamos prontos para ajudar você a criar produtos personalizados incríveis. 
+            Escolha o canal que preferir e fale conosco!
+          </p>
+        </div>
+      </section>
 
-                  <a
-                    href="mailto:afkcamisetas@gmail.com.br"
-                    className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                  >
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">E-mail</h3>
-                      <p className="text-gray-600">afkcamisetas@gmail.com.br</p>
-                      <p className="text-sm text-blue-600 mt-1">Clique para enviar e-mail</p>
-                    </div>
-                  </a>
-
-                  <div className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
-                    <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-6 h-6 text-pink-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">Localização</h3>
-                      <p className="text-gray-600">Curitiba e Região Metropolitana</p>
-                      <p className="text-sm text-gray-500 mt-1">Entregamos em toda a região</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
-                    <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-6 h-6 text-purple-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">Horário de Atendimento</h3>
-                      <p className="text-gray-600">Segunda a Sexta: 8h às 18h</p>
-                      <p className="text-gray-600">Sábado: 9h às 13h</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Redes Sociais */}
-                <div className="mt-8">
-                  <h3 className="font-semibold text-gray-900 mb-4">Siga-nos nas redes sociais</h3>
-                  <div className="flex gap-4">
-                    <a
-                      href="https://instagram.com/afkcamisetas"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-400 text-white rounded-lg hover:opacity-90 transition-opacity"
-                    >
-                      <Instagram className="w-5 h-5" />
-                      Instagram
-                    </a>
-                    <a
-                      href="https://facebook.com/afkcamisetas"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:opacity-90 transition-opacity"
-                    >
-                      <Facebook className="w-5 h-5" />
-                      Facebook
-                    </a>
-                  </div>
-                </div>
+      {/* Canais de Contato */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container max-w-5xl">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {/* WhatsApp */}
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 hover:shadow-xl hover:shadow-green-500/10 transition-all text-center"
+            >
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-green-500 text-white group-hover:scale-110 transition-transform">
+                <MessageCircle className="w-8 h-8" />
               </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">WhatsApp</h3>
+              <p className="text-green-600 font-semibold text-lg">(41) 98738-6527</p>
+              <p className="text-gray-500 text-sm mt-2">Resposta rápida</p>
+            </a>
 
-              {/* CTA WhatsApp */}
-              <div className="bg-gradient-to-br from-green-400 to-green-600 rounded-2xl p-8 text-white flex flex-col justify-center">
-                <MessageCircle className="w-16 h-16 mb-6" />
-                <h2 className="text-3xl font-bold mb-4">
-                  Prefere WhatsApp?
-                </h2>
-                <p className="text-white/90 mb-6">
-                  Atendemos pelo WhatsApp de forma rápida e prática. Clique no botão abaixo para iniciar uma conversa!
+            {/* E-mail */}
+            <a
+              href="mailto:vendas@afkcamisetas.com.br"
+              className="group p-8 rounded-2xl bg-gradient-to-br from-cyan-50 to-teal-50 border border-cyan-100 hover:shadow-xl hover:shadow-cyan-500/10 transition-all text-center"
+            >
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-cyan-500 text-white group-hover:scale-110 transition-transform">
+                <Mail className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">E-mail</h3>
+              <p className="text-cyan-600 font-semibold">vendas@afkcamisetas.com.br</p>
+              <p className="text-gray-500 text-sm mt-2">Para propostas e orçamentos</p>
+            </a>
+
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/afkcamisetas"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-8 rounded-2xl bg-gradient-to-br from-pink-50 to-purple-50 border border-pink-100 hover:shadow-xl hover:shadow-pink-500/10 transition-all text-center"
+            >
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-purple-500 text-white group-hover:scale-110 transition-transform">
+                <Instagram className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Instagram</h3>
+              <p className="text-pink-600 font-semibold">@afkcamisetas</p>
+              <p className="text-gray-500 text-sm mt-2">Novidades e inspirações</p>
+            </a>
+          </div>
+
+          {/* Info Cards */}
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-8 rounded-2xl bg-gray-50">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-cyan-500" />
+                Localização
+              </h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Curitiba - Paraná<br />
+                Atendemos toda a região metropolitana e enviamos para todo o Brasil.
+              </p>
+              <p className="text-sm text-gray-500">
+                Retirada disponível em Curitiba mediante agendamento.
+              </p>
+            </div>
+
+            <div className="p-8 rounded-2xl bg-gray-50">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <Clock className="w-5 h-5 text-cyan-500" />
+                Horário de Atendimento
+              </h3>
+              <div className="space-y-2 text-gray-600">
+                <p><strong>Segunda a Sexta:</strong> 8h às 18h</p>
+                <p><strong>Sábado:</strong> 9h às 13h</p>
+                <p className="text-sm text-gray-500 mt-4">
+                  WhatsApp disponível fora do horário comercial para mensagens.
                 </p>
-                <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=Olá! Vim pelo site e gostaria de mais informações.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-green-600 font-bold rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  <Phone className="w-5 h-5" />
-                  Iniciar Conversa
-                </a>
               </div>
             </div>
           </div>
-        </section>
-      </main>
+
+          {/* Mensagem de Orçamento */}
+          <div className="mt-12 p-8 rounded-2xl bg-gradient-to-br from-cyan-50 to-teal-50 border border-cyan-100">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Como solicitar um orçamento?</h3>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              Cada projeto é único. Para solicitar o seu orçamento personalizado, basta entrar em contato 
+              conosco por WhatsApp ou e-mail informando:
+            </p>
+            <div className="grid sm:grid-cols-2 gap-3 mb-6">
+              {[
+                "Produto desejado",
+                "Quantidade aproximada",
+                "Ideia de personalização",
+                "Prazo desejado",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-2 text-sm text-gray-600">
+                  <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full flex-shrink-0" />
+                  {item}
+                </div>
+              ))}
+            </div>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-semibold rounded-full hover:shadow-lg transition-all"
+            >
+              Solicitar Orçamento Agora
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

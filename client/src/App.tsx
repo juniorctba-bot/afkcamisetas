@@ -5,25 +5,15 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
-// Páginas do site AFK Camisetas
+// Páginas Públicas do site AFK Camisetas
 import HomeAFK from "./pages/HomeAFK";
 import Sobre from "./pages/Sobre";
-import ProdutosAFK from "./pages/ProdutosAFK";
-import Portfolio from "./pages/Portfolio";
-import Kits from "./pages/Kits";
-import Promocoes from "./pages/Promocoes";
-import Colecao from "./pages/Colecao";
-import OrcamentoPublico from "./pages/OrcamentoPublico";
+import Diferencial from "./pages/Diferencial";
+import ParaEmpresas from "./pages/ParaEmpresas";
+import ParaVoce from "./pages/ParaVoce";
+import OQueJaFizemos from "./pages/OQueJaFizemos";
+import ColecaoPropria from "./pages/ColecaoPropria";
 import Contato from "./pages/Contato";
-import VoltaAsAulas from "./pages/VoltaAsAulas";
-import Etiquetas from "./pages/Etiquetas";
-import Carnaval2026 from "./pages/Carnaval2026";
-import DiaDaMulher from "./pages/DiaDaMulher";
-import Copa2026 from "./pages/Copa2026";
-import ColecoesProprias from "./pages/ColecoesProprias";
-import ParaSuaEmpresa from "./pages/ParaSuaEmpresa";
-import CatalogosPromocionais from "./pages/CatalogosPromocionais";
-import KitsCorporativos from "./pages/KitsCorporativos";
 
 // Área Restrita
 import AdminLogin from "./pages/AdminLogin";
@@ -41,23 +31,12 @@ function Router() {
       {/* Páginas Públicas */}
       <Route path="/" component={HomeAFK} />
       <Route path="/sobre" component={Sobre} />
-      <Route path="/produtos" component={ProdutosAFK} />
-      <Route path="/portfolio" component={Portfolio} />
-      <Route path="/kits" component={Kits} />
-      <Route path="/promocoes" component={Promocoes} />
-      <Route path="/colecoes/carnaval-2026" component={Carnaval2026} />
-      <Route path="/dia-da-mulher" component={DiaDaMulher} />
-      <Route path="/copa-2026" component={Copa2026} />
-      <Route path="/colecoes/:slug" component={Colecao} />
-      <Route path="/orcamento" component={OrcamentoPublico} />
+      <Route path="/diferencial" component={Diferencial} />
+      <Route path="/para-empresas" component={ParaEmpresas} />
+      <Route path="/para-voce" component={ParaVoce} />
+      <Route path="/o-que-ja-fizemos" component={OQueJaFizemos} />
+      <Route path="/colecao-propria" component={ColecaoPropria} />
       <Route path="/contato" component={Contato} />
-      <Route path="/volta-as-aulas" component={VoltaAsAulas} />
-      <Route path="/etiquetas" component={Etiquetas} />
-      <Route path="/colecoes-proprias/:slug" component={ColecoesProprias} />
-      <Route path="/colecoes-proprias" component={ColecoesProprias} />
-      <Route path="/para-sua-empresa" component={ParaSuaEmpresa} />
-      <Route path="/catalogos-promocionais" component={CatalogosPromocionais} />
-      <Route path="/kits-corporativos" component={KitsCorporativos} />
       
       {/* Área Restrita */}
       <Route path="/admin" component={AdminHome} />
@@ -66,7 +45,6 @@ function Router() {
       <Route path="/admin/calculadora" component={Calculadora} />
       <Route path="/admin/controle-pedidos" component={ControlePedidos} />
       <Route path="/gerador-orcamentos" component={GeradorOrcamentos} />
-      
       
       {/* Aprovação de Orçamento (Público) */}
       <Route path="/aprovar/:token" component={AprovarOrcamento} />

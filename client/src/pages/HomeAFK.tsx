@@ -1,396 +1,343 @@
 /**
  * Home Page - AFK Camisetas
- * Página principal com banners, hero, produtos em destaque e benefícios
- * Otimizada para SEO com palavras-chave relevantes
+ * Landing page institucional com foco B2B
  */
-import { ArrowRight, Users, Zap, Heart, MapPin, Phone, Mail } from "lucide-react";
+import { ArrowRight, Users, Zap, Heart, Shield, Package, Star } from "lucide-react";
 import { Link } from "wouter";
-import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import BannerCopa2026 from "@/components/BannerCopa2026";
 
-const WHATSAPP_NUMBER = "5541987386527";
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663237581047/9vRvPjwToreyUGuKQDcbjR";
+const WHATSAPP_URL = "https://wa.me/5541987386527?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 
-const produtosDestaque = [
-  { 
-    id: 1, 
-    nome: "Canecas Personalizadas", 
-    categoria: "Canecas",
-    imagem: "/images/canecas_personalizadas.png",
-    alt: "Canecas personalizadas com sublimação em Curitiba - AFK Camisetas"
+const categorias = [
+  {
+    nome: "Vestuário",
+    desc: "Camisetas, moletons, bermudas e aventais",
+    img: `${CDN}/afk_camisetas_vestuario_aeba1b02.png`,
   },
-  { 
-    id: 2, 
-    nome: "Chinelos Personalizados", 
-    categoria: "Calçados",
-    imagem: "/images/chinelos_personalizados.png",
-    alt: "Chinelos personalizados com estampa exclusiva - AFK Camisetas Curitiba"
+  {
+    nome: "Bonés",
+    desc: "Bonés e chapéus personalizados",
+    img: `${CDN}/afk_bones_a1749979.png`,
   },
-  { 
-    id: 3, 
-    nome: "Camisetas e Moletons", 
-    categoria: "Vestuário",
-    imagem: "/images/camisetas_personalizadas.png",
-    alt: "Camisetas e moletons personalizados para eventos e empresas - AFK Curitiba"
+  {
+    nome: "Canecas e Copos",
+    desc: "Canecas, copos e squeezes",
+    img: `${CDN}/afk_copos_266d485a.png`,
   },
-  { 
-    id: 4, 
-    nome: "Mochilas e Necessaires", 
-    categoria: "Bolsas",
-    imagem: "/images/mochilas_necessaires.png",
-    alt: "Mochilas e necessaires personalizadas - Brindes corporativos AFK"
-  },
-  { 
-    id: 5, 
-    nome: "Acessórios Personalizados", 
-    categoria: "Acessórios",
-    imagem: "/images/acessorios_personalizados.png",
-    alt: "Acessórios personalizados - Chaveiros, capas de celular e mais - AFK"
-  },
-  { 
-    id: 6, 
-    nome: "E Muito Mais!", 
-    categoria: "Diversos",
-    imagem: "/images/muito_mais.png",
-    alt: "Diversos produtos personalizados - Brindes e presentes - AFK Camisetas"
+  {
+    nome: "Decoração",
+    desc: "Almofadas, azulejos, quadros e pratos",
+    img: `${CDN}/afk_decoracao_ce9d3b3f.png`,
   },
 ];
 
-const beneficios = [
+const diferenciais = [
   {
-    icon: Users,
-    titulo: "Pedido Mínimo: 3 Unidades",
-    descricao: "Atendemos pequenos grupos, associações, times e empresas. Não precisa pedir 300 unidades para personalizar seus produtos!",
+    icon: Package,
+    titulo: "A partir de 3 unidades",
+    descricao: "Enquanto a concorrência exige 50 a 100 peças, nós atendemos pedidos a partir de 3 unidades.",
   },
   {
-    icon: Zap,
-    titulo: "Entrega Rápida em Curitiba",
-    descricao: "Produção ágil e entrega expressa para Curitiba e região metropolitana do Paraná.",
+    icon: Users,
+    titulo: "Foco em PMEs",
+    descricao: "Entendemos a realidade de pequenas e médias empresas e oferecemos soluções que cabem no seu orçamento.",
+  },
+  {
+    icon: Star,
+    titulo: "Qualidade Superior",
+    descricao: "Materiais de primeira linha e tecnologia de sublimação de alta resolução para acabamento impecável.",
   },
   {
     icon: Heart,
-    titulo: "Qualidade Garantida",
-    descricao: "Sublimação de alta resolução e materiais de primeira linha para produtos duráveis e bonitos.",
+    titulo: "Atendimento Consultivo",
+    descricao: "Ajudamos você a escolher o melhor produto e técnica de personalização para o seu projeto.",
+  },
+  {
+    icon: Zap,
+    titulo: "Entrega Rápida",
+    descricao: "Processos otimizados para cumprir prazos com agilidade, sem abrir mão da qualidade.",
+  },
+  {
+    icon: Shield,
+    titulo: "Garantia de Satisfação",
+    descricao: "Prova virtual antes da produção para total segurança. Sua aprovação é nossa prioridade.",
   },
 ];
 
-const servicosOferecidos = [
-  "Camisetas personalizadas para eventos",
-  "Uniformes para empresas",
-  "Abadás para blocos de carnaval",
-  "Brindes corporativos",
-  "Presentes personalizados",
-  "Etiquetas escolares",
-  "Produtos para festas",
-  "Lembrancinhas personalizadas",
+const casosDeUso = [
+  { titulo: "Startups", desc: "Uniformes para equipes em crescimento" },
+  { titulo: "Eventos Corporativos", desc: "Brindes exclusivos para conferências" },
+  { titulo: "Equipes Remotas", desc: "Fortaleça o senso de pertencimento" },
+  { titulo: "Clubes e Associações", desc: "Identidade visual para sua comunidade" },
+  { titulo: "Pequenos Comércios", desc: "Profissionalismo no dia a dia" },
+  { titulo: "Presentes Especiais", desc: "Produtos únicos e personalizados" },
 ];
 
 export default function HomeAFK() {
-  // Atualizar título da página para SEO
-  useEffect(() => {
-    document.title = "AFK Camisetas Personalizadas Curitiba | Camisetas, Bonés, Canecas e Muito Mais";
-  }, []);
-
   return (
-    <div className="min-h-screen flex flex-col">
-      <BannerCopa2026 />
+    <div className="min-h-screen bg-white">
       <Header />
-      
-      <main className="flex-1" style={{ paddingTop: 'calc(var(--banner-height, 40px) + 64px)' }}>
-        {/* Banners Promocionais */}
-        <div className="flex flex-col md:flex-row">
-          <Link 
-            href="/dia-da-mulher"
-            className="flex-1 bg-gradient-to-r from-pink-400 via-pink-500 to-purple-500 p-4 flex items-center justify-between hover:opacity-90 transition-opacity"
-            aria-label="Dia da Mulher 2026 - Presentes personalizados"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-xl">💐</span>
-              </div>
-              <div>
-                <p className="font-bold text-white">Dia da Mulher 2026</p>
-                <p className="text-white/90 text-sm">Presentes personalizados - Pare de dar flores!</p>
-              </div>
-            </div>
-            <ArrowRight className="w-5 h-5 text-white" />
-          </Link>
-          
-          <Link 
-            href="/volta-as-aulas"
-            className="flex-1 bg-gradient-to-r from-cyan-400 to-blue-500 p-4 flex items-center justify-between hover:opacity-90 transition-opacity"
-            aria-label="Promoção Volta às Aulas 2026 - Etiquetas personalizadas"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-xl">📚</span>
-              </div>
-              <div>
-                <p className="font-bold text-white">Volta às Aulas 2026</p>
-                <p className="text-white/80 text-sm">Etiquetas personalizadas a partir de R$ 8,50</p>
-              </div>
-            </div>
-            <ArrowRight className="w-5 h-5 text-white" />
-          </Link>
-          
-          <Link 
-            href="/colecoes/carnaval-2026"
-            className="flex-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 p-4 flex items-center justify-between hover:opacity-90 transition-opacity"
-            aria-label="Coleção Carnaval 2026 - Abadás e acessórios personalizados"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/30 rounded-full flex items-center justify-center">
-                <span className="text-xl">🎉</span>
-              </div>
-              <div>
-                <p className="font-bold text-white drop-shadow-md">Unidos da AFK - Carnaval 2026</p>
-                <p className="text-white/90 text-sm drop-shadow">Abadás, acessórios e muito mais para sua folia!</p>
-              </div>
-            </div>
-            <ArrowRight className="w-5 h-5 text-white" />
-          </Link>
-        </div>
 
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-400 py-16 md:py-24">
-          <div className="container">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              {/* Left - Image */}
-              <div className="order-2 lg:order-1 flex justify-center">
-                <img 
-                  src="/images/afk_eventos.png" 
-                  alt="AFK Camisetas Personalizadas Curitiba - Eventos Especiais - Camisetas, bonés, canecas e muito mais" 
-                  className="max-w-full h-auto rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300"
-                  style={{ maxHeight: "500px" }}
-                  loading="eager"
-                />
+      {/* Hero Section */}
+      <section className="relative pt-20 md:pt-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-50 via-white to-orange-50" />
+        <div className="absolute top-20 right-0 w-96 h-96 bg-cyan-200/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-orange-200/20 rounded-full blur-3xl" />
+        
+        <div className="container relative z-10 py-16 md:py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-100 text-cyan-700 rounded-full text-sm font-medium">
+                <Package className="w-4 h-4" />
+                A partir de 3 unidades
               </div>
-              
-              {/* Right - Text Content */}
-              <div className="order-1 lg:order-2">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                  Camisetas Personalizadas em Curitiba
-                </h1>
-                <p className="text-xl text-white/90 mb-4">
-                  <strong>AFK Camisetas e Muito Mais</strong> - Sua loja de produtos personalizados em Curitiba.
-                </p>
-                <p className="text-lg text-white/80 mb-8">
-                  Camisetas, bonés, canecas, chinelos, mochilas e muito mais. Pedido mínimo de apenas 3 unidades. 
-                  Atendemos eventos, empresas, escolas e pessoas físicas com qualidade e agilidade.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Link 
-                    href="/orcamento"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-pink-600 font-semibold rounded-full hover:bg-gray-100 transition-colors"
-                  >
-                    Faça seu Orçamento Grátis
-                    <ArrowRight className="w-5 h-5" />
-                  </Link>
-                  <Link 
-                    href="/produtos"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors backdrop-blur-sm"
-                  >
-                    Ver Catálogo de Produtos
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Produtos em Destaque */}
-        <section className="py-16 md:py-24 bg-gray-50" id="produtos">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Produtos Personalizados em Destaque
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Confira alguns dos nossos produtos mais populares. Todos podem ser personalizados com sua arte, 
-                logo ou mensagem. Sublimação de alta qualidade em Curitiba.
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                Personalizamos{" "}
+                <span className="bg-gradient-to-r from-cyan-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent">
+                  suas ideias
+                </span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg">
+                Soluções criativas em brindes e uniformes para empresas, grupos e eventos. 
+                Qualidade e estilo que fortalecem sua marca.
               </p>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {produtosDestaque.map((produto) => (
-                <article 
-                  key={produto.id}
-                  className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-semibold rounded-full hover:shadow-xl hover:shadow-cyan-500/25 transition-all text-lg"
                 >
-                  <div className="aspect-square bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center overflow-hidden">
-                    <img 
-                      src={produto.imagem} 
-                      alt={produto.alt}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <span className="text-xs font-medium text-pink-600 bg-pink-50 px-2 py-1 rounded-full">
-                      {produto.categoria}
-                    </span>
-                    <h3 className="font-semibold text-gray-900 mt-2 mb-3 text-lg">
-                      {produto.nome}
-                    </h3>
-                    <a
-                      href={`https://wa.me/${WHATSAPP_NUMBER}?text=Olá! Gostaria de um orçamento para ${produto.nome}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-center py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
-                      aria-label={`Solicitar orçamento para ${produto.nome}`}
-                    >
-                      Solicitar Orçamento
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-            
-            <div className="text-center mt-8">
-              <Link 
-                href="/produtos"
-                className="inline-flex items-center gap-2 px-6 py-3 border-2 border-pink-500 text-pink-600 font-semibold rounded-full hover:bg-pink-50 transition-colors"
-              >
-                Ver Todos os Produtos Personalizados
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Por que escolher a AFK */}
-        <section className="py-16 md:py-24" id="diferenciais">
-          <div className="container">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4">
-              Por que escolher a AFK Camisetas?
-            </h2>
-            <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-              Somos especialistas em personalização de produtos em Curitiba, com anos de experiência 
-              atendendo eventos, empresas e clientes particulares.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {beneficios.map((beneficio, index) => (
-                <div 
-                  key={index}
-                  className="text-center p-6"
+                  Solicitar Orçamento
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+                <Link
+                  href="/para-empresas"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-gray-200 text-gray-700 font-semibold rounded-full hover:border-cyan-500 hover:text-cyan-600 transition-all text-lg"
                 >
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl flex items-center justify-center">
-                    <beneficio.icon className="w-8 h-8 text-pink-600" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {beneficio.titulo}
-                  </h3>
-                  <p className="text-gray-600">
-                    {beneficio.descricao}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Serviços - SEO Section */}
-        <section className="py-16 md:py-20 bg-gray-50">
-          <div className="container">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4">
-              Nossos Serviços de Personalização
-            </h2>
-            <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-              Oferecemos uma ampla variedade de serviços de personalização em Curitiba e região.
-            </p>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {servicosOferecidos.map((servico, index) => (
-                <div 
-                  key={index}
-                  className="bg-white p-4 rounded-xl shadow-sm text-center hover:shadow-md transition-shadow"
-                >
-                  <p className="font-medium text-gray-800">{servico}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Localização - SEO Local */}
-        <section className="py-16 md:py-20 bg-white">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">
-                Produtos Personalizados em Curitiba
-              </h2>
-              
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div className="p-6 bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl">
-                  <MapPin className="w-10 h-10 text-pink-600 mx-auto mb-3" />
-                  <h3 className="font-bold text-gray-900 mb-2">Localização</h3>
-                  <p className="text-gray-600">Curitiba - PR</p>
-                  <p className="text-gray-500 text-sm">Atendemos toda a região metropolitana</p>
-                </div>
-                
-                <div className="p-6 bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl">
-                  <Phone className="w-10 h-10 text-pink-600 mx-auto mb-3" />
-                  <h3 className="font-bold text-gray-900 mb-2">WhatsApp</h3>
-                  <a 
-                    href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                    className="text-pink-600 hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    (41) 98738-6527
-                  </a>
-                  <p className="text-gray-500 text-sm">Atendimento rápido</p>
-                </div>
-                
-                <div className="p-6 bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl">
-                  <Mail className="w-10 h-10 text-pink-600 mx-auto mb-3" />
-                  <h3 className="font-bold text-gray-900 mb-2">E-mail</h3>
-                  <a 
-                    href="mailto:afkcamisetas@gmail.com.br"
-                    className="text-pink-600 hover:underline"
-                  >
-                    afkcamisetas@gmail.com.br
-                  </a>
-                  <p className="text-gray-500 text-sm">Orçamentos e dúvidas</p>
-                </div>
+                  Soluções Corporativas
+                </Link>
+              </div>
+              <div className="flex items-center gap-6 pt-4 text-sm text-gray-500">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 bg-green-500 rounded-full" />
+                  Curitiba e Região
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 bg-cyan-500 rounded-full" />
+                  Atendemos todo o Brasil
+                </span>
               </div>
             </div>
+            <div className="relative">
+              <img
+                src={`${CDN}/afk_muito_mais-Copia_b8122a4d.png`}
+                alt="Produtos AFK Camisetas - Stickers, mousepads, chaveiros, cadernos e muito mais"
+                className="w-full max-w-lg mx-auto rounded-2xl"
+              />
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA Final */}
-        <section className="py-16 md:py-24 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400">
-          <div className="container text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Pronto para personalizar seus produtos?
+      {/* Diferenciais Section */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Por que escolher a AFK?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Entre em contato agora e receba seu orçamento sem compromisso. 
-              Atendemos Curitiba e toda a região metropolitana do Paraná.
+            <p className="text-gray-600 text-lg">
+              Nosso compromisso é entregar qualidade, criatividade e flexibilidade para projetos de qualquer tamanho.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link 
-                href="/orcamento"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-pink-600 font-bold rounded-full hover:bg-gray-100 transition-colors text-lg"
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {diferenciais.map((d, i) => (
+              <div
+                key={i}
+                className="group p-6 rounded-2xl border border-gray-100 hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-500/5 transition-all"
               >
-                Solicitar Orçamento Grátis
-                <ArrowRight className="w-5 h-5" />
-              </Link>
+                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan-50 to-teal-50 text-cyan-600 mb-4 group-hover:scale-110 transition-transform">
+                  <d.icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">{d.titulo}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{d.descricao}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Categorias de Produtos */}
+      <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Nossos Produtos
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Catálogo completo de produtos personalizáveis para atender às necessidades da sua empresa ou grupo.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categorias.map((cat, i) => (
+              <div
+                key={i}
+                className="group relative overflow-hidden rounded-2xl bg-white shadow-sm hover:shadow-xl transition-all"
+              >
+                <div className="aspect-[3/4] overflow-hidden">
+                  <img
+                    src={cat.img}
+                    alt={cat.nome}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6">
+                  <h3 className="text-xl font-bold text-white">{cat.nome}</h3>
+                  <p className="text-white/80 text-sm mt-1">{cat.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/para-empresas"
+              className="inline-flex items-center gap-2 text-cyan-600 font-semibold hover:text-cyan-700 transition-colors"
+            >
+              Ver todas as soluções
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Grid de Categorias Completo */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="container">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Mais de 20 categorias de produtos
+              </h2>
+              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                De camisetas a azulejos, de canecas a chaveiros. Temos a solução perfeita para 
+                personalizar qualquer item com a sua marca.
+              </p>
+              <div className="grid grid-cols-2 gap-3 mb-8">
+                {["Camisetas", "Moletons", "Bermudas", "Bonés", "Canecas", "Chinelos", "Aventais", "Almofadas", "Azulejos", "Quadros", "Toalhas", "Copos", "Chaveiros", "Agendas", "Capinhas", "Necessaires"].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-sm text-gray-600">
+                    <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full flex-shrink-0" />
+                    {item}
+                  </div>
+                ))}
+              </div>
               <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=Olá! Gostaria de um orçamento para produtos personalizados.`}
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 transition-colors text-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-semibold rounded-full hover:shadow-lg transition-all"
               >
-                <Phone className="w-5 h-5" />
-                Chamar no WhatsApp
+                Solicitar Orçamento
+                <ArrowRight className="w-4 h-4" />
               </a>
             </div>
+            <div>
+              <img
+                src={`${CDN}/Designsemnome(2)_9a9563d0.webp`}
+                alt="Todas as categorias de produtos AFK Camisetas"
+                className="w-full rounded-2xl shadow-lg"
+              />
+            </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
+      {/* Casos de Uso */}
+      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+        <div className="container">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Para quem é a AFK?
+            </h2>
+            <p className="text-gray-300 text-lg">
+              Atendemos desde pequenas equipes até grandes eventos. Veja como podemos ajudar.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {casosDeUso.map((caso, i) => (
+              <div
+                key={i}
+                className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              >
+                <h3 className="text-lg font-semibold text-white mb-2">{caso.titulo}</h3>
+                <p className="text-gray-400 text-sm">{caso.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Processo */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Como funciona?
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Da ideia à entrega, nosso processo é simples e transparente.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { step: "01", titulo: "Contato e Briefing", desc: "Você nos conta sua ideia e nós ajudamos a transformá-la em um projeto viável." },
+              { step: "02", titulo: "Orçamento e Prova", desc: "Enviamos orçamento detalhado e prova virtual de como seu produto ficará." },
+              { step: "03", titulo: "Produção", desc: "Com sua aprovação, iniciamos a personalização cuidando de cada detalhe." },
+              { step: "04", titulo: "Entrega", desc: "Pedido conferido, embalado e enviado para qualquer lugar do Brasil." },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 text-white text-xl font-bold">
+                  {item.step}
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.titulo}</h3>
+                <p className="text-gray-500 text-sm">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Final */}
+      <section className="py-16 md:py-20 bg-gradient-to-r from-cyan-500 via-teal-500 to-cyan-600 text-white">
+        <div className="container text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Transforme sua ideia em realidade!
+          </h2>
+          <p className="text-white/90 text-lg mb-8 max-w-xl mx-auto">
+            Entre em contato com a AFK Camisetas e solicite um orçamento personalizado. 
+            Produzimos a partir de 3 unidades!
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-cyan-600 font-bold rounded-full hover:shadow-xl transition-all text-lg"
+            >
+              Falar no WhatsApp
+              <ArrowRight className="w-5 h-5" />
+            </a>
+            <Link
+              href="/contato"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/50 text-white font-semibold rounded-full hover:bg-white/10 transition-all text-lg"
+            >
+              Formulário de Contato
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

@@ -1,223 +1,213 @@
 /**
  * Header Component - AFK Camisetas
- * Navegação completa do site com dropdown para Produtos e Coleções Próprias SEJA UM
+ * Menu institucional B2B com navegação completa
  */
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, ChevronDown, Search } from "lucide-react";
+import { Menu, X, ChevronDown, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "wouter";
 
-const productFilters = [
-  { label: "Todos", href: "/produtos" },
-  { label: "Para Mim", href: "/produtos?filtro=para-mim" },
-  { label: "Para Empresa", href: "/produtos?filtro=para-empresa" },
-  { label: "Para meu Evento", href: "/produtos?filtro=para-evento" },
-  { label: "Veja alguns materiais", href: "/portfolio" },
+const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663237581047/9vRvPjwToreyUGuKQDcbjR";
+
+const paraEmpresasItems = [
+  { label: "Uniformes Corporativos", href: "/para-empresas#uniformes" },
+  { label: "Brindes Personalizados", href: "/para-empresas#brindes" },
+  { label: "Kit Onboarding", href: "/para-empresas#kit-onboarding" },
+  { label: "Eventos e Feiras", href: "/para-empresas#eventos" },
+  { 
+    label: "Catálogo Natal 2025", 
+    href: `${CDN}/Catalogo-Natal-AFK-2025(1)_be26d8d5.pdf`,
+    external: true 
+  },
 ];
 
-const colecoesProprias = [
-  { label: "SORRIA", href: "/colecoes-proprias/sorria", description: "Delicadeza que Transforma" },
-  { label: "RAIZ RUBRO NEGRA", href: "/colecoes-proprias/furacao", description: "Paixão Athleticana" },
-  { label: "HEXA VEM", href: "/colecoes-proprias/hexa-vem", description: "Seleção Brasileira" },
-  { label: "BUSHIDO", href: "/colecoes-proprias/bushido", description: "Caminho do Guerreiro" },
-  { label: "FORÇA ESTOICA", href: "/colecoes-proprias/forca-estoica", description: "Stoic Power" },
+const paraPFItems = [
+  { label: "Presentes Personalizados", href: "/para-voce#presentes" },
+  { label: "Eventos e Festas", href: "/para-voce#eventos" },
+  { label: "Decoração", href: "/para-voce#decoracao" },
+  { 
+    label: "Catálogo Natal 2025", 
+    href: `${CDN}/Catalogo-Natal-AFK-2025(1)_be26d8d5.pdf`,
+    external: true 
+  },
 ];
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [produtosOpen, setProdutosOpen] = useState(false);
-  const [colecoesOpen, setColecoesOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const produtosRef = useRef<HTMLDivElement>(null);
-  const colecoesRef = useRef<HTMLDivElement>(null);
+  const [empresasOpen, setEmpresasOpen] = useState(false);
+  const [pfOpen, setPfOpen] = useState(false);
+  const empresasRef = useRef<HTMLDivElement>(null);
+  const pfRef = useRef<HTMLDivElement>(null);
   const [location] = useLocation();
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (produtosRef.current && !produtosRef.current.contains(event.target as Node)) {
-        setProdutosOpen(false);
+      if (empresasRef.current && !empresasRef.current.contains(event.target as Node)) {
+        setEmpresasOpen(false);
       }
-      if (colecoesRef.current && !colecoesRef.current.contains(event.target as Node)) {
-        setColecoesOpen(false);
+      if (pfRef.current && !pfRef.current.contains(event.target as Node)) {
+        setPfOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setEmpresasOpen(false);
+    setPfOpen(false);
+  }, [location]);
+
   const isActive = (href: string) => location === href;
 
+  const navLinkClass = (href: string) =>
+    `px-3 py-2 text-sm font-medium transition-colors rounded-lg whitespace-nowrap ${
+      isActive(href) ? "text-cyan-600" : "text-gray-700 hover:text-cyan-600"
+    }`;
+
   return (
-    <header className="fixed left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm" style={{ top: 'var(--banner-height, 0px)' }}>
+    <header className="fixed left-0 right-0 top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
       <div className="container">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <img 
-              src="/images/logo_afk_final.png" 
-              alt="AFK Camisetas" 
-              className="h-10 md:h-12 w-auto"
+          <Link href="/" className="flex items-center gap-2">
+            <img
+              src={`${CDN}/logo_afk_final(1)_abe56eba.png`}
+              alt="AFK Camisetas e Muito +"
+              className="h-10 md:h-14 w-auto"
             />
           </Link>
 
-          {/* Search Bar - Desktop */}
-          <div className="hidden lg:flex items-center flex-1 max-w-md mx-6">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Buscar produtos... (Ctrl+K)"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500"
-              />
-            </div>
-          </div>
-
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0.5">
-            <Link
-              href="/"
-              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                isActive("/") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
-              }`}
-            >
+          <nav className="hidden xl:flex items-center gap-0.5">
+            <Link href="/" className={navLinkClass("/")}>
               Home
             </Link>
 
-            <Link
-              href="/sobre"
-              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                isActive("/sobre") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
-              }`}
-            >
+            <Link href="/sobre" className={navLinkClass("/sobre")}>
               Sobre Nós
             </Link>
 
-            {/* Produtos Dropdown */}
-            <div ref={produtosRef} className="relative">
+            <Link href="/diferencial" className={navLinkClass("/diferencial")}>
+              Diferencial
+            </Link>
+
+            {/* Para Empresas Dropdown */}
+            <div ref={empresasRef} className="relative">
               <button
-                onClick={() => setProdutosOpen(!produtosOpen)}
-                className={`flex items-center gap-1 px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                  location.startsWith("/produtos") || location.startsWith("/portfolio") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
+                onClick={() => { setEmpresasOpen(!empresasOpen); setPfOpen(false); }}
+                className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-lg whitespace-nowrap ${
+                  location.startsWith("/para-empresas") ? "text-cyan-600" : "text-gray-700 hover:text-cyan-600"
                 }`}
               >
-                Produtos
-                <ChevronDown className={`w-4 h-4 transition-transform ${produtosOpen ? "rotate-180" : ""}`} />
+                Para Empresas
+                <ChevronDown className={`w-4 h-4 transition-transform ${empresasOpen ? "rotate-180" : ""}`} />
               </button>
-              {produtosOpen && (
-                <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
-                  {productFilters.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600"
-                      onClick={() => setProdutosOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <Link
-              href="/kits"
-              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                isActive("/kits") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
-              }`}
-            >
-              Kits
-            </Link>
-
-            <Link
-              href="/para-sua-empresa"
-              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                isActive("/para-sua-empresa") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
-              }`}
-            >
-              Para sua Empresa
-            </Link>
-
-            <Link
-              href="/catalogos-promocionais"
-              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg whitespace-nowrap ${
-                isActive("/catalogos-promocionais") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
-              }`}
-            >
-              Catálogos
-            </Link>
-
-            {/* Coleções Próprias Dropdown */}
-            <div ref={colecoesRef} className="relative">
-              <button
-                onClick={() => setColecoesOpen(!colecoesOpen)}
-                className={`flex items-center gap-1 px-2.5 py-2 text-sm font-medium transition-colors rounded-lg whitespace-nowrap ${
-                  location.startsWith("/colecoes-proprias") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
-                }`}
-              >
-                Coleções Próprias
-                <ChevronDown className={`w-4 h-4 transition-transform ${colecoesOpen ? "rotate-180" : ""}`} />
-              </button>
-              {colecoesOpen && (
-                <div className="absolute top-full right-0 mt-1 w-64 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
-                  {/* Banner SEJA UM */}
-                  <div className="px-4 py-3 border-b border-gray-100">
-                    <img 
-                      src="/seja_um_banner.png" 
-                      alt="SEJA UM - Camisetas com design exclusivo" 
-                      className="w-full h-auto rounded"
-                    />
-                  </div>
-                  {colecoesProprias.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block px-4 py-2.5 hover:bg-pink-50 group"
-                      onClick={() => setColecoesOpen(false)}
-                    >
-                      <span className="block text-sm font-semibold text-gray-800 group-hover:text-pink-600">
+              {empresasOpen && (
+                <div className="absolute top-full left-0 mt-1 w-60 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
+                  {paraEmpresasItems.map((item) =>
+                    item.external ? (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600"
+                        onClick={() => setEmpresasOpen(false)}
+                      >
                         {item.label}
-                      </span>
-                      <span className="block text-xs text-gray-500">
-                        {item.description}
-                      </span>
-                    </Link>
-                  ))}
+                        <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
+                      </a>
+                    ) : (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600"
+                        onClick={() => setEmpresasOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  )}
                 </div>
               )}
             </div>
 
-            <Link
-              href="/orcamento"
-              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                isActive("/orcamento") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
-              }`}
-            >
-              Orçamento
+            {/* Para Pessoas Físicas Dropdown */}
+            <div ref={pfRef} className="relative">
+              <button
+                onClick={() => { setPfOpen(!pfOpen); setEmpresasOpen(false); }}
+                className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-lg whitespace-nowrap ${
+                  location.startsWith("/para-voce") ? "text-cyan-600" : "text-gray-700 hover:text-cyan-600"
+                }`}
+              >
+                Para Você
+                <ChevronDown className={`w-4 h-4 transition-transform ${pfOpen ? "rotate-180" : ""}`} />
+              </button>
+              {pfOpen && (
+                <div className="absolute top-full left-0 mt-1 w-60 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
+                  {paraPFItems.map((item) =>
+                    item.external ? (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600"
+                        onClick={() => setPfOpen(false)}
+                      >
+                        {item.label}
+                        <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
+                      </a>
+                    ) : (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-600"
+                        onClick={() => setPfOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  )}
+                </div>
+              )}
+            </div>
+
+            <Link href="/o-que-ja-fizemos" className={navLinkClass("/o-que-ja-fizemos")}>
+              O Que Já Fizemos
             </Link>
 
-            <Link
-              href="/contato"
-              className={`px-2.5 py-2 text-sm font-medium transition-colors rounded-lg ${
-                isActive("/contato") ? "text-pink-600" : "text-gray-700 hover:text-pink-600"
-              }`}
-            >
+            <Link href="/colecao-propria" className={navLinkClass("/colecao-propria")}>
+              Coleção Própria
+            </Link>
+
+            <Link href="/contato" className={navLinkClass("/contato")}>
               Contato
             </Link>
+
+            {/* CTA WhatsApp */}
+            <a
+              href="https://wa.me/5541987386527?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm font-semibold rounded-full hover:shadow-lg transition-all"
+            >
+              Orçamento Grátis
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setSearchOpen(!searchOpen)}
+          <div className="flex items-center gap-2 xl:hidden">
+            <a
+              href="https://wa.me/5541987386527?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-xs font-semibold rounded-full"
             >
-              <Search className="w-5 h-5" />
-            </Button>
+              Orçamento
+            </a>
             <Button
               variant="ghost"
               size="icon"
@@ -227,118 +217,77 @@ export default function Header() {
             </Button>
           </div>
         </div>
-
-        {/* Mobile Search */}
-        {searchOpen && (
-          <div className="lg:hidden pb-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Buscar produtos..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500"
-              />
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 max-h-[80vh] overflow-y-auto">
+        <div className="xl:hidden bg-white border-t border-gray-100 max-h-[80vh] overflow-y-auto">
           <div className="container py-4">
             <nav className="flex flex-col gap-1">
-              <Link
-                href="/"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
+              <Link href="/" className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg">
                 Home
               </Link>
-              <Link
-                href="/sobre"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
+              <Link href="/sobre" className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg">
                 Sobre Nós
               </Link>
-              
-              {/* Produtos submenu */}
+              <Link href="/diferencial" className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg">
+                Diferencial
+              </Link>
+
+              {/* Para Empresas */}
               <div className="px-4 py-2">
-                <span className="text-xs font-semibold text-gray-400 uppercase">Produtos</span>
+                <span className="text-xs font-semibold text-cyan-600 uppercase tracking-wider">Para Empresas</span>
               </div>
-              {productFilters.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="px-6 py-2 text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {paraEmpresasItems.map((item) =>
+                item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between px-6 py-2 text-sm text-gray-600 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg"
+                  >
+                    {item.label}
+                    <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
+                  </a>
+                ) : (
+                  <Link key={item.href} href={item.href} className="px-6 py-2 text-sm text-gray-600 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg">
+                    {item.label}
+                  </Link>
+                )
+              )}
 
-              <Link
-                href="/kits"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Kits
-              </Link>
-
-              <Link
-                href="/para-sua-empresa"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Para sua Empresa
-              </Link>
-
-              <Link
-                href="/catalogos-promocionais"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Catálogos Promocionais
-              </Link>
-              
-              {/* Coleções Próprias submenu */}
+              {/* Para Você */}
               <div className="px-4 py-2 mt-2">
-                <span className="text-xs font-semibold text-gray-400 uppercase">Coleções Próprias - SEJA UM</span>
+                <span className="text-xs font-semibold text-orange-500 uppercase tracking-wider">Para Você</span>
               </div>
-              <div className="px-4 py-2">
-                <img 
-                  src="/seja_um_banner.png" 
-                  alt="SEJA UM" 
-                  className="w-full max-w-[200px] h-auto rounded"
-                />
-              </div>
-              {colecoesProprias.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="px-6 py-2 text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <span className="block">{item.label}</span>
-                  <span className="block text-xs text-gray-400">{item.description}</span>
-                </Link>
-              ))}
-              
-              <Link
-                href="/orcamento"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg mt-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Orçamento
+              {paraPFItems.map((item) =>
+                item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between px-6 py-2 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg"
+                  >
+                    {item.label}
+                    <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
+                  </a>
+                ) : (
+                  <Link key={item.href} href={item.href} className="px-6 py-2 text-sm text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg">
+                    {item.label}
+                  </Link>
+                )
+              )}
+
+              <div className="border-t border-gray-100 my-2" />
+              <Link href="/o-que-ja-fizemos" className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg">
+                O Que Já Fizemos
               </Link>
-              <Link
-                href="/contato"
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
+              <Link href="/colecao-propria" className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg">
+                Coleção Própria
+              </Link>
+              <Link href="/contato" className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg">
                 Contato
               </Link>
             </nav>

@@ -9,6 +9,8 @@ import Footer from "@/components/Footer";
 
 const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663237581047/9vRvPjwToreyUGuKQDcbjR";
 const WHATSAPP_URL = "https://wa.me/5541987386527?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+const CATALOGO_DIA_DOS_NAMORADOS_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029766214/GezWpIGpxdrOLHLd.pdf";
+const BANNER_DIA_DOS_NAMORADOS_EXPIRA_EM = new Date("2026-06-12T00:00:00-03:00");
 
 const categorias = [
   {
@@ -76,9 +78,47 @@ const casosDeUso = [
 ];
 
 export default function HomeAFK() {
+  const exibirBannerDiaDosNamorados = new Date() < BANNER_DIA_DOS_NAMORADOS_EXPIRA_EM;
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
+
+      {exibirBannerDiaDosNamorados && (
+        <section className="relative pt-20 md:pt-24 bg-gradient-to-r from-rose-50 via-pink-50 to-orange-50 border-b border-rose-100 overflow-hidden">
+          <div className="absolute inset-y-0 left-0 w-40 bg-rose-200/30 blur-3xl" />
+          <div className="absolute inset-y-0 right-0 w-40 bg-orange-200/30 blur-3xl" />
+          <div className="container relative z-10 py-5 md:py-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 rounded-3xl bg-white/80 backdrop-blur-sm border border-white shadow-lg shadow-rose-500/10 px-5 md:px-8 py-5">
+              <div className="flex items-start gap-4">
+                <div className="hidden sm:flex w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500 to-orange-400 text-white items-center justify-center flex-shrink-0">
+                  <Heart className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-rose-600 uppercase tracking-wide mb-1">
+                    Especial Dia dos Namorados
+                  </p>
+                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 leading-tight">
+                    Confira o catálogo especial de presentes personalizados
+                  </h2>
+                  <p className="text-gray-600 mt-1">
+                    Disponível por tempo limitado, somente até 11/06.
+                  </p>
+                </div>
+              </div>
+              <a
+                href={CATALOGO_DIA_DOS_NAMORADOS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-rose-500 to-orange-400 text-white font-bold rounded-full hover:shadow-xl hover:shadow-rose-500/25 transition-all whitespace-nowrap"
+              >
+                Acessar Catálogo
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Hero Section */}
       <section className="relative pt-20 md:pt-24 overflow-hidden">

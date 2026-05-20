@@ -14,6 +14,7 @@ import ParaVoce from "./pages/ParaVoce";
 import OQueJaFizemos from "./pages/OQueJaFizemos";
 import ColecaoPropria from "./pages/ColecaoPropria";
 import Contato from "./pages/Contato";
+import Copa2026 from "./pages/Copa2026";
 
 // Área Restrita
 import AdminLogin from "./pages/AdminLogin";
@@ -37,6 +38,7 @@ function Router() {
       <Route path="/o-que-ja-fizemos" component={OQueJaFizemos} />
       <Route path="/colecao-propria" component={ColecaoPropria} />
       <Route path="/contato" component={Contato} />
+      <Route path="/copa-2026" component={Copa2026} />
       
       {/* Área Restrita */}
       <Route path="/admin" component={AdminHome} />

@@ -2,7 +2,7 @@
  * Home Page - AFK Camisetas
  * Landing page institucional com foco B2B
  */
-import { ArrowRight, Users, Zap, Heart, Shield, Package, Star } from "lucide-react";
+import { ArrowRight, Users, Zap, Heart, Shield, Package, Star, Trophy } from "lucide-react";
 import { Link } from "wouter";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -11,6 +11,8 @@ const CDN = "https://d2xsxph8kpxj0f.cloudfront.net/310519663237581047/9vRvPjwTor
 const WHATSAPP_URL = "https://wa.me/5541987386527?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
 const CATALOGO_DIA_DOS_NAMORADOS_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663029766214/GezWpIGpxdrOLHLd.pdf";
 const BANNER_DIA_DOS_NAMORADOS_EXPIRA_EM = new Date("2026-06-12T00:00:00-03:00");
+const CATALOGO_COPA_2026_URL = "/catalogo_copa_2026.pdf";
+const BANNER_COPA_2026_EXPIRA_EM = new Date("2026-07-20T00:00:00-03:00");
 
 const categorias = [
   {
@@ -79,6 +81,7 @@ const casosDeUso = [
 
 export default function HomeAFK() {
   const exibirBannerDiaDosNamorados = new Date() < BANNER_DIA_DOS_NAMORADOS_EXPIRA_EM;
+  const exibirBannerCopa2026 = new Date() < BANNER_COPA_2026_EXPIRA_EM;
 
   return (
     <div className="min-h-screen bg-white">
@@ -115,6 +118,47 @@ export default function HomeAFK() {
                 Acessar Catálogo
                 <ArrowRight className="w-4 h-4" />
               </a>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Banner Destaque Copa 2026 */}
+      {exibirBannerCopa2026 && (
+        <section className="relative pt-20 md:pt-24 overflow-hidden">
+          <div className="container relative z-10 py-4 md:py-6">
+            <Link href="/copa-2026" className="block">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all transform hover:-translate-y-1 cursor-pointer group">
+                <img
+                  src="/images/banner_copa_2026.png"
+                  alt="Coleção Copa 2026 - Camisetas e Acessórios Personalizados"
+                  className="w-full h-auto object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-green-900/60 via-transparent to-green-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <span className="bg-white text-green-700 font-bold px-8 py-3 rounded-full text-lg shadow-xl">
+                    Ver Coleção Completa
+                  </span>
+                </div>
+              </div>
+            </Link>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-4">
+              <a
+                href={CATALOGO_COPA_2026_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white font-bold rounded-full hover:shadow-xl hover:shadow-green-500/25 transition-all"
+              >
+                <Trophy className="w-4 h-4" />
+                Baixar Catálogo Copa 2026
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <Link
+                href="/copa-2026"
+                className="inline-flex items-center gap-2 px-6 py-3 border-2 border-green-600 text-green-700 font-bold rounded-full hover:bg-green-50 transition-all"
+              >
+                Ver Produtos Online
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </section>

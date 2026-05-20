@@ -15,6 +15,11 @@ const paraEmpresasItems = [
   { label: "Kit Onboarding", href: "/para-empresas#kit-onboarding" },
   { label: "Eventos e Feiras", href: "/para-empresas#eventos" },
   { 
+    label: "Catálogo Copa 2026", 
+    href: "/catalogo_copa_2026.pdf",
+    external: true 
+  },
+  { 
     label: "Catálogo Natal 2025", 
     href: `${CDN}/Catalogo-Natal-AFK-2025(1)_be26d8d5.pdf`,
     external: true 
@@ -25,6 +30,11 @@ const paraPFItems = [
   { label: "Presentes Personalizados", href: "/para-voce#presentes" },
   { label: "Eventos e Festas", href: "/para-voce#eventos" },
   { label: "Decoração", href: "/para-voce#decoracao" },
+  { 
+    label: "Catálogo Copa 2026", 
+    href: "/catalogo_copa_2026.pdf",
+    external: true 
+  },
   { 
     label: "Catálogo Natal 2025", 
     href: `${CDN}/Catalogo-Natal-AFK-2025(1)_be26d8d5.pdf`,
@@ -183,6 +193,12 @@ export default function Header() {
               Coleção Própria
             </Link>
 
+            <Link href="/copa-2026" className={`px-3 py-2 text-sm font-bold transition-colors rounded-lg whitespace-nowrap ${
+              isActive("/copa-2026") ? "text-green-600" : "text-green-700 hover:text-green-500"
+            }`}>
+              Copa 2026
+            </Link>
+
             <Link href="/contato" className={navLinkClass("/contato")}>
               Contato
             </Link>
@@ -286,6 +302,9 @@ export default function Header() {
               </Link>
               <Link href="/colecao-propria" className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg">
                 Coleção Própria
+              </Link>
+              <Link href="/copa-2026" className="px-4 py-3 text-sm font-bold text-green-700 hover:bg-green-50 hover:text-green-600 rounded-lg">
+                Copa 2026
               </Link>
               <Link href="/contato" className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 rounded-lg">
                 Contato

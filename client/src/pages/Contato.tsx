@@ -49,14 +49,14 @@ export default function Contato() {
 
             {/* E-mail */}
             <a
-              href="mailto:vendas@afkcamisetas.com.br"
+              href="mailto:afkcamisetas@gmail.com"
               className="group p-8 rounded-2xl bg-gradient-to-br from-cyan-50 to-teal-50 border border-cyan-100 hover:shadow-xl hover:shadow-cyan-500/10 transition-all text-center"
             >
               <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-cyan-500 text-white group-hover:scale-110 transition-transform">
                 <Mail className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">E-mail</h3>
-              <p className="text-cyan-600 font-semibold">vendas@afkcamisetas.com.br</p>
+              <p className="text-cyan-600 font-semibold">afkcamisetas@gmail.com</p>
               <p className="text-gray-500 text-sm mt-2">Para propostas e orçamentos</p>
             </a>
 

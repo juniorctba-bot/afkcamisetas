@@ -85,11 +85,11 @@ export default function Footer() {
                 (41) 98738-6527
               </a>
               <a
-                href="mailto:vendas@afkcamisetas.com.br"
+                href="mailto:afkcamisetas@gmail.com"
                 className="flex items-center gap-2 text-gray-400 hover:text-cyan-400 text-sm transition-colors"
               >
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                vendas@afkcamisetas.com.br
+                afkcamisetas@gmail.com
               </a>
               <div className="flex items-start gap-2 text-gray-400 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />

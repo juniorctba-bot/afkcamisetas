@@ -104,13 +104,16 @@ export default function Footer() {
           <p className="text-gray-500 text-xs">
             &copy; {new Date().getFullYear()} AFK Camisetas e Muito +. Todos os direitos reservados. CNPJ: 50.006.273/0001-11
           </p>
-          <Link
-            href="/admin/login"
+          <a
+            href="https://afkgestao-8e3fzcup.manus.space"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1 text-gray-600 hover:text-gray-400 text-xs transition-colors"
+            title="Sistema de Gestão AFK (acesso restrito)"
           >
             <Lock className="w-3 h-3" />
             Área Restrita
-          </Link>
+          </a>
         </div>
       </div>
     </footer>
